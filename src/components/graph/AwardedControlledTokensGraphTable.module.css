@@ -1,0 +1,220 @@
+.tableContainer {
+  position: relative;
+}
+.table {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 6px 10px;
+  border-radius: 10px 10px 0 0;
+  color: #fff;
+  /* margin-bottom: 20px; */
+  overflow: hidden;
+  width: 100%;
+}
+
+.searchPanel {
+  background: #000;
+  border: 1px solid var(--color-solitude);
+  position: absolute;
+  top: 35px;
+  /* bottom: 30px; */
+  right: 10px;
+  width: 380px;
+  z-index: 100;
+}
+
+@media screen and (max-width: 992px) {
+  .table tr {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    border-bottom: 1px solid #dadada;
+    width: 100%;
+  }
+  .table tr td {
+    padding: 5px 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .table tr td:nth-of-type(1) {
+    display: inline-block;
+    text-align: center !important;
+    width: 10% !important;
+  }
+  .table tr td:nth-of-type(2) {
+    width: 80% !important;
+  }
+  .table tr td:nth-of-type(3) {
+    text-align: center !important;
+    width: 10% !important;
+  }
+  .table tr td:nth-of-type(4),
+  .table tr td:nth-of-type(5) {
+    text-align: center !important;
+    width: 50% !important;
+  }
+  .table tr td:nth-of-type(3) {
+    text-align: left !important;
+  }
+}
+
+/* ---------------- */
+/* Table Head       */
+/* ---------------- */
+.tableHead {
+  background-color: #36304a;
+  background-color: rgba(33, 28, 66, 1);
+  border-radius: 10px 10px 0 0;
+  /* background-color: var(--color-gray); */
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.tableHead tr th {
+  padding: 22px 0;
+}
+
+.tableHead th {
+  background-color: rgba(33, 28, 66, 1);
+  font-family: OpenSans-Regular;
+  font-size: 14px;
+  line-height: 1.2;
+  /* font-weight: unset; */
+}
+
+.tableHead tr th {
+  text-align: left;
+}
+.tableHead tr th:nth-child(1) {
+  background-color: rgba(33 28 66, 0.09);
+  padding-left: 20px;
+  text-align: left;
+  max-width: 15px;
+}
+
+.tableHead tr th:nth-child(2) {
+  padding-left: 10px;
+  max-width: 120px;
+}
+.tableHead tr th:nth-child(3) {
+  /* text-align: center; */
+  padding-left: 15px;
+  max-width: 100px;
+}
+
+.tableHead tr th:nth-child(4),
+.tableHead tr th:nth-child(5) {
+  /* text-align: center; */
+  max-width: 120px;
+}
+
+.tableHead tr th:last-of-type {
+  font-weight: 600;
+  padding-right: 15px;
+  text-align: right;
+}
+
+/* ---------------- */
+/* Table Body       */
+/* ---------------- */
+@media screen and (min-width: 992px) {
+  .tableHead tr th {
+    text-align: center;
+  }
+
+  .tableBody tr {
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    /* line-height: 4; */
+  }
+
+  .tableBody tr td {
+    background-color: rgba(33, 28, 66, 0.9);
+    vertical-align: middle;
+  }
+
+  .tableBody tr:nth-child(odd) {
+    /* background-color: #fff; */
+  }
+  .tableBody tr:nth-child(even) {
+    background-color: rgba(33, 28, 66, 1);
+  }
+
+  .tableBody tr td:nth-child(1) {
+    padding-left: 15px;
+    /* text-align: left; */
+    max-width: 25px !important;
+    padding-left: 10px;
+  }
+  .tableBody tr td:nth-child(2) {
+    padding-left: 10px;
+  }
+
+  .tableBody tr td:nth-child(3) {
+    /* max-width: 120px; */
+  }
+  .tableBody tr td:nth-child(3) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .tableBody tr td:nth-child(4),
+  .tableBody tr td:nth-child(5) {
+    /* text-align: center; */
+    /* max-width: 120px; */
+  }
+  .tableBody tr td:nth-child(5) {
+    /* max-width: 120px; */
+  }
+  .tableBody tr td:nth-child(6) {
+    max-width: 140px;
+  }
+}
+
+/* Cell Styles */
+.tokenFilter {
+  width: 100%;
+}
+.tokenName {
+  display: flex;
+  align-items: center;
+}
+
+.filterRange {
+  width: 100%;
+}
+.filterRange input {
+  display: block;
+  width: 100%;
+}
+.filterRange input:nth-of-type(2) {
+  margin-top: 5px;
+}
+
+/* Pagination Component */
+.tableDetails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 5px;
+}
+
+.searchParametersContainer .label {
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.records {
+  margin-right: 10px;
+}
+
+/* Pagination Component */
+.pagination {
+  background-color: #36304a;
+  margin-bottom: 0px;
+}

@@ -1,0 +1,14 @@
+.mainnet {
+  background-color: #538f8f;
+  display: inline-block;
+  border-radius: 99999px;
+  width: 10px;
+  height: 10px;
+}
+.testnet {
+  background-color: #ffc65d;
+  display: inline-block;
+  border-radius: 99999px;
+  width: 10px;
+  height: 10px;
+}

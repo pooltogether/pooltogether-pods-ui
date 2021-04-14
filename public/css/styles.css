@@ -1,0 +1,324 @@
+:root {
+  --color-background: #fff;
+  --color-text: #464444;
+  --color-paper: #fff;
+  --color-neutral: #fff;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  /* font: inherit; */
+  vertical-align: baseline;
+  font-family: Oswald, Poppins;
+  font-family: Titillium Web, Roboto, Helvetica Neue, Arial, Noto Sans,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    Noto Color Emoji;
+}
+/* Oswald, Poppins, Roboto,  */
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Unreset */
+
+em {
+  font-style: italic;
+}
+strong {
+  font-weight: 600;
+}
+a {
+  cursor: pointer;
+}
+
+p {
+  display: block;
+  padding-bottom: 5px;
+  padding-top: 10px;
+}
+
+.list {
+  padding-left: 35px !important;
+  list-style-type: disc;
+}
+.list-item {
+  margin-left: 15px;
+  list-style-type: disc;
+}
+
+.modal,
+.modalBackground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.modalBackground {
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
+
+.react-tiny-popover-container {
+  z-index: 1000;
+}
+
+.inputDollar:after {
+  content: "$";
+}
+
+.glow {
+  position: absolute;
+  /* top: -5vw; */
+  left: 0;
+  right: 0;
+  /* width: 30vw;
+  height: 30vw;
+  line-height: 30vw;
+  text-align: center;
+  color: #252b37;
+  background-color: #151823; */
+  /* animation: textColor 10s ease infinite; */
+  /* z-index: 10; */
+}
+.glow:after {
+  position: absolute;
+  content: "";
+  top: 25%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 50%;
+  width: 140%;
+  left: -20%;
+  margin: 0 auto;
+  /* transform: scale(0.75); */
+  /* -webkit-filter: blur(5vw);
+  -moz-filter: blur(5vw);
+  -ms-filter: blur(5vw); */
+  filter: blur(60px);
+  background: linear-gradient(270deg, #0fffc1, #7e0fff);
+  background-size: 200% 200%;
+  animation: animateGlow 10s ease infinite;
+  opacity: 0.45;
+  z-index: 0;
+}
+@keyframes animateGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-internal {
+  position: absolute;
+  /* width: 3931px; */
+  /* height: 3146px; */
+  /* left: -1600px; */
+  top: -20px;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(198, 191, 246, 0.5) 0%,
+    rgba(47, 1, 123, 0.5) 30%,
+    rgba(47, 1, 123, 0.5) 90%,
+    rgba(174, 249, 236, 0.5) 100%
+  );
+}
+
+.shape-1 {
+  position: absolute;
+  width: 1668px;
+  height: 1668px;
+  left: 540px;
+  top: 384px;
+
+  background: linear-gradient(
+    87.49deg,
+    rgba(32, 199, 119, 0.4) 38.86%,
+    rgba(255, 255, 255, 0.4) 68.38%,
+    rgba(182, 255, 185, 0.4) 97.9%
+  );
+  background-blend-mode: color-burn;
+  backdrop-filter: blur(143px);
+  /* Note: backdrop-filter has minimal browser support */
+}
+.shape-2 {
+  position: absolute;
+  width: 2384px;
+  height: 2384px;
+  left: -610px;
+  top: 252px;
+
+  background: linear-gradient(90deg, #be1aff 0%, #35f0d0 93.14%);
+  background-blend-mode: overlay;
+  backdrop-filter: blur(1048px);
+  /* Note: backdrop-filter has minimal browser support */
+}
+.shape-3 {
+  position: absolute;
+  width: 1202.08px;
+  height: 2469.22px;
+  left: -1022px;
+  top: 1218px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(134, 145, 246, 0.9) 0%,
+    rgba(126, 150, 237, 0.9) 50%,
+    rgba(255, 224, 224, 0.9) 100%,
+    rgba(255, 224, 224, 0.9) 100%
+  );
+  background-blend-mode: color-dodge;
+  backdrop-filter: blur(80px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  transform: rotate(-45deg);
+}
+.shape-4 {
+  position: absolute;
+  width: 1346.55px;
+  height: 1942.11px;
+  left: 3741.3px;
+  top: -147px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0, 20, 17, 0.2) 0%,
+    rgba(142, 126, 237, 0.2) 50%,
+    rgba(165, 138, 138, 0.2) 100%
+  );
+  background-blend-mode: color-dodge;
+  backdrop-filter: blur(80px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  transform: rotate(43.81deg);
+}
