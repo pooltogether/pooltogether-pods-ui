@@ -1,6 +1,6 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
-import { SiteHeader } from "./site/SiteHeader";
+import { ArticleHeader } from "./article/ArticleHeader";
 import { SiteFooter } from "./site/SiteFooter";
 
 /**
@@ -10,7 +10,7 @@ import { SiteFooter } from "./site/SiteFooter";
 export const ArticleLayout = ({ children, ...props }) => {
   return (
     <div className="flex flex-col h-screen overflow-x-hidden min-h-full">
-      <SiteHeader />
+      <ArticleHeader />
       <div className="flex-1">
         <div className="container max-w-3xl mx-auto py-10">{children}</div>
       </div>

@@ -1,10 +1,11 @@
 /* --- Global Modules --- */
 import idx from "idx";
+import Link from "next/link";
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import Confetti from "react-confetti";
 
 /* --- Local Modules --- */
-
+import { Spacer } from "@components/";
 /**
  * @name TransactionConfetti
  * @param {Object} props
@@ -12,8 +13,8 @@ import Confetti from "react-confetti";
 export const TransactionConfetti = ({
   state,
   amount,
-  label,
-  tokenSymbol,
+  action,
+  symbol,
   ...props
 }) => {
   const confettiRef = useRef();
@@ -44,7 +45,7 @@ export const TransactionConfetti = ({
       return (
         <>
           <span className="absolute top-0 left-60 right-60 bottom-0 overflow-hidden mx-auto z--1">
-            {idx(state, (_) => _.status) == "Success" && isConfettiEnabled && (
+            {isConfettiEnabled && (
               <Confetti width={window.innerWidth} height={window.innerHeight} />
             )}
           </span>
@@ -52,13 +53,22 @@ export const TransactionConfetti = ({
             <img
               className="inline-block"
               src="/images/checkmark.png"
-              width={98}
+              width={72}
             />
-            <span className="block mt-3 text-2xl">
-              <span className="mr-1">{label}</span>
+            <Spacer className="my-10" />
+            <span className="block text-2xl">
+              <span className="mr-1">{action}</span>
               <span className="mr-1">{amount}</span>
-              <span className="mr-1">{tokenSymbol}</span>
+              <span className="mr-1">{symbol}</span>
             </span>
+            <Spacer className="my-6" />
+            <div className="">
+              <Link href="/deposit">
+                <a className="text-teal-600 hove:text-teal-800 underline">
+                  Back to Pod List
+                </a>
+              </Link>
+            </div>
           </div>
         </>
       );
@@ -66,4 +76,5 @@ export const TransactionConfetti = ({
     return null;
   }, [state]);
 };
+
 export default TransactionConfetti;

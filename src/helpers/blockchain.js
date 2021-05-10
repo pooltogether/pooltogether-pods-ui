@@ -92,7 +92,7 @@ export function shortenAddress(address, num = 7, showEnd = true) {
     : address;
 }
 
-export function shortenTransactionHash(txHash, num, showEnd = true) {
+export function shortenTransactionHash(txHash, num = 10, showEnd = true) {
   if (!txHash) return null;
   return `${txHash.slice(0).slice(0, num)}...${
     showEnd ? txHash.slice(0).slice(-num) : ""

@@ -56,7 +56,11 @@ const ManageTabs = (props) => {
   const [tabIndex, setTabIndex] = useState(Number(tab));
 
   useEffect(() => {
-    setTabIndex(Number(tab));
+    if (tab) {
+      setTabIndex(Number(tab));
+    } else {
+      setTabIndex(0);
+    }
   }, [tab]);
 
   if (process.browser) {

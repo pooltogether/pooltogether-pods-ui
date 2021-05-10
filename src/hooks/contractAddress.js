@@ -1,5 +1,29 @@
 import { useGetContractAddress } from "@hooks/useGetContractAddress";
 
+export function useGetPodRelatedAddresses(pod) {
+  const dai = useGetPodDAIAddress();
+  const usdc = useGetPodUSDCAddress();
+  const comp = useGetPodCOMPAddress();
+  const uni = useGetPodUNIAddress();
+
+  switch (pod) {
+    case "dai":
+    case "DAI":
+      return dai;
+    case "usdc":
+    case "usdc":
+      return usdc;
+    case "comp":
+    case "COMP":
+      return comp;
+    case "uni":
+    case "UNI":
+      return uni;
+    default:
+      break;
+  }
+}
+
 /**
  * @name useGetAllPodAddress
  * @description Get all Pod addresses.
@@ -9,12 +33,100 @@ export const useGetAllPodAddress = () => {
   const PodUSDC = useGetContractAddress("PodUSDC");
   const PodCOMP = useGetContractAddress("PodCOMP");
   const PodUNI = useGetContractAddress("PodUNI");
+  const PodBAT = useGetContractAddress("PodBAT");
 
   return {
     PodDAI,
     PodUSDC,
     PodCOMP,
     PodUNI,
+    PodBAT,
+  };
+};
+
+/**
+ * @name useGetAllPodTokenFaucetAddresses
+ * @description Get all Pod addresses.
+ */
+export const useGetAllPodTokenFaucetAddresses = () => {
+  const PodDAIFaucet = useGetContractAddress("PodDAIFaucet");
+  const PodUSDCFaucet = useGetContractAddress("PodUSDCFaucet");
+  const PodCOMPFaucet = useGetContractAddress("PodCOMPFaucet");
+  const PodUNIFaucet = useGetContractAddress("PodUNIFaucet");
+
+  return {
+    PodDAIFaucet,
+    PodUSDCFaucet,
+    PodCOMPFaucet,
+    PodUNIFaucet,
+  };
+};
+
+/**
+ * @name useGetAllPodAndTokenFaucetAddresses
+ * @description Get all Pod addresses.
+ */
+export const useGetAllPodAndTokenFaucetAddresses = () => {
+  const PodDAI = useGetContractAddress("PodDAI");
+  const PodUSDC = useGetContractAddress("PodUSDC");
+  const PodCOMP = useGetContractAddress("PodCOMP");
+  const PodUNI = useGetContractAddress("PodUNI");
+  const PodDAIFaucet = useGetContractAddress("PodDAIFaucet");
+  const PodUSDCFaucet = useGetContractAddress("PodUSDCFaucet");
+  const PodCOMPFaucet = useGetContractAddress("PodCOMPFaucet");
+  const PodUNIFaucet = useGetContractAddress("PodUNIFaucet");
+
+  return {
+    dai: {
+      pod: PodDAI,
+      faucet: PodDAIFaucet,
+    },
+    usdc: {
+      pod: PodUSDC,
+      faucet: PodUSDCFaucet,
+    },
+    comp: {
+      pod: PodCOMP,
+      faucet: PodCOMPFaucet,
+    },
+    uni: {
+      pod: PodUNI,
+      faucet: PodUNIFaucet,
+    },
+  };
+};
+
+/**
+ * @name useGetAllPodAndTokenDropAddresses
+ * @description Get all Pod addresses.
+ */
+export const useGetAllPodAndTokenDropAddresses = () => {
+  const PodDAI = useGetContractAddress("PodDAI");
+  const PodUSDC = useGetContractAddress("PodUSDC");
+  const PodCOMP = useGetContractAddress("PodCOMP");
+  const PodUNI = useGetContractAddress("PodUNI");
+  const PodDAITokenDrop = useGetContractAddress("PodDAITokenDrop");
+  const PodUSDCTokenDrop = useGetContractAddress("PodUSDCTokenDrop");
+  const PodCOMPTokenDrop = useGetContractAddress("PodCOMPTokenDrop");
+  const PodUNITokenDrop = useGetContractAddress("PodUNITokenDrop");
+
+  return {
+    dai: {
+      pod: PodDAI,
+      drop: PodDAITokenDrop,
+    },
+    usdc: {
+      pod: PodUSDC,
+      drop: PodUSDCTokenDrop,
+    },
+    comp: {
+      pod: PodCOMP,
+      drop: PodCOMPTokenDrop,
+    },
+    uni: {
+      pod: PodUNI,
+      drop: PodUNITokenDrop,
+    },
   };
 };
 
@@ -32,6 +144,10 @@ export const useGetPodDAIAddress = () => {
   );
   const PodDAIFaucet = useGetContractAddress("PodDAIFaucet");
   const PodDAIcToken = useGetContractAddress("PodDAIcToken");
+  const PodDAIPrizePoolTicket = useGetContractAddress("PodDAIPrizePoolTicket");
+  const PodDAIPrizePoolTicketSponsored = useGetContractAddress(
+    "PodDAIPrizePoolTicketSponsored"
+  );
 
   return {
     PodDAI,
@@ -41,6 +157,8 @@ export const useGetPodDAIAddress = () => {
     PodDAIPrizePoolStrategy,
     PodDAIFaucet,
     PodDAIcToken,
+    PodDAIPrizePoolTicket,
+    PodDAIPrizePoolTicketSponsored,
   };
 };
 

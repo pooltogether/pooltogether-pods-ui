@@ -1,7 +1,4 @@
 import Link from "next/link";
-import { useState } from "react";
-import { useWeb3React } from "@web3-react/core";
-
 import { Spacer } from "../src/components/";
 
 /**
@@ -11,14 +8,12 @@ import { Spacer } from "../src/components/";
 const HomePage = (props) => {
   return (
     <>
-      <HeroSectionMain />
+      <HeroSection />
     </>
   );
 };
 
-export default HomePage;
-
-const HeroSectionMain = (props) => {
+const HeroSection = (props) => {
   return (
     <div className="px-6 pb-40 pt-40 flex flex-col min-h-screens text-teal relative shadow-lg z-10">
       <div className="absolute inset-y-0 right-0 w-full opacity-10 z-0"></div>
@@ -45,3 +40,5 @@ const HeroSectionMain = (props) => {
     </div>
   );
 };
+
+export default HomePage;

@@ -21,7 +21,13 @@ module.exports = {
           200: "#b0f8ec",
           100: "#8bf6e3",
         },
-        black: colors.black,
+        black: {
+          60: "rgba(17, 17, 17, 0.6)",
+          ...colors.black,
+        },
+        purple: {
+          400: "rgba(165, 151, 250, 1)",
+        },
         white: colors.white,
         gray: colors.gray,
         indigo: colors.indigo,

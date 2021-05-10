@@ -9,6 +9,7 @@ import Spacer from "../core/common/Spacer";
 import Link from "next/link";
 
 /* --- Local Modules --- */
+import { usePoolTogetherPoolData } from "@src/data/pooltogether";
 import { useGetCompoundPrizePoolContract } from "@hooks/contracts";
 import { useBatchCall } from "@hooks/batch";
 
@@ -18,6 +19,8 @@ import {
   UserPoolApr,
   UserClaimablePool,
   PodClaimablePool,
+  PodTokenNextRewardAmount,
+  PodPrizePoolPoolAPR,
 } from "@components";
 import {
   PodBatchContract,
@@ -49,17 +52,20 @@ export const ViewDepositPodOverview = ({
   symbol,
   tokenImage,
   address,
+  addressFaucet,
   addressPodTokenDrop,
   addressPrizePool,
   addressPrizeStrategy,
-  addressPrizePoolTicket,
   addressPrizePoolCToken,
+  addressPrizePoolTicket,
+  addressPrizePoolTicketSponsored,
 }) => {
   /* --- Blockchain State --- */
-  const { account, library } = useEthers();
+  const { account } = useEthers();
   const contractPrizePoolInit = useGetCompoundPrizePoolContract(
     addressPrizePool
   );
+  // const query = usePoolTogetherPoolData(props.addressPodPP);
 
   /* --- Component State --- */
   const [staticCalls, staticCallsSet] = useState(undefined);
@@ -98,6 +104,7 @@ export const ViewDepositPodOverview = ({
     // Pod (DAI)
     PodBatchContract(address)
       .balanceOf(account || constants.AddressZero)
+      .token()
       .totalSupply()
       .getPricePerShare()
       .vaultTokenBalance()
@@ -162,6 +169,13 @@ export const ViewDepositPodOverview = ({
                 idx(dataCalculations, (_) => _.calculatePrize),
                 6
               )}
+              <PodTokenNextRewardAmount
+                token={idx(batch, (_) => _.data.Pod.token[0])}
+                podAccountBalance={idx(
+                  batch,
+                  (_) => _.data.PrizePool.accountedBalance[0]
+                )}
+              />
             </span>
             <span className="tag-blue ml-2 self-center">weekly prize</span>
           </div>
@@ -245,6 +259,12 @@ export const ViewDepositPodOverview = ({
           <span className="block text-xs">Deposit APR:</span>
           <span className="block text-white text-2xl">
             <UserPoolApr address={address} />
+            <PodPrizePoolPoolAPR
+              addressFaucet={addressFaucet}
+              addressPrizePoolTicket={addressPrizePoolTicket}
+              addressPrizePoolTicketSponsored={addressPrizePoolTicketSponsored}
+              addressToken={idx(batch, (_) => _.data.Pod.token[0])}
+            />
           </span>
           <span className="block">
             <span className="text-xs">

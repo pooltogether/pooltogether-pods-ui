@@ -1,24 +1,28 @@
-import { useRef, useState } from "react";
-import { useWeb3React } from "@web3-react/core";
+/* --- Global Modules --- */
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import { useEthers } from "@usedapp/core";
-import { Popover } from "react-tiny-popover";
-import {
-  Address,
-  AccountBalance,
-  WalletBalance,
-  WalletBlockie,
-  WalletDisconnect,
-  WalletNetwork,
-  ChainID,
-  Spacer,
-} from "../../index";
 
+/* --- Local Modules --- */
+import { WalletNetwork, ChainID, Spacer } from "../../index";
+import { useGetContractAddress } from "@hooks/useGetContractAddress";
 import {
   AccountConnect,
   AccountAddress,
   NetworkBlockNumber,
   AccountDeactivate,
+  WalletSelectModal,
 } from "@components";
+
+/* --- Dynamic Module --- */
+
+// Popover Rendered in Browser
+const Popover = dynamic(
+  () => {
+    return import("react-tiny-popover").then((mod) => mod.Popover);
+  },
+  { ssr: false }
+);
 
 /**
  * @name
@@ -26,78 +30,107 @@ import {
  */
 export const AccountPopover = (props) => {
   const { account } = useEthers();
-
   const [isPopoverOpen, isPopoverOpenSet] = useState();
+  const POOL_TOKEN = useGetContractAddress("ERC20POOL");
 
-  if (!process.browser) return null;
-  if (process.browser) {
-    return (
-      <div className="flex items-center">
-        {/* Popover Component */}
-        <div className="relative">
-          <Popover
-            isOpen={isPopoverOpen}
-            positions={["bottom", "top", "right", "left"]}
-            onClickOutside={() => isPopoverOpenSet(false)}
-            content={({ position, childRect, popoverRect }) => (
-              <div
-                className="card mr-6 mt-2 p-0 w-72"
-                onClick={() => isPopoverOpenSet(!isPopoverOpen)}
-              >
-                <div className="p-4">
-                  <div className="text-center">
-                    <span className="font-bold text-xl">
-                      <AccountBalance /> ETH
+  return (
+    <div className="flex items-center">
+      {/* Popover Component */}
+      <div className="relative">
+        <Popover
+          isOpen={isPopoverOpen}
+          positions={["bottom", "top", "right", "left"]}
+          onClickOutside={() => isPopoverOpenSet(false)}
+          content={<PopoverInner POOL_TOKEN={POOL_TOKEN} account={account} />}
+        >
+          <div
+            // className="cursor-pointer bg-teal-500 p-2 rounded-lg text-teal-500 text-xs"
+            style={{ backgroundColor: "rgba(14, 163, 164, 0.2" }}
+          >
+            <div className="flex items-center">
+              <span className="">
+                <AccountConnect>
+                  {/* Account Disconnected */}
+                  <div
+                    className="cursor-pointer bg-teal-500 p-2 rounded-lg text-teal-500 text-xs hover:shadow-md"
+                    style={{ backgroundColor: "rgba(14, 163, 164, 0.2" }}
+                  >
+                    <span className="flex items-center">
+                      <div className="mr-2 mt-1">
+                        <WalletNetwork />
+                      </div>
+                      <WalletSelectModal>
+                        <span className="">Connect to Network</span>
+                      </WalletSelectModal>
                     </span>
                   </div>
-                  <Spacer className="my-1" />
-                </div>
 
-                <AccountDeactivate className="tag-red cursor-pointer rounded-none text-xs py-3 w-full flex-center text-center hover:shadow-md" />
-                <div className="bg-gray-100 p-2">
-                  <span className="text-xs">
-                    <span className="font-semibold">ChainID:</span> <ChainID />
-                  </span>
-                  <Spacer className="inline-block mx-3" />
-                  <span className="text-xs">
-                    <span className="font-semibold">Blocknumber:</span>{" "}
-                    <NetworkBlockNumber />
-                  </span>
-                </div>
-              </div>
-            )}
-          >
-            <div
-              className="cursor-pointer bg-purple-900 p-2 rounded-lg text-teal-500 text-xs"
-              onClick={() => isPopoverOpenSet(!isPopoverOpen)}
-            >
-              <div className="flex items-center">
-                <span
-                  className=""
-                  onClick={() => isPopoverOpenSet(!isPopoverOpen)}
-                >
-                  <AccountConnect>
-                    <AccountAddress className="tag-whites text-xs" />
-                  </AccountConnect>
-                </span>
-                <div className="ml-1">
-                  <WalletNetwork />
-                </div>
-                <WalletBlockie
-                  width={22}
-                  className={
-                    " cursor-pointer rounded-full ml-3 z-0 hover:shadow-md"
-                  }
-                />
-              </div>
+                  {/* Account Connected */}
+                  <div
+                    className="cursor-pointer bg-teal-500 p-2 rounded-lg text-teal-500 text-xs hover:shadow-md"
+                    style={{ backgroundColor: "rgba(14, 163, 164, 0.2" }}
+                    onClick={() => isPopoverOpenSet(!isPopoverOpen)}
+                  >
+                    <div className="flex items-center">
+                      <div className="mr-2 mt-1">
+                        <WalletNetwork />
+                      </div>
+                      <AccountAddress className="tag-whites text-xs" />
+                    </div>
+                  </div>
+                </AccountConnect>
+              </span>
             </div>
-          </Popover>
-          {/* <div className="absolute -top-2 -right-4 bg-white rounded-full p-1 w-6 h-6 shadow-md flex items-center justify-center">
-            <WalletTypeIcon />
-          </div> */}
-        </div>
+          </div>
+        </Popover>
       </div>
-    );
-  }
+    </div>
+  );
 };
+
+const PopoverInner = (props) => {
+  return (
+    <div className="card bg-purple-600 border-purple-700 text-white mr-6 mt-2 p-0 w-72">
+      {/* <div className="p-4">
+        <div className="text-center">
+          <span className="flex items-center justify-center font-bold text-xl">
+            <ERC20Balance
+              className="inline-block"
+              account={props.account}
+              address={props.POOL_TOKEN}
+            />{" "}
+          </span>
+          <div className="flex items-center justify-center">
+            <img
+              className="inline-block mr-1"
+              src="/tokens/token-pool.png"
+              width={18}
+            />
+            <span className="inline-block text-lg">POOL</span>
+          </div>
+          <Spacer className="my-1" />
+          <span className="font-normal text-sm">
+            <AccountBalance /> ETH
+          </span>
+        </div>
+      </div> */}
+
+      <div className="p-3">
+        <AccountDeactivate className="tag-teal cursor-pointer rounded-xl text-xs text-purple-700 py-3 w-full flex-center text-center hover:shadow-md" />
+      </div>
+      {/* <Spacer className="inline-block mx-3" /> */}
+      <div className="bg-purple-900 p-2">
+        <span className="text-xs">
+          <span className="font-semibold">ChainID:</span> <ChainID />
+        </span>
+        <Spacer className="inline-block mx-3" />
+        <span className="text-xs">
+          <span className="font-semibold">Blocknumber:</span>{" "}
+          <NetworkBlockNumber />
+        </span>
+      </div>
+    </div>
+  );
+};
+
 export default AccountPopover;

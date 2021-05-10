@@ -322,3 +322,48 @@ p {
 
   transform: rotate(43.81deg);
 }
+
+.btn-gradient {
+  /* flex: 1 1 auto; */
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  /* border-radius: 10px; */
+}
+
+/* Demo Stuff End -> */
+
+/* <- Magic Stuff Start */
+
+.btn-gradient:hover {
+  background-position: right top; /* change the direction of the change here */
+}
+
+.btn-gradient-1 {
+  background-image: linear-gradient(
+    to right,
+    #f6d365 0%,
+    #fda085 51%,
+    #f6d365 100%
+  );
+}
+
+.btn-gradient-2 {
+  background-image: linear-gradient(
+    to right,
+    #81cffb 0%,
+    #b770ff 51%,
+    #0469ff 100%
+  );
+}
+
+.btn-1 {
+  background-image: linear-gradient(
+    to right,
+    #81cffb 0%,
+    #b770ff 51%,
+    #0469ff 100%
+  );
+}

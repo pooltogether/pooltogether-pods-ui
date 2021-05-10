@@ -32,15 +32,9 @@
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "timestamp",
-        "type": "uint256"
       }
     ],
-    "name": "Batch",
+    "name": "BatchFloat",
     "type": "event"
   },
   {
@@ -93,32 +87,13 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "account",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "DripCalculate",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
         "name": "target",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "amount",
         "type": "uint256"
       }
     ],
@@ -201,17 +176,24 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "sponsor",
+        "name": "drop",
         "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
       }
     ],
-    "name": "Sponsored",
+    "name": "TokenDropSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "drop",
+        "type": "address"
+      }
+    ],
+    "name": "TokenFaucetSet",
     "type": "event"
   },
   {
@@ -345,46 +327,8 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "batchAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "batch",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      }
-    ],
-    "name": "claim",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
-    "name": "claimPodPool",
+    "name": "batch",
     "outputs": [
       {
         "internalType": "uint256",
@@ -457,29 +401,40 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "claimReward",
+        "type": "bool"
+      }
+    ],
     "name": "drop",
     "outputs": [
       {
-        "internalType": "contract TokenDrop",
+        "internalType": "uint256",
         "name": "",
-        "type": "address"
+        "type": "uint256"
       }
     ],
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "factory",
-    "outputs": [
+    "inputs": [
+      {
+        "internalType": "contract IERC20Upgradeable",
+        "name": "_token",
+        "type": "address"
+      },
       {
         "internalType": "address",
-        "name": "",
+        "name": "_target",
         "type": "address"
       }
     ],
-    "stateMutability": "view",
+    "name": "emergencyTokenApproveZero",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -584,11 +539,6 @@
       },
       {
         "internalType": "address",
-        "name": "_pool",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
         "name": "_faucet",
         "type": "address"
       },
@@ -596,6 +546,11 @@
         "internalType": "address",
         "name": "_manager",
         "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_decimals",
+        "type": "uint8"
       }
     ],
     "name": "initialize",
@@ -608,7 +563,7 @@
     "name": "manager",
     "outputs": [
       {
-        "internalType": "contract IPodManager",
+        "internalType": "address",
         "name": "",
         "type": "address"
       }
@@ -657,19 +612,6 @@
   },
   {
     "inputs": [],
-    "name": "pool",
-    "outputs": [
-      {
-        "internalType": "contract IERC20Upgradeable",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "prizePool",
     "outputs": [
       {
@@ -689,14 +631,27 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "reward",
+    "outputs": [
+      {
+        "internalType": "contract IERC20Upgradeable",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
-        "internalType": "contract IPodManager",
+        "internalType": "address",
         "name": "newManager",
         "type": "address"
       }
     ],
-    "name": "setManager",
+    "name": "setPodManager",
     "outputs": [
       {
         "internalType": "bool",
@@ -716,6 +671,25 @@
       }
     ],
     "name": "setTokenDrop",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_faucet",
+        "type": "address"
+      }
+    ],
+    "name": "setTokenFaucet",
     "outputs": [
       {
         "internalType": "bool",
@@ -758,6 +732,19 @@
     "outputs": [
       {
         "internalType": "contract IERC20Upgradeable",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "tokenDrop",
+    "outputs": [
+      {
+        "internalType": "contract TokenDrop",
         "name": "",
         "type": "address"
       }
@@ -846,7 +833,7 @@
   },
   {
     "inputs": [],
-    "name": "vaultPoolBalance",
+    "name": "vaultRewardBalance",
     "outputs": [
       {
         "internalType": "uint256",

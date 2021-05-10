@@ -27,8 +27,12 @@ export const PodClaimablePool = ({ address, label, ...props }) => {
   useEffect(() => {
     if (contract && address) {
       (async () => {
-        const claimPOOLAmount = await contract.callStatic.claimPodPool();
-        podClaimableAmountSet(commifyTokenBalance(claimPOOLAmount, 18, 8));
+        try {
+          const amount = await contract.callStatic.drop(true);
+          podClaimableAmountSet(commifyTokenBalance(amount, 18, 8));
+        } catch (error) {
+          // TODO Add error logging
+        }
       })();
     }
   }, [contract]);

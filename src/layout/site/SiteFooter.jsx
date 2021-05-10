@@ -16,18 +16,14 @@ import { Spacer } from "@components";
 export const SiteFooter = (props) => {
   return (
     <footer
-      className="bg-purple-900 border-t-2 border-solid border-top-2 border-white pt-10 pt-10 z-10"
+      className="bg-purple-900 border-t-2 border-solid border-top-2 border-white pt-10 px-10 z-10"
       style={{
         backgroundColor: "#221047",
       }}
     >
       <div className="max-w-screen-xl m-auto text-gray-800 flex flex-wrap items-centers justify-left">
-        <div className="pt-2 pr-10 text-white w-1/2 sm:w-4/12 md:w-3/12">
-          <span className="card p-2">
-            <span className="text-2xl text-shadow-sm">{APPLICATION_EMOJI}</span>
-          </span>
-          <Spacer className="my-2" />
-          <h3 className="font-black text-4xl uppercases text-shadow-md">
+        <div className="p-5 pr-10 text-white w-1/2 w-full sm:w-4/12 md:w-3/12">
+          <h3 className="font-semibold text-4xl uppercases text-teal text-shadow-md">
             {APPLICATION_NAME}
           </h3>
           <p className="text-sm">
@@ -36,22 +32,24 @@ export const SiteFooter = (props) => {
             </span>
           </p>
         </div>
-        <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+        <div className="p-5 w-1/2 w-full sm:w-4/12 md:w-3/12">
           <div className="text-xs uppercase text-white font-bold mb-6">
-            Overview
+            Resources
           </div>
+          <a
+            target="_blank"
+            href="https://pooltogether.com/"
+            className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700"
+          >
+            Learn About PoolTogether
+          </a>
           <Link href="/article/getting-started">
             <a className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700">
-              Getting Started
-            </a>
-          </Link>
-          <Link href="/article/how-it-works">
-            <a className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700">
-              How It Works
+              Getting Started with Pods
             </a>
           </Link>
         </div>
-        <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+        <div className="p-5 w-1/2 w-full sm:w-4/12 md:w-3/12">
           <div className="text-xs uppercase text-white font-bold mb-6">
             Application
           </div>
@@ -59,6 +57,11 @@ export const SiteFooter = (props) => {
           <Link href="/deposit">
             <a className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700">
               Deposit
+            </a>
+          </Link>
+          <Link href="/manage">
+            <a className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700">
+              Manage
             </a>
           </Link>
           <Link href="/prize-history">
@@ -86,7 +89,7 @@ export const SiteFooter = (props) => {
         </div>
       </div>
 
-      <div className="flex pb-5 m-auto pt-5  border-t border-gray-500 text-white text-sm flex-col md:flex-row max-w-screen-xl">
+      <div className="flex m-auto  border-t border-gray-500 p-5 text-white text-sm flex-col md:flex-row max-w-screen-xl">
         <div className="">
           © Copyright 2020 |{" "}
           <span className="text-white">

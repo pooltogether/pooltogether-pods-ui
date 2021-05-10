@@ -114,3 +114,18 @@ export function calculateYourPrizeWinnings(
   ).toFixed(0);
   // return commifyTokenBalance(interestAccrued.mul(podSharePercentage).div(100));
 }
+
+const calculateTotalPodWinngs = ({
+  underlyingTokenValueUsd,
+  totalTicketSupply,
+}) => {};
+
+const calculatePodPoolDepositAPR = ({
+  underlyingTokenValueUsd,
+  totalTicketSupply,
+}) => {};
+
+const calculatePodUserPoolDepositAPR = ({
+  underlyingTokenValueUsd,
+  totalTicketSupply,
+}) => {};

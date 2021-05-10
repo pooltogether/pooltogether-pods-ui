@@ -10,6 +10,7 @@ import contracts from "@constants/contracts";
 import ERC20_ABI from "@contracts/ERC20.json";
 import Pod_ABI from "@contracts/Pod.json";
 import PrizePool_ABI from "@contracts/PrizePool_ABI.json";
+import PrizePoolFaucet_ABI from "@contracts/PrizePoolFaucet.json";
 import PrizeStrategy_ABI from "@contracts/PrizeStrategy_ABI.json";
 /**
  * @name useBatchCall
@@ -59,6 +60,9 @@ export function useBatchCall(contractAndCalls) {
 
 export const PrizePoolStrategyBatchContract = (name, address) =>
   contract(name, PrizeStrategy_ABI, address);
+
+export const PrizePoolFaucetBatchContract = (name, address) =>
+  contract(name, PrizePoolFaucet_ABI, address);
 
 export const PodBatchContract = (address) => contract("Pod", Pod_ABI, address);
 

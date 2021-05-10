@@ -18,7 +18,7 @@
   }
 
   .btn-basic {
-    @apply py-2 px-4 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75;
+    @apply py-2 px-4 text-white font-semibold rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75;
   }
   .btn-dynamic-color {
     @apply py-2 px-4 font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75;
@@ -28,6 +28,9 @@
   }
   .btn-purple {
     @apply btn-basic bg-purple-500 hover:bg-purple-700 focus:ring-purple-400;
+  }
+  .btn-purple-light {
+    @apply btn-basic bg-purple-400 text-black-60 hover:bg-purple-500 focus:ring-purple-400;
   }
   .btn-green {
     @apply btn-basic bg-green-500 hover:bg-green-400 focus:ring-green-400;
@@ -135,6 +138,7 @@
   .tag-purple {
     @apply tag-basic bg-purple-100 text-purple-800;
   }
+
   .tag-teal {
     @apply tag-basic bg-teal-100 text-teal-500;
   }

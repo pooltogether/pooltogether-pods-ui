@@ -55,7 +55,7 @@ export const RubiksCube = (props) => {
             div .rubiks-loader *::before,
             div .rubiks-loader *::after {
               box-sizing: border-box;
-              transform: scale(0.8);
+              transform: scale(1);
             }
 
             /* Constants */

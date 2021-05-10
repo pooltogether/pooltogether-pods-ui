@@ -1,23 +1,12 @@
-import {
-  useEthers,
-  useEtherBalance,
-  useBlockNumber,
-  useConfig,
-  useMulticallAddress,
-  useChainState,
-  useBlockMeta,
-} from "@usedapp/core";
 import { useMemo } from "react";
+import { useEthers } from "@usedapp/core";
 
 /**
  * @name
  * @param {Object} props
  */
 export const AccountConnect = ({ className, ...props }) => {
-  const chainstate = useChainState();
-  const { activateBrowserWallet, account, activate } = useEthers();
-
-  console.log(account, chainstate, "chainstatechainstate");
+  const { activateBrowserWallet, account } = useEthers();
 
   return useMemo(() => {
     return (
@@ -25,7 +14,10 @@ export const AccountConnect = ({ className, ...props }) => {
         {account ? (
           <span className="">{account}</span>
         ) : (
-          <button onClick={() => activateBrowserWallet()}> Connect </button>
+          <button onClick={() => activateBrowserWallet()}>
+            {" "}
+            Connect to App
+          </button>
         )}
       </>
     );

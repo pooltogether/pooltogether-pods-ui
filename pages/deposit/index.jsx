@@ -1,6 +1,8 @@
+import { PodCardAPI } from "@views/PodCardAPI";
+import { PodCard } from "@views/PodCard";
 import { ViewDepositPodOverview } from "@views/ViewDepositPodOverview";
 
-import { Spacer } from "@components";
+import { ErrorBoundary, Spacer } from "@components";
 import {
   useGetPodDAIAddress,
   useGetPodUSDCAddress,
@@ -21,6 +23,8 @@ export const PageDeposit = (props) => {
     PodDAIPrizePoolStrategy,
     PodDAIFaucet,
     PodDAIcToken,
+    PodDAIPrizePoolTicket,
+    PodDAIPrizePoolTicketSponsored,
   } = useGetPodDAIAddress();
 
   const {
@@ -63,8 +67,34 @@ export const PageDeposit = (props) => {
           Deposit with low gas fee and have a chance to win the prize.
         </p>
       </div>
-      <div className="max-w-screen-lg mx-auto w-full">
-        <ViewDepositPodOverview
+      <div className="max-w-screen-lg mx-auto w-full p-10 lg:p-0">
+        <ErrorBoundary>
+          <PodCardAPI
+            classNameContainer="border-solid border-t-4 border-yellow-400"
+            token="DAI"
+            symbol="DAI"
+            tokenSymbol="DAI"
+            decimals={18}
+            tokenImage="/tokens/token-dai.png"
+          />
+          <PodCardAPI
+            classNameContainer="border-solid border-t-4 border-blue-400 mt-10"
+            token="USDC"
+            symbol="USDC"
+            tokenSymbol="USDC"
+            decimals={6}
+            tokenImage="/tokens/token-usdc.png"
+          />
+          <PodCardAPI
+            classNameContainer="border-solid border-t-4 border-blue-400 mt-10"
+            token="BAT"
+            symbol="BAT"
+            tokenSymbol="BAT"
+            decimals={18}
+            tokenImage="/tokens/token-bat.svg"
+          />
+        </ErrorBoundary>
+        {/* <ViewDepositPodOverview
           classNameContainer="border-solid border-t-4 border-yellow-400"
           token="DAI"
           symbol="DAI"
@@ -77,8 +107,8 @@ export const PageDeposit = (props) => {
           addressPrizeStrategy={PodDAIPrizePoolStrategy}
           addressPrizePoolTicket={PodDAITicket}
           addressPrizePoolCToken={PodDAIcToken}
+          addressPrizePoolTicketSponsored={PodDAIPrizePoolTicketSponsored}
         />
-        <Spacer className="my-10" />
         <ViewDepositPodOverview
           address={PodUSDC}
           classNameContainer="border-solid border-t-4 border-blue-400"
@@ -91,7 +121,24 @@ export const PageDeposit = (props) => {
           addressPrizePoolTicket={PodUSDCTicket}
           addressPrizePoolCToken={PodUSDCcToken}
           addressPodTokenDrop={PodUSDCTokenDrop}
-        />
+        /> */}
+        {/* <ViewDepositPodOverview
+          classNameContainer="border-solid border-t-4 border-yellow-400"
+          token="DAI"
+          symbol="DAI"
+          decimals={18}
+          tokenImage="/tokens/token-dai.png"
+          address={PodDAI}
+          addressFaucet={PodDAIFaucet}
+          addressPrizePool={PodDAIPrizePool}
+          addressPodTokenDrop={PodDAITokenDrop}
+          addressPrizeStrategy={PodDAIPrizePoolStrategy}
+          addressPrizePoolTicket={PodDAITicket}
+          addressPrizePoolCToken={PodDAIcToken}
+          addressPrizePoolTicketSponsored={PodDAIPrizePoolTicketSponsored}
+        /> */}
+        {/* <Spacer className="my-10" />
+       
 
         <Spacer className="my-10" />
         <ViewDepositPodOverview
@@ -123,7 +170,7 @@ export const PageDeposit = (props) => {
           addressPrizePoolTicket={PodUNITicket}
           addressPrizePoolCToken={PodUNIcToken}
           addressPodTokenDrop={PodUNITokenDrop}
-        />
+        /> */}
       </div>
     </div>
   );

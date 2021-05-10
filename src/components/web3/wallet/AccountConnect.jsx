@@ -27,9 +27,12 @@ export const AccountConnect = ({
     return (
       <>
         {account ? (
-          <div className={classNameChildren}>{children}</div>
+          <div className={classNameChildren}>{children[1]}</div>
         ) : (
-          <button onClick={activateBrowserWallet}> Connect </button>
+          <span>
+            {children[0]}
+            {/* Connect to Application */}
+          </span>
         )}
       </>
     );

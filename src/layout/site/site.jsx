@@ -41,7 +41,7 @@ export const SiteLayout = ({ children, ...props }) => {
       )}
       <SiteHeader />
       <div className="flex-1 z-200">
-        <div className="relative z-100">{children}</div>
+        <div className="relative px-10 lg:px-0 z-100">{children}</div>
       </div>
       <SiteFooter />
     </div>

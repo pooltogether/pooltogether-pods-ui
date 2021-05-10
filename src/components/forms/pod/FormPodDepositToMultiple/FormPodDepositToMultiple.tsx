@@ -9,22 +9,32 @@ import { useForm } from "react-hook-form";
 /* --- Local Modules --- */
 import { IPodForm } from "@src/interfaces/forms";
 import { useGetAllPodAddress } from "@hooks/contractAddress";
+import { selectTokenDropStyles } from "../select-tokendrop-styles";
 import { commifyTokenBalanceFromHuman } from "@helpers/blockchain";
+import { useERC20ContractCall } from "@hooks/useContractERC20";
+import { useGetPodSelectOptions } from "@hooks/useGetPodSelectOptions";
 import {
   Select,
   ERC20Balance,
   ERC20UnlockTransferFrom,
-  RubiksCube,
   TransactionConfetti,
+  TransactionMining,
+  WalletIsConnected,
   Spacer,
+  SelectTokenWithAmountInput,
 } from "@components";
-import { selectTokenDropStyles } from "../select-tokendrop-styles";
 
 // Contracts
 import {
   usePodContractCall,
   usePodContractFunction,
 } from "@hooks/useContractPod";
+
+import { convertNumberToBigNumber } from "@src/helpers/convert";
+import classNames from "classnames";
+import { isBigNumber } from "@src/helpers/checks";
+import { TokenSingleValue } from "@src/components/core/fields/TokenSingleValue";
+import { TokenOption } from "@src/components/core/fields/TokenOption";
 
 /**
  * @name PodDepositTo
@@ -38,19 +48,14 @@ export const FormPodDepositToMultiple = ({
   /* --- Component State --- */
   /* ----------------------- */
   const [withdrawAmount, withdrawAmountSet] = useState();
-  const { PodDAI, PodUSDC, PodCOMP, PodUNI } = useGetAllPodAddress();
+  const selectOptions = useGetPodSelectOptions();
+  const [cachedValues, cachedValuesSet] = useState({});
+  const [isDisabled, isDisabledSet] = useState();
 
   /* ------------------ */
   /* --- Form State --- */
   /* ------------------ */
-  const {
-    handleSubmit,
-    register,
-    control,
-    setValue,
-    watch,
-    formState,
-  } = useForm({
+  const { handleSubmit, register, control, setValue, watch } = useForm({
     defaultValues,
   });
   const formValues = watch();
@@ -69,16 +74,15 @@ export const FormPodDepositToMultiple = ({
     "token"
   );
 
-  const [tokenSymbol] = usePodContractCall(
-    idx(formValues, (_) => _.pod.value),
-    "symbol"
-  );
-
   const [decimals] = usePodContractCall(
     idx(formValues, (_) => _.pod.value),
     "decimals"
   );
 
+  const [tokenSymbol] = useERC20ContractCall(cachedValues.token, "symbol");
+  const [balanceOf] = useERC20ContractCall(cachedValues.token, "balanceOf", [
+    account,
+  ]);
   /* ----------------------- */
   /* --- Component Hooks --- */
   /* ----------------------- */
@@ -86,9 +90,38 @@ export const FormPodDepositToMultiple = ({
     if (account) setValue("to", account);
   }, [account]);
 
+  useEffect(() => {
+    if (prizePoolTokenCall) {
+      cachedValuesSet({
+        token: prizePoolTokenCall,
+      });
+    }
+  }, [prizePoolTokenCall]);
+
+  const [error, errorSet] = useState();
+  useEffect(() => {
+    if (formValues && formValues.tokenAmount && isBigNumber(balanceOf)) {
+      const amount = convertNumberToBigNumber(formValues.tokenAmount, decimals);
+      if (amount.gt(balanceOf)) {
+        isDisabledSet(true);
+        errorSet("You don’t have enough balance.");
+      } else {
+        isDisabledSet(false);
+        errorSet(undefined);
+      }
+    } else {
+      isDisabledSet(false);
+      errorSet(undefined);
+    }
+  }, [formValues]);
+
   /* -------------------------- */
   /* --- Component Handlers --- */
   /* -------------------------- */
+
+  const setInputAmountMax = () => {
+    setValue("tokenAmount", utils.formatUnits(balanceOf, decimals));
+  };
 
   /* --- Submit Handler --- */
   const onSubmit = async (values) => {
@@ -99,114 +132,131 @@ export const FormPodDepositToMultiple = ({
   /* ------------------------- */
   /* --- Component Renders --- */
   /* ------------------------- */
+  /* --- Transaction Mining Component --- */
+  if (idx(state, (_) => _.status) == "Mining") {
+    return (
+      <span className="">
+        <TransactionMining
+          state={state}
+          amount={withdrawAmount}
+          action="Depositing"
+          symbol={tokenSymbol}
+        />
+      </span>
+    );
+  }
 
   /* --- Transaction Confetti Component --- */
   if (idx(state, (_) => _.status) == "Success") {
     return (
       <TransactionConfetti
         state={state}
-        label="Successfully deposited"
+        action={"Successfully deposited"}
         amount={withdrawAmount}
         symbol={tokenSymbol}
       />
     );
   }
 
+  const classNameButton = classNames({
+    "btn-purple bg-purple-700 text-black-60": isDisabled,
+    "btn-purple text-purple-900 btn-gradient btn-gradient-2": !isDisabled,
+  });
+
   /* --- Form Component --- */
   return (
     <>
-      {formState.isSubmitted && idx(state, (_) => _.status) == "Mining" ? (
-        <div className="text-center">
-          <div className="">
-            <span className="text-2xl">Withdrawing {withdrawAmount} DAI</span>
-          </div>
-
-          <>
-            <div className="inline-block -ml-14" style={{ maxWidth: 60 }}>
-              <RubiksCube />
-            </div>
-          </>
+      <>
+        <div className="flex items-center justify-between">
+          <span className="text-gray-100">Deposit</span>
+          <span className="">
+            {!prizePoolTokenCall ? (
+              "0.00"
+            ) : (
+              <ERC20Balance account={account} address={prizePoolTokenCall} />
+            )}
+            <span className="ml-1">Balance</span>
+          </span>
         </div>
-      ) : (
-        <>
-          <div className="flex items-center justify-between">
-            <span className="text-gray-100">Deposit</span>
-            <span className="">
-              {!prizePoolTokenCall ? (
-                "0.00"
-              ) : (
-                <ERC20Balance account={account} address={prizePoolTokenCall} />
-              )}
-              <span className="ml-1">Balance</span>
-            </span>
-          </div>
-          <Spacer className="my-1" />
-          <form
-            className={"form-default text-gray-600"}
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <input
-              hidden
-              className="input-default mb-1"
-              name="to"
-              placeholder="To"
-              ref={register({ required: true })}
-            />
-            <div className="grid grid-cols-7">
-              <div className="col-span-5">
-                <input
-                  className="input-skinny text-xl font-light text-white w-full"
-                  name="tokenAmount"
-                  placeholder="Amount"
-                  ref={register({ required: true })}
-                  style={{
-                    background: "rgba(14,163,164,0.2)",
-                    height: 50,
-                  }}
-                />
-              </div>
-              <div className="col-span-2 ml-0 text-gray-600">
-                <Select
-                  name="pod"
-                  className="h-50"
-                  placeholder="Token"
-                  styles={selectTokenDropStyles}
-                  options={[
-                    {
-                      value: PodDAI,
-                      label: "DAI",
-                    },
-                    {
-                      value: PodUSDC,
-                      label: "USDC",
-                    },
-                    {
-                      value: PodCOMP,
-                      label: "COMP",
-                    },
-                    {
-                      value: PodUNI,
-                      label: "UNI",
-                    },
-                  ]}
-                  control={control}
-                />
-              </div>
+        <Spacer className="my-1" />
+        <form
+          className={"form-default text-gray-600"}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <input
+            hidden
+            className="input-default mb-1"
+            name="to"
+            placeholder="To"
+            ref={register({ required: true })}
+          />
+          <SelectTokenWithAmountInput
+            name="tokenAmount"
+            nameSelect="pod"
+            register={register}
+            control={control}
+            styles={selectTokenDropStyles}
+            options={selectOptions}
+            actionMax={setInputAmountMax}
+            classNameInput="bg-transparent text-xl font-light text-white h-full w-full focus:outline-none"
+            classNameInputContainer="bg-teal-600 bg-opacity-20 h-15 flex items-center justify-between input-skinny relative"
+            // classNameSelectContainer="ml-0 text-gray-600 bg-teal-600 bg-opacity-20"
+          />
+          {/* <div className="grid grid-cols-7">
+            <div className="col-span-5 bg-teal-600 bg-opacity-20 h-15 flex items-center justify-between input-skinny relative">
+              <input
+                className="bg-transparent text-xl font-light text-white w-full focus:outline-none"
+                name="tokenAmounts"
+                type="number"
+                placeholder={`Enter Amount to deposit ${
+                  !formValues.pod ? "(Select Token First)" : ""
+                }`}
+                ref={register({ required: true })}
+                disabled={!formValues.pod}
+              />
+              <span className="">
+                <span
+                  onClick={setInputAmountMax}
+                  className="bg-teal-600 bg-opacity-20 text-white p-1 px-3 cursor-pointer rounded-md"
+                >
+                  max
+                </span>
+              </span>
             </div>
-            <Spacer className="my-2" />
-
+            <div className="col-span-2 ml-0 text-gray-600">
+              <Select
+                name="pod"
+                className="h-50"
+                placeholder="Token"
+                components={{
+                  Option: TokenOption,
+                  SingleValue: TokenSingleValue,
+                }}
+                styles={selectTokenDropStyles}
+                options={selectOptions}
+                control={control}
+              />
+            </div>
+          </div> */}
+          {error && <span className="text-red-400 my-0">{error}</span>}
+          <Spacer className="my-2" />
+          <WalletIsConnected>
             <ERC20UnlockTransferFrom
               address={prizePoolTokenCall}
               allowanceOf={idx(formValues, (_) => _.pod.value)}
             >
-              <button className="btn btn-purple w-full">{label}</button>
+              <button disabled={isDisabled} className={classNameButton}>
+                {label}
+              </button>
             </ERC20UnlockTransferFrom>
-          </form>
-        </>
-      )}
+          </WalletIsConnected>
+        </form>
+      </>
     </>
   );
 };
+
+// export default CustomOption;
 
 FormPodDepositToMultiple.defaultProps = {
   className: "",

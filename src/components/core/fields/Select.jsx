@@ -11,6 +11,7 @@ export const Select = (props) => {
     rules,
     defaultValue,
     styles,
+    components,
   } = props;
   return (
     <Controller
@@ -21,6 +22,7 @@ export const Select = (props) => {
       defaultValue={defaultValue}
       placeholder={placeholder}
       rules={rules}
+      components={components}
       styles={
         styles || {
           control: (styles) => ({ flex: 1, marginTop: 10, ...styles }),

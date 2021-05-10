@@ -1,13 +1,14 @@
 /* --- Global Modules --- */
 import idx from "idx";
 import React, { useState, useEffect } from "react";
+import classnames from "classnames";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 
 /* --- Local Modules --- */
-import { useGetPodContract } from "@hooks/contracts";
-import { useGetAllPodAddress } from "@hooks/contractAddress";
-import { usePodContractFunction } from "@hooks/useContractPod";
+import { useGetTokenFaucetContract } from "@hooks/contracts";
+import { useGetPodAndTokenFaucetSelectOptions } from "@src/hooks/useGetPodAndTokenFaucetSelectOptions";
+import { useContractTokenFaucetFunction } from "@hooks/useContractTokenFaucet";
 import { commifyTokenBalance } from "@helpers/blockchain";
 import { Select, Spacer } from "@components";
 import { customStyles } from "./selectStyles.ts";
@@ -34,24 +35,28 @@ export const FormPodClaimPodPool = ({
 }: IPodClaimPodPoolProps) => {
   /* --- Component State --- */
   const [podClaimableAmount, podClaimableAmountSet] = useState();
-  const { PodDAI, PodUSDC, PodCOMP, PodUNI } = useGetAllPodAddress();
+  const options = useGetPodAndTokenFaucetSelectOptions();
 
   /* --- Form State --- */
   const { handleSubmit, register, control, watch } = useForm({ defaultValues });
   const formValues = watch();
 
   /* --- Blockchain State --- */
-  const contract = useGetPodContract(idx(formValues, (_) => _.pod.value));
-  const [send, state] = usePodContractFunction(
-    idx(formValues, (_) => _.pod.value),
-    "claimPodPool"
+  const contract = useGetTokenFaucetContract(
+    idx(formValues, (_) => _.pod.faucet)
+  );
+  const [send, state] = useContractTokenFaucetFunction(
+    idx(formValues, (_) => _.pod.faucet),
+    "claim"
   );
 
   // Effect : Update Claimable POOl Tokens
   useEffect(() => {
-    if (contract) {
+    if (contract && idx(formValues, (_) => _.pod.value)) {
       (async () => {
-        const claimPOOLAmount = await contract.callStatic.claimPodPool();
+        const claimPOOLAmount = await contract.callStatic.claim(
+          idx(formValues, (_) => _.pod.value)
+        );
         podClaimableAmountSet(commifyTokenBalance(claimPOOLAmount));
       })();
     }
@@ -59,24 +64,15 @@ export const FormPodClaimPodPool = ({
 
   /* --- Submit Handler --- */
   const onSubmit = async (values) => {
-    send();
-    // if (values) {
-    //   contractMethod.execute({
-    //     inputs: [],
-    //     params: {
-    //       value: utils.parseEther("0"),
-    //     },
-    //     contract: "Pod",
-    //     name: "Pod-claimPodPool",
-    //     methodName: "claimPodPool",
-    //     inputDisplay: [],
-    //   });
-    // }
+    send(idx(formValues, (_) => _.pod.value));
   };
+
+  /* --- Component Styles --- */
+  const formStyles = classnames("form-default", className);
 
   /* --- Form Component --- */
   return (
-    <form className={"form-default"} onSubmit={handleSubmit(onSubmit)}>
+    <form className={formStyles} onSubmit={handleSubmit(onSubmit)}>
       <span className="">Claimable Amount:{podClaimableAmount}</span>
       <Spacer className="my-2" />
       <div className="grid grid-cols-7">
@@ -86,24 +82,7 @@ export const FormPodClaimPodPool = ({
             className="h-50"
             placeholder="Select Pod"
             styles={customStyles}
-            options={[
-              {
-                value: PodDAI,
-                label: "DAI",
-              },
-              {
-                value: PodUSDC,
-                label: "USDC",
-              },
-              {
-                value: PodCOMP,
-                label: "COMP",
-              },
-              {
-                value: PodUNI,
-                label: "UNI",
-              },
-            ]}
+            options={options}
             control={control}
           />
         </div>

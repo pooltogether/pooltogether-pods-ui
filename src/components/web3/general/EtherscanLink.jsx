@@ -1,18 +1,20 @@
+import { getExplorerTransactionLink, useEthers } from "@usedapp/core";
+
 /**
- * @name
+ * @name EtherscanLink
  * @param {Object} props
  */
-export const EtherscanLink = ({
-  address,
-  hash,
-  type,
-  transaction,
-  ...props
-}) => {
-  if (transaction)
+export const EtherscanLink = ({ address, hash, ...props }) => {
+  const { chainId } = useEthers();
+
+  if (hash) {
+    const etherscanLink = getExplorerTransactionLink(hash, chainId);
+
     return (
-      <a target="_blank" href={`https://etherscan.io/tx/${hash}`} {...props} />
+      <a target="_blank" href={etherscanLink} {...props} />
+      // <a target="_blank" href={`https://etherscan.io/tx/${hash}`} {...props} />
     );
+  }
 
   return (
     <a
@@ -26,7 +28,6 @@ export const EtherscanLink = ({
 EtherscanLink.defaultProps = {
   address: undefined,
   hash: undefined,
-  type: "address",
 };
 
 export default EtherscanLink;

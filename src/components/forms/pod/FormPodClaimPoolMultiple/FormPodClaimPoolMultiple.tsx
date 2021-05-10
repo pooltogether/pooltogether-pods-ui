@@ -8,18 +8,33 @@ import { utils } from "ethers";
 
 /* --- Local Modules --- */
 import { IPodForm } from "@src/interfaces/forms";
-
-import { useGetAllPodAddress } from "@hooks/contractAddress";
-import { useGetPodContract } from "@src/hooks/contracts";
+import { selectTokenDropStyles } from "../select-tokendrop-styles";
 import {
   commifyTokenBalance,
   transformTokenToHuman,
 } from "@helpers/blockchain";
-import { RubiksCube, TransactionConfetti, Spacer } from "@components";
-import { Select } from "@components";
+import { useGetPodSelectOptions } from "@hooks/useGetPodSelectOptions";
 
-import { customStyles } from "./selectStyles.ts";
+// Contracts
+import { useGetAllPodAndTokenDropAddresses } from "@src/hooks/contractAddress";
+import { useGetAllPodAddress } from "@hooks/contractAddress";
+import {
+  useGetPodContract,
+  useGetTokenDropContract,
+} from "@src/hooks/contracts";
 import { usePodContractFunction } from "@src/hooks/useContractPod";
+import { useGetPodAndTokenDropSelectOptions } from "@src/hooks/useGetPodAndTokenDropSelectOptions";
+
+// COmponents
+import {
+  RubiksCube,
+  TransactionConfetti,
+  TransactionMining,
+  Spacer,
+  WalletIsConnected,
+  Select,
+} from "@components";
+import { useContractTokenDropFunction } from "@src/hooks/useContractTokenDrop";
 
 /**
  * @name PodDepositTo
@@ -36,19 +51,12 @@ export const FormPodWithdrawToMultiple = ({
   /* --- Component State --- */
   /* ----------------------- */
   const [claimAmount, claimAmountSet] = useState();
-  const { PodDAI, PodUSDC, PodCOMP, PodUNI } = useGetAllPodAddress();
+  const selectOptions = useGetPodAndTokenDropSelectOptions();
 
   /* ------------------ */
   /* --- Form State --- */
   /* ------------------ */
-  const {
-    handleSubmit,
-    register,
-    control,
-    formState,
-    setValue,
-    watch,
-  } = useForm({
+  const { handleSubmit, register, control, setValue, watch } = useForm({
     defaultValues,
   });
   const formValues = watch();
@@ -57,20 +65,11 @@ export const FormPodWithdrawToMultiple = ({
   /* --- Blockchain State --- */
   /* ------------------------ */
   const { account } = useEthers();
-  const contract = useGetPodContract(idx(formValues, (_) => _.pod.value));
-  const [send, state] = usePodContractFunction(
-    idx(formValues, (_) => _.pod.value),
+  const contract = useGetTokenDropContract(idx(formValues, (_) => _.pod.drop));
+  const [send, state] = useContractTokenDropFunction(
+    idx(formValues, (_) => _.pod.drop),
     "claim"
   );
-  // const [prizePoolTokenCall] = usePodContractCall(
-  //   idx(formValues, (_) => _.pod.value),
-  //   "token"
-  // );
-
-  // const [tokenSymbol] = usePodContractCall(
-  //   idx(formValues, (_) => _.pod.value),
-  //   "symbol"
-  // );
 
   /* ------------------------ */
   /* --- Blockchain Hooks --- */
@@ -84,14 +83,11 @@ export const FormPodWithdrawToMultiple = ({
   useEffect(() => {
     if (contract) {
       (async () => {
-        const claimPOOLAmount = await contract.callStatic.claim(account);
-        setValue(
-          "poolAmount",
-          transformTokenToHuman(claimPOOLAmount.toString())
-        );
+        const amount = await contract.callStatic.claim(account);
+        setValue("poolAmount", transformTokenToHuman(amount.toString()));
       })();
     }
-  }, [contract, formValues.pod]);
+  }, [idx(formValues, (_) => _.pod.value)]);
 
   /* ---------------------- */
   /* --- Submit Handler --- */
@@ -108,6 +104,17 @@ export const FormPodWithdrawToMultiple = ({
   /* ------------------------- */
   /* --- Component Renders --- */
   /* ------------------------- */
+  /* --- Transaction Mining Component --- */
+  if (idx(state, (_) => _.status) == "Mining") {
+    return (
+      <TransactionMining
+        state={state}
+        amount={claimAmount}
+        action="Withdrawing"
+        symbol={"POOL"}
+      />
+    );
+  }
 
   /* --- Transaction Confetti Component --- */
   if (idx(state, (_) => _.status) == "Success") {
@@ -124,92 +131,60 @@ export const FormPodWithdrawToMultiple = ({
   /* --- Form Component --- */
   return (
     <>
-      {formState.isSubmitted && idx(state, (_) => _.status) == "Mining" ? (
-        <div className="text-center">
-          <div className="">
-            <span className="text-2xl">Claiming {claimAmount} POOL</span>
-          </div>
+      <form
+        className={"form-default text-gray-600"}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <input
+          hidden
+          className="input-skinny"
+          name="user"
+          placeholder="user"
+          ref={register({ required: true })}
+          style={{
+            background: "rgba(14,163,164,0.2)",
+            height: 50,
+          }}
+        />
 
-          <>
-            <div className="inline-block -ml-14" style={{ maxWidth: 60 }}>
-              <RubiksCube />
-            </div>
-          </>
+        {/* Balance Display : Start */}
+        <div className="flex items-center justify-between">
+          <span className="text-gray-100">POOL Claim Amount</span>
         </div>
-      ) : (
-        <>
-          <form
-            className={"form-default text-gray-600"}
-            onSubmit={handleSubmit(onSubmit)}
-          >
+        <Spacer className="my-1" />
+        {/* Balance Display : End */}
+
+        {/* Share Amount Display : Start */}
+        <div className="grid grid-cols-7">
+          <div className="col-span-5">
             <input
-              hidden
-              className="input-skinny"
-              name="user"
-              placeholder="user"
-              ref={register({ required: true })}
+              disabled
+              className="input-skinny text-xl font-light text-white w-full"
+              name="poolAmount"
+              placeholder="Pool Amount"
+              ref={register({ required: false })}
               style={{
                 background: "rgba(14,163,164,0.2)",
                 height: 50,
               }}
             />
-
-            {/* Balance Display : Start */}
-            <div className="flex items-center justify-between">
-              <span className="text-gray-100">POOL Claim Amount</span>
-            </div>
-            <Spacer className="my-1" />
-            {/* Balance Display : End */}
-
-            {/* Share Amount Display : Start */}
-            <div className="grid grid-cols-7">
-              <div className="col-span-5">
-                <input
-                  disabled
-                  className="input-skinny text-xl font-light text-white w-full"
-                  name="poolAmount"
-                  placeholder="Pool Amount"
-                  ref={register({ required: false })}
-                  style={{
-                    background: "rgba(14,163,164,0.2)",
-                    height: 50,
-                  }}
-                />
-              </div>
-              <div className="col-span-2 ml-0 text-gray-600">
-                <Select
-                  name="pod"
-                  className="h-50"
-                  control={control}
-                  placeholder="Select Pod"
-                  styles={customStyles}
-                  options={[
-                    {
-                      value: PodDAI,
-                      label: "DAI Pod",
-                    },
-                    {
-                      value: PodUSDC,
-                      label: "USDC Pod",
-                    },
-                    {
-                      value: PodCOMP,
-                      label: "COMP Pod",
-                    },
-                    {
-                      value: PodUNI,
-                      label: "UNI Pod",
-                    },
-                  ]}
-                />
-              </div>
-              {/* Share Amount Display : End */}
-            </div>
-            <Spacer className="my-2" />
-            <button className="btn btn-purple w-full">{label}</button>
-          </form>
-        </>
-      )}
+          </div>
+          <div className="col-span-2 ml-0 text-gray-600">
+            <Select
+              name="pod"
+              className="h-50"
+              control={control}
+              placeholder="Select Pod"
+              styles={selectTokenDropStyles}
+              options={selectOptions}
+            />
+          </div>
+        </div>
+        <Spacer className="my-2" />
+        <WalletIsConnected>
+          <button className="btn btn-purple-light w-full">{label}</button>
+        </WalletIsConnected>
+      </form>
     </>
   );
 };

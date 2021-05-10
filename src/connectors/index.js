@@ -46,12 +46,13 @@ if (typeof NETWORK_URL_MAINNET === "undefined") {
  * @description NetworkConnector
  */
 export const NETWORK = new NetworkConnector({
-  defaultChainId: 31337,
+  defaultChainId: 1337,
   urls: {
     [1]: NETWORK_URL_MAINNET,
     [4]: NETWORK_URL_RINKEBY,
     [5]: NETWORK_URL_GOERLI,
     [42]: NETWORK_URL_KOVAN,
+    [1337]: NETWORK_URL_HARDHAT,
     [31337]: NETWORK_URL_HARDHAT,
   },
 });

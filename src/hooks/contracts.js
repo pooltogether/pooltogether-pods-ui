@@ -8,6 +8,9 @@ import {
   PodInterface,
   PodManagerInterface,
   CompoundPrizePoolInterface,
+  PrizePoolFaucetInterface,
+  TokenFaucetInterface,
+  TokenDropInterface,
 } from "@constants/interfaces";
 
 /**
@@ -65,6 +68,51 @@ export const useGetCompoundPrizePoolContract = (address) => {
   const contract =
     address && library
       ? new Contract(address, CompoundPrizePoolInterface, library)
+      : undefined;
+
+  return contract;
+};
+
+/**
+ * @name useGetPrizePoolFaucet
+ * @param {*} address
+ */
+export const useGetPrizePoolFaucet = (address) => {
+  const { library } = useEthers();
+
+  const contract =
+    address && library
+      ? new Contract(address, PrizePoolFaucetInterface, library)
+      : undefined;
+
+  return contract;
+};
+
+/**
+ * @name useGetTokenFaucetContract
+ * @param {*} address
+ */
+export const useGetTokenFaucetContract = (address) => {
+  const { library } = useEthers();
+
+  const contract =
+    address && library
+      ? new Contract(address, TokenFaucetInterface, library)
+      : undefined;
+
+  return contract;
+};
+
+/**
+ * @name useGetTokenDropContract
+ * @param {*} address
+ */
+export const useGetTokenDropContract = (address) => {
+  const { library } = useEthers();
+
+  const contract =
+    address && library
+      ? new Contract(address, TokenDropInterface, library)
       : undefined;
 
   return contract;

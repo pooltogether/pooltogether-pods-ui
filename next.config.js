@@ -1,7 +1,7 @@
 const path = require("path");
 module.exports = {
-  // assetPrefix: "/",
-  assetPrefix: "https://powerpods-kamescg.vercel.app//",
+  assetPrefix: "/",
+  // assetPrefix: "https://powerpods-kamescg.vercel.app/",
   trailingSlash: true,
   typescript: {
     // !! WARN !!
@@ -36,7 +36,15 @@ module.exports = {
       "@forms": path.resolve(__dirname, "./src/components/forms"),
       "@views": path.resolve(__dirname, "./src/components/views"),
       "@layout": path.resolve(__dirname, "./src/layout/"),
+      "@usedapp/core": path.resolve(
+        __dirname,
+        "./src/modules/@usedapp/core/src"
+      ),
     };
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
     return config;
   },
 };

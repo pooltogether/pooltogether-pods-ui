@@ -2,7 +2,6 @@
 import idx from "idx";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
-import { utils } from "ethers";
 
 /* --- Local Modules --- */
 import { useGetAllPodAddress } from "@hooks/contractAddress";
@@ -40,13 +39,16 @@ export const FormPodDepositToMultiple = ({
   /* --- Blockchain State --- */
   const [send, state] = usePodContractFunction(
     idx(FORM_VALUES, (_) => _.pod.value),
-    "batch"
+    "drop"
   );
 
   /* --- Submit Handler --- */
   const onSubmit = async (values) => {
-    send(utils.parseUnits(values.batchAmount, values.decimals));
+    console.log(PodDAI, "PodDAI");
+    send(true);
   };
+
+  console.log(state, "statestate");
 
   /* --- Form Component --- */
   return (
@@ -55,58 +57,32 @@ export const FormPodDepositToMultiple = ({
         className={"form-default text-gray-600"}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="grid grid-cols-8">
-          <div className="col-span-4 mr-2">
-            <input
-              className="input-skinny text-xl font-light text-white w-full"
-              name="batchAmount"
-              placeholder="Batch Amount"
-              ref={register({ required: true })}
-              style={{
-                background: "rgba(14,163,164,0.2)",
-                height: 50,
-              }}
-            />
-          </div>
-          <div className="col-span-2 ml-0 text-gray-600 mx-2">
-            <input
-              className="input-skinny text-xl font-light text-white w-full"
-              name="decimals"
-              placeholder="Decimals"
-              ref={register({ required: true })}
-              style={{
-                background: "rgba(14,163,164,0.2)",
-                height: 50,
-              }}
-            />
-          </div>
-          <div className="col-span-2 ml-0 text-gray-600">
-            <Select
-              name="pod"
-              className="h-50"
-              placeholder="Token"
-              styles={customStyles}
-              options={[
-                {
-                  value: PodDAI,
-                  label: "DAI",
-                },
-                {
-                  value: PodUSDC,
-                  label: "USDC",
-                },
-                {
-                  value: PodCOMP,
-                  label: "COMP",
-                },
-                {
-                  value: PodUNI,
-                  label: "UNI",
-                },
-              ]}
-              control={control}
-            />
-          </div>
+        <div className="col-span-8 ml-0 text-gray-600">
+          <Select
+            name="pod"
+            className="h-50"
+            placeholder="Token"
+            styles={customStyles}
+            options={[
+              {
+                value: PodDAI,
+                label: "DAI",
+              },
+              {
+                value: PodUSDC,
+                label: "USDC",
+              },
+              {
+                value: PodCOMP,
+                label: "COMP",
+              },
+              {
+                value: PodUNI,
+                label: "UNI",
+              },
+            ]}
+            control={control}
+          />
         </div>
         <Spacer className="my-2" />
         <button type="submit" className="btn btn-purple w-full">

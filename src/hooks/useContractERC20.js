@@ -3,25 +3,40 @@ import {
   useContractCall,
   useContractCalls,
   useContractFunction,
+  useEthers,
 } from "@usedapp/core";
 
 /* --- Local Modules --- */
 import { ERC20Interface } from "@constants";
 import { useGetERC20Contract } from "@hooks/contracts";
+import { getAddress, isAddress } from "@ethersproject/address";
+
+const validateInputs = (inputs) => {
+  let valid = true;
+  Array.isArray(inputs) &&
+    inputs.forEach((input) => {
+      if (input == undefined || input == null) valid = false;
+    });
+  return valid;
+};
 
 /**
  * @name useERC20ContractCall
  * @param {Object} props
  */
 export const useERC20ContractCall = (address, method, inputs = []) => {
+  const { active } = useEthers();
   const [value] =
     useContractCall(
-      address && {
-        abi: ERC20Interface,
-        address: address,
-        method: method,
-        args: inputs,
-      }
+      active &&
+        address &&
+        isAddress(address) &&
+        validateInputs(inputs) && {
+          abi: ERC20Interface,
+          address: getAddress(address),
+          method: method,
+          args: inputs,
+        }
     ) ?? [];
 
   return [value];
@@ -39,10 +54,7 @@ export const useERC20ContractCalls = (address, methods = [], inputs = []) => {
     args: inputs[index],
   }));
 
-  console.log(address, inputs, calls, "addressUSECONtractCALLS");
   const values = useContractCalls(address && calls && calls) ?? [];
-  console.log(values, "valuesvalues");
-
   return Array.isArray(values)
     ? values.map((value) => Array.isArray(value) && value[0])
     : [];

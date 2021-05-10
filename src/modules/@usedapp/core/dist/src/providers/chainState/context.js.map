@@ -1,0 +1,1 @@
+{"version":3,"file":"context.js","sourceRoot":"","sources":["../../../../src/providers/chainState/context.ts"],"names":[],"mappings":";;;AAAA,+BAAiD;AAIpC,QAAA,iBAAiB,GAAG,qBAAa,CAS3C;IACD,gBAAgB,EAAE,EAAE;IACpB,QAAQ,EAAE;QACR,QAAQ;IACV,CAAC;IACD,WAAW,EAAE;QACX,QAAQ;IACV,CAAC;CACF,CAAC,CAAA;AAEF,SAAgB,aAAa;IAC3B,OAAO,kBAAU,CAAC,yBAAiB,CAAC,CAAA;AACtC,CAAC;AAFD,sCAEC"}

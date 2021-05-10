@@ -12,6 +12,11 @@ export const SiteMenu = (props) => {
           Deposit
         </a>
       </Link>
+      <Link href="/manage?tab=0">
+        <a className="text-sm text-teal-300 hover:text-teal-600 font-medium text-center">
+          Manage
+        </a>
+      </Link>
       <Link href="/prize-history">
         <a className="text-sm text-teal-300 hover:text-teal-600 font-medium text-center">
           Prize History

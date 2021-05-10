@@ -8,6 +8,7 @@ import {
 /* --- Local Modules --- */
 import { PodInterface } from "@constants/interfaces";
 import { useGetPodContract } from "@hooks/contracts";
+import { isAddress } from "@src/utils/is";
 
 const validateInputs = (inputs) => {
   let valid = true;
@@ -26,6 +27,7 @@ export const usePodContractCall = (address, method, inputs = []) => {
   const [value] =
     useContractCall(
       address &&
+        isAddress(address) &&
         validateInputs(inputs) && {
           abi: PodInterface,
           address: address,

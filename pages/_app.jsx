@@ -15,6 +15,8 @@ import {
   APPLICATION_EMOJI,
 } from "../src/constants/config";
 
+import { NetworkInvalidModal } from "@components";
+
 /**
  * @name Application
  */
@@ -44,6 +46,7 @@ class Application extends App {
           />
         </Head>
         <Providers>
+          <NetworkInvalidModal />
           {isArticleRoute && (
             <ArticleLayout>
               <Component {...pageProps} key={router.route} />
