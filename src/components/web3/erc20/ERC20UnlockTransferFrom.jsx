@@ -65,7 +65,7 @@ export const ERC20UnlockTransferFrom = ({
           if (allowanceOfPod.lt(balanceOfAccount)) allowanceStatusSet(2);
           if (allowanceOfPod.gte(balanceOfAccount)) allowanceStatusSet(4);
         } else {
-          if (allowanceOfPod.lt(balanceOfAccount)) allowanceStatusSet(0);
+          if (allowanceOfPod.lt(balanceOfAccount)) allowanceStatusSet(1);
         }
       } else {
         // ZERO Balance : Display Empty Balance
@@ -103,7 +103,6 @@ export const ERC20UnlockTransferFrom = ({
   };
 
   const handleApproveAction = async (amount) => {
-    console.log("SENDING");
     send(allowanceOf, amount);
   };
 
@@ -133,12 +132,12 @@ export const ERC20UnlockTransferFrom = ({
         <div className="flex justify-between">
           <button
             type="button"
-            className="btn-teal w-1/2"
+            className="btn-teal w-full"
             onClick={() => handleApproveAction(balanceOfAccount)}
           >
-            Unlock Balance
+            Enable Pod Deposits
           </button>
-          <button
+          {/* <button
             type="button"
             className="btn-purple w-1/2 ml-3"
             onClick={() => handleApproveAction(infiniteApproveAmount)}
@@ -150,7 +149,7 @@ export const ERC20UnlockTransferFrom = ({
             className="cursor-pointer flex flex-col flex-center ml-1 px-4 tag-blue rounded-lg"
           >
             <img src="/images/close.svg" width={14} height="auto" />
-          </span>
+          </span> */}
           <div className="text-right self-start mt-2"></div>
         </div>
       </>

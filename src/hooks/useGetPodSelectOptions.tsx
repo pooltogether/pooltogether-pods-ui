@@ -28,16 +28,16 @@ export function useGetPodSelectOptions() {
             label: "USDC",
             image: "/tokens/token-usdc.png",
           },
-          {
-            value: PodCOMP,
-            label: "COMP",
-            image: "/tokens/token-comp.png",
-          },
-          {
-            value: PodUNI,
-            label: "UNI",
-            image: "/tokens/token-uni.png",
-          },
+          // {
+          //   value: PodCOMP,
+          //   label: "COMP",
+          //   image: "/tokens/token-comp.png",
+          // },
+          // {
+          //   value: PodUNI,
+          //   label: "UNI",
+          //   image: "/tokens/token-uni.png",
+          // },
         ];
       case 4:
         return [
@@ -51,11 +51,11 @@ export function useGetPodSelectOptions() {
             label: "USDC",
             image: "/tokens/token-usdc.png",
           },
-          {
-            value: PodBAT,
-            label: "BAT",
-            image: "/tokens/token-bat.svg",
-          },
+          // {
+          //   value: PodBAT,
+          //   label: "BAT",
+          //   image: "/tokens/token-bat.svg",
+          // },
         ];
       default:
         return [];

@@ -154,11 +154,11 @@ const PodCard = ({
         <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-x-6 text-center lg:text-left">
           <div className="col-span-3 text-teal-500">
             <div className="flex flex-col lg:flex-row lg:items-center">
-              <span className="block text-center text-5xl lg:text-6xl text-teal lg:text-white">
+              <h3 className="block font-bold text-center text-5xl lg:text-6xl text-teal lg:text-white">
                 <USDValue
                   number={idx(dataCache, (_) => _.prize.totalValueUsd)}
                 />
-              </span>
+              </h3>
               <span className="tag-blue mt-2 lg:mt-0 lg:ml-2 self-center">
                 weekly prize
               </span>
@@ -195,7 +195,7 @@ const PodCard = ({
             </div>
           </div>
           <div className="col-span-1 mt-8 lg:mt-0 text-center lg:text-left">
-            <Link href="/manage?tab=0">
+            <Link href={`/manage?tab=0&token=${address}`}>
               <button className="btn btn-purple-light uppercase w-full">
                 Deposit {symbol}
               </button>

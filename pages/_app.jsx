@@ -38,11 +38,11 @@ class Application extends App {
           ></link>
           <link
             rel="stylesheet"
-            href="//fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700,800,900&amp;lang=en"
+            href="//fonts.googleapis.com/css?family=Barlow:300,400,600,700,800,900&amp;lang=en"
           />
           <link
             rel="stylesheet"
-            href="//fonts.googleapis.com/css?family=Roboto:300,400,600,700,800,900&amp;lang=en"
+            href="//fonts.googleapis.com/css?family=Inter:300,400,600,700,800,900&amp;lang=en"
           />
         </Head>
         <Providers>

@@ -90,14 +90,19 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  /* font: inherit; */
   vertical-align: baseline;
-  font-family: Oswald, Poppins;
-  font-family: Titillium Web, Roboto, Helvetica Neue, Arial, Noto Sans,
-    sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
-    Noto Color Emoji;
+  font-family: Inter, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important;
 }
-/* Oswald, Poppins, Roboto,  */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Barlow, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important;
+}
 
 /* HTML5 display-role reset for older browsers */
 article,

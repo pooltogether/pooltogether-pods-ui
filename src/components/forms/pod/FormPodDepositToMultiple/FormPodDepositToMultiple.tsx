@@ -43,6 +43,7 @@ import { TokenOption } from "@src/components/core/fields/TokenOption";
  */
 export const FormPodDepositToMultiple = ({
   label,
+  defaultToken,
   defaultValues,
 }: IPodForm) => {
   /* --- Component State --- */
@@ -59,8 +60,6 @@ export const FormPodDepositToMultiple = ({
     defaultValues,
   });
   const formValues = watch();
-
-  console.log(selectOptions, "selectOptionsselectOptions");
 
   /* ------------------------ */
   /* --- Blockchain State --- */
@@ -84,6 +83,20 @@ export const FormPodDepositToMultiple = ({
   /* ----------------------- */
   /* --- Component Hooks --- */
   /* ----------------------- */
+
+  // Set Default Token :: Effect
+  useEffect(() => {
+    if (defaultToken) {
+      console.log(defaultToken, "defaultToken");
+      const filtered = selectOptions.filter((option) => {
+        return utils.getAddress(option.value) == utils.getAddress(defaultToken);
+      });
+
+      console.log(filtered, "filtered");
+      setValue("pod", filtered[0]);
+    }
+  }, []);
+
   useEffect(() => {
     if (account) setValue("to", account);
   }, [account]);
@@ -98,7 +111,6 @@ export const FormPodDepositToMultiple = ({
 
   const [error, errorSet] = useState();
   useEffect(() => {
-    console.log(decimals, "decimalsdecimalsdecimals");
     if (formValues && formValues.tokenAmount && isBigNumber(balanceOf)) {
       const amount = convertNumberToBigNumber(formValues.tokenAmount, decimals);
       if (amount.gt(balanceOf)) {
@@ -241,6 +253,7 @@ export const FormPodDepositToMultiple = ({
           <Spacer className="my-2" />
           <WalletIsConnected>
             <ERC20UnlockTransferFrom
+              label="Select Token"
               address={prizePoolTokenCall}
               allowanceOf={idx(formValues, (_) => _.pod.value)}
             >
