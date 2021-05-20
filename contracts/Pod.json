@@ -41,7 +41,7 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
         "name": "user",
         "type": "address"
@@ -60,7 +60,7 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
         "name": "user",
         "type": "address"
@@ -85,8 +85,8 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "address",
+        "indexed": true,
+        "internalType": "contract IERC20Upgradeable",
         "name": "target",
         "type": "address"
       },
@@ -104,8 +104,8 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "address",
+        "indexed": true,
+        "internalType": "contract IERC721Upgradeable",
         "name": "target",
         "type": "address"
       },
@@ -174,8 +174,8 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "address",
+        "indexed": true,
+        "internalType": "contract TokenDrop",
         "name": "drop",
         "type": "address"
       }
@@ -187,8 +187,8 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "address",
+        "indexed": true,
+        "internalType": "contract TokenFaucet",
         "name": "drop",
         "type": "address"
       }
@@ -225,7 +225,7 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
         "name": "user",
         "type": "address"
@@ -245,6 +245,19 @@
     ],
     "name": "Withdrawal",
     "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "_podTokenBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "inputs": [
@@ -401,13 +414,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "claimReward",
-        "type": "bool"
-      }
-    ],
+    "inputs": [],
     "name": "drop",
     "outputs": [
       {
@@ -538,16 +545,6 @@
         "type": "address"
       },
       {
-        "internalType": "address",
-        "name": "_faucet",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_manager",
-        "type": "address"
-      },
-      {
         "internalType": "uint8",
         "name": "_decimals",
         "type": "uint8"
@@ -599,19 +596,6 @@
   },
   {
     "inputs": [],
-    "name": "podManager",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "prizePool",
     "outputs": [
       {
@@ -631,19 +615,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "reward",
-    "outputs": [
-      {
-        "internalType": "contract IERC20Upgradeable",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -651,7 +622,7 @@
         "type": "address"
       }
     ],
-    "name": "setPodManager",
+    "name": "setManager",
     "outputs": [
       {
         "internalType": "bool",
@@ -665,7 +636,7 @@
   {
     "inputs": [
       {
-        "internalType": "address",
+        "internalType": "contract TokenDrop",
         "name": "_tokenDrop",
         "type": "address"
       }
@@ -684,7 +655,7 @@
   {
     "inputs": [
       {
-        "internalType": "address",
+        "internalType": "contract TokenFaucet",
         "name": "_faucet",
         "type": "address"
       }
@@ -832,45 +803,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "vaultRewardBalance",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "vaultTicketBalance",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "vaultTokenBalance",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -921,7 +853,7 @@
   {
     "inputs": [
       {
-        "internalType": "contract IERC721",
+        "internalType": "contract IERC721Upgradeable",
         "name": "_target",
         "type": "address"
       },

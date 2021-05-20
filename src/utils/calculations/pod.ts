@@ -1,11 +1,9 @@
 import { DateTime, Duration } from "luxon";
-import { ethers, constants, utils, BigNumber } from "ethers";
+import { utils, BigNumber } from "ethers";
 import {
-  commifyTokenBalance,
   transformTokenToHuman,
   numberTrimDecimals,
 } from "@src/helpers/blockchain";
-import { convertNumberToBigNumber } from "../convert";
 import { isBigNumber } from "../is";
 
 isBigNumber
@@ -41,6 +39,7 @@ export const prizePoolWinningDate = (time) => {
  */
 export const podWinningOdds = (tickets: BigNumber, totalTickets: BigNumber): BigNumber => {
   if(isBigNumber(totalTickets) && isBigNumber(tickets) && totalTickets.gt(0) && tickets.gt(0)) {
+    console.log(tickets.toString(), totalTickets.toString(), 'tickets')
     const percentage = totalTickets.div(tickets)
     return percentage
   }
@@ -60,12 +59,6 @@ export const percentageOfPod = (userShares, podTotalShares) => {
     return utils.commify(numberTrimDecimals(calculatePercentage, 3));
   }
   return 0;
-
-  // Calculating w/ BigNumbers returns 0
-  // @TODO Find bug for dividing numbers 18 decimals.
-  const percentage = shares.div(balance);
-  const calculated = percentage.mul(100).toString();
-  return calculated;
 };
 
 /**
@@ -77,7 +70,6 @@ export const percentageOfPod = (userShares, podTotalShares) => {
  */
 export function calculateUserPrizeWinningsFromWinningPod( userShares: BigNumber, totalShares: BigNumber, prizePoolReward: BigNumber ) {
   if(isBigNumber(userShares) && isBigNumber(totalShares) && totalShares.gt(0)) {
-    console.log(prizePoolReward, 'prizePoolReward')
     const userPercentageSharesOfPod = userShares.div(totalShares);
     const userPercentageOfWinnings = prizePoolReward.mul(userPercentageSharesOfPod)
     return userPercentageOfWinnings

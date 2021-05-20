@@ -53,7 +53,8 @@ export const PodCardAPI = ({ token, ...props }) => {
   const cacheQuery = usePoolTogetherPoolData(addresses?.prizePool);
 
   // console.log(cacheQuery, "cacheQuery");
-  console.log(batchQuery, "batchQuerybatchQuery");
+  // console.log(batchQuery, "batchQuerybatchQuery");
+  // console.log(addresses, "addressesaddresses");
 
   return useMemo(() => {
     if (batchQuery.isLoading) {
@@ -71,6 +72,7 @@ export const PodCardAPI = ({ token, ...props }) => {
           addressPodTokenDrop={addresses?.tokenDrop}
           addressReward={addresses.reward}
           addressReward={ERC20Reward}
+          addressToken={addresses?.token}
           dataCache={cacheQuery?.data}
           dataBlock={batchQuery?.data}
           {...props}
@@ -94,6 +96,7 @@ const PodCard = ({
   dataCache,
   dataBlock,
   address,
+  addressToken,
   addressPodTokenDrop,
   addressReward,
   ...props
@@ -112,7 +115,8 @@ const PodCard = ({
         podWinningOdds: podWinningOdds(
           idx(dataBlock, (_) => _.Pod.balance[0]),
           convertNumberToBigNumber(
-            idx(dataCache, (_) => _.tokens.ticket.totalSupply)
+            idx(dataCache, (_) => _.tokens.ticket.totalSupply),
+            decimals
           )
         ),
         calculateUserPrizeWinningsFromWinningPod: calculateUserPrizeWinningsFromWinningPod(
@@ -126,8 +130,6 @@ const PodCard = ({
       });
     }
   }, []);
-
-  console.log(addressPodTokenDrop, "addressPodTokenDropaddressPodTokenDrop");
 
   /* --- Styling & Layout --- */
   const classNameContainerComposed = classnames(
@@ -341,12 +343,19 @@ const PodCard = ({
                 </span>
               </span>
               <span className="block text-white text-2xl">
-                <TokenBalance
+                <ERC20Balance
+                  className="text-white"
+                  address={addressToken}
+                  account={address}
+                  decimals={decimals}
+                  decimalsTrim={7}
+                />
+                {/* <TokenBalance
                   decimals={decimals}
                   balance={idx(dataBlock, (_) =>
                     _.Pod.vaultTokenBalance[0].toString()
                   )}
-                />
+                /> */}
                 <span className="ml-1">{symbol}</span>
               </span>
             </div>

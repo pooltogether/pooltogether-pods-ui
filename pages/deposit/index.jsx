@@ -9,54 +9,13 @@ import {
   useGetPodCOMPAddress,
   useGetPodUNIAddress,
 } from "@hooks/contractAddress";
+import { useEthers } from "@usedapp/core";
 
 /**
  * @name PageDeposit
  * @param {Object} props
  */
 export const PageDeposit = (props) => {
-  const {
-    PodDAI,
-    PodDAITokenDrop,
-    PodDAITicket,
-    PodDAIPrizePool,
-    PodDAIPrizePoolStrategy,
-    PodDAIFaucet,
-    PodDAIcToken,
-    PodDAIPrizePoolTicket,
-    PodDAIPrizePoolTicketSponsored,
-  } = useGetPodDAIAddress();
-
-  const {
-    PodUSDC,
-    PodUSDCTokenDrop,
-    PodUSDCTicket,
-    PodUSDCPrizePool,
-    PodUSDCPrizePoolStrategy,
-    PodUSDCFaucet,
-    PodUSDCcToken,
-  } = useGetPodUSDCAddress();
-
-  const {
-    PodCOMP,
-    PodCOMPTokenDrop,
-    PodCOMPTicket,
-    PodCOMPPrizePool,
-    PodCOMPPrizePoolStrategy,
-    PodCOMPFaucet,
-    PodCOMPcToken,
-  } = useGetPodCOMPAddress();
-
-  const {
-    PodUNI,
-    PodUNITokenDrop,
-    PodUNITicket,
-    PodUNIPrizePool,
-    PodUNIPrizePoolStrategy,
-    PodUNIFaucet,
-    PodUNIcToken,
-  } = useGetPodUNIAddress();
-
   return (
     <div className="py-20">
       <div className="text-center text-center mb-10">
@@ -69,6 +28,41 @@ export const PageDeposit = (props) => {
       </div>
       <div className="max-w-screen-lg mx-auto w-full p-10 lg:p-0">
         <ErrorBoundary>
+          <PodsFromConnectedNetwork />
+        </ErrorBoundary>
+      </div>
+    </div>
+  );
+};
+
+const PodsFromConnectedNetwork = (props) => {
+  const { chainId } = useEthers();
+  switch (chainId) {
+    case 1:
+    case 1337:
+      return (
+        <>
+          <PodCardAPI
+            classNameContainer="border-solid border-t-4 border-yellow-400"
+            token="DAI"
+            symbol="DAI"
+            tokenSymbol="DAI"
+            decimals={18}
+            tokenImage="/tokens/token-dai.png"
+          />
+          <PodCardAPI
+            classNameContainer="border-solid border-t-4 border-blue-400 mt-10"
+            token="USDC"
+            symbol="USDC"
+            tokenSymbol="USDC"
+            decimals={6}
+            tokenImage="/tokens/token-usdc.png"
+          />
+        </>
+      );
+    case 4:
+      return (
+        <>
           <PodCardAPI
             classNameContainer="border-solid border-t-4 border-yellow-400"
             token="DAI"
@@ -93,86 +87,12 @@ export const PageDeposit = (props) => {
             decimals={18}
             tokenImage="/tokens/token-bat.svg"
           />
-        </ErrorBoundary>
-        {/* <ViewDepositPodOverview
-          classNameContainer="border-solid border-t-4 border-yellow-400"
-          token="DAI"
-          symbol="DAI"
-          decimals={18}
-          tokenImage="/tokens/token-dai.png"
-          address={PodDAI}
-          addressFaucet={PodDAIFaucet}
-          addressPrizePool={PodDAIPrizePool}
-          addressPodTokenDrop={PodDAITokenDrop}
-          addressPrizeStrategy={PodDAIPrizePoolStrategy}
-          addressPrizePoolTicket={PodDAITicket}
-          addressPrizePoolCToken={PodDAIcToken}
-          addressPrizePoolTicketSponsored={PodDAIPrizePoolTicketSponsored}
-        />
-        <ViewDepositPodOverview
-          address={PodUSDC}
-          classNameContainer="border-solid border-t-4 border-blue-400"
-          token="USDC"
-          symbol="USDC"
-          decimals={6}
-          tokenImage="/tokens/token-usdc.png"
-          addressPrizePool={PodUSDCPrizePool}
-          addressPrizeStrategy={PodUSDCPrizePoolStrategy}
-          addressPrizePoolTicket={PodUSDCTicket}
-          addressPrizePoolCToken={PodUSDCcToken}
-          addressPodTokenDrop={PodUSDCTokenDrop}
-        /> */}
-        {/* <ViewDepositPodOverview
-          classNameContainer="border-solid border-t-4 border-yellow-400"
-          token="DAI"
-          symbol="DAI"
-          decimals={18}
-          tokenImage="/tokens/token-dai.png"
-          address={PodDAI}
-          addressFaucet={PodDAIFaucet}
-          addressPrizePool={PodDAIPrizePool}
-          addressPodTokenDrop={PodDAITokenDrop}
-          addressPrizeStrategy={PodDAIPrizePoolStrategy}
-          addressPrizePoolTicket={PodDAITicket}
-          addressPrizePoolCToken={PodDAIcToken}
-          addressPrizePoolTicketSponsored={PodDAIPrizePoolTicketSponsored}
-        /> */}
-        {/* <Spacer className="my-10" />
-       
-
-        <Spacer className="my-10" />
-        <ViewDepositPodOverview
-          classNameContainer="border-solid border-t-4 border-red-400"
-          token="COMP"
-          tokenImage="/tokens/token-comp.png"
-          symbol="COMP"
-          decimals={18}
-          address={PodCOMP}
-          addressFaucet={PodCOMPFaucet}
-          addressPrizePool={PodCOMPPrizePool}
-          addressPrizeStrategy={PodCOMPPrizePoolStrategy}
-          addressPrizePoolTicket={PodCOMPTicket}
-          addressPrizePoolCToken={PodCOMPcToken}
-          addressPodTokenDrop={PodCOMPTokenDrop}
-        />
-
-        <Spacer className="my-10" />
-        <ViewDepositPodOverview
-          classNameContainer="border-solid border-t-4 border-green-400"
-          token="UNI"
-          symbol="UNI"
-          decimals={18}
-          tokenImage="/tokens/token-uni.png"
-          address={PodUNI}
-          addressFaucet={PodUNIFaucet}
-          addressPrizePool={PodUNIPrizePool}
-          addressPrizeStrategy={PodUNIPrizePoolStrategy}
-          addressPrizePoolTicket={PodUNITicket}
-          addressPrizePoolCToken={PodUNIcToken}
-          addressPodTokenDrop={PodUNITokenDrop}
-        /> */}
-      </div>
-    </div>
-  );
+        </>
+      );
+    default:
+      return null;
+      break;
+  }
 };
+
 export default PageDeposit;

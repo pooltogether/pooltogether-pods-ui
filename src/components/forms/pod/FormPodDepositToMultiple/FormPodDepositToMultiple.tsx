@@ -60,6 +60,8 @@ export const FormPodDepositToMultiple = ({
   });
   const formValues = watch();
 
+  console.log(selectOptions, "selectOptionsselectOptions");
+
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
@@ -74,11 +76,7 @@ export const FormPodDepositToMultiple = ({
     "token"
   );
 
-  const [decimals] = usePodContractCall(
-    idx(formValues, (_) => _.pod.value),
-    "decimals"
-  );
-
+  const [decimals] = useERC20ContractCall(cachedValues.token, "decimals");
   const [tokenSymbol] = useERC20ContractCall(cachedValues.token, "symbol");
   const [balanceOf] = useERC20ContractCall(cachedValues.token, "balanceOf", [
     account,
@@ -100,6 +98,7 @@ export const FormPodDepositToMultiple = ({
 
   const [error, errorSet] = useState();
   useEffect(() => {
+    console.log(decimals, "decimalsdecimalsdecimals");
     if (formValues && formValues.tokenAmount && isBigNumber(balanceOf)) {
       const amount = convertNumberToBigNumber(formValues.tokenAmount, decimals);
       if (amount.gt(balanceOf)) {
@@ -113,7 +112,7 @@ export const FormPodDepositToMultiple = ({
       isDisabledSet(false);
       errorSet(undefined);
     }
-  }, [formValues]);
+  }, [formValues, decimals]);
 
   /* -------------------------- */
   /* --- Component Handlers --- */

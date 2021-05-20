@@ -52,7 +52,7 @@ export default PageDeposit;
 
 const ManageTabs = (props) => {
   const router = useRouter();
-  const { tab } = router.query;
+  const { tab, token } = router.query;
   const [tabIndex, setTabIndex] = useState(Number(tab));
 
   useEffect(() => {
@@ -79,13 +79,13 @@ const ManageTabs = (props) => {
           <Spacer className="my-20" />
           <div className="text-left text-white">
             <TabPanel>
-              <FormPodDepositToMultiple />
+              <FormPodDepositToMultiple defaultToken={token} />
             </TabPanel>
             <TabPanel>
-              <FormPodWithdrawToMultiple />
+              <FormPodWithdrawToMultiple defaultToken={token} />
             </TabPanel>
             <TabPanel>
-              <FormPodClaimPoolMultiple />
+              <FormPodClaimPoolMultiple defaultToken={token} />
             </TabPanel>
           </div>
         </Tabs>

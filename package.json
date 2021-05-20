@@ -1,11 +1,11 @@
 {
-  "name": "uncover",
+  "name": "pods-interface",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build ; next export",
     "start": "next start",
     "export": "next export",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

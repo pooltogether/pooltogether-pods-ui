@@ -44,8 +44,7 @@ export const FormPodDepositToMultiple = ({
 
   /* --- Submit Handler --- */
   const onSubmit = async (values) => {
-    console.log(PodDAI, "PodDAI");
-    send(true);
+    send();
   };
 
   console.log(state, "statestate");

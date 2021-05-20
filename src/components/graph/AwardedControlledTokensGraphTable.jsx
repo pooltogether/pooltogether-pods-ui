@@ -9,7 +9,10 @@ import {
 } from "react-table";
 
 import styles from "./AwardedControlledTokensGraphTable.module.css";
-import { useAwardedControlledTokensQuery } from "@hooks/thegraph";
+import {
+  useAwardedControlledTokensQuery,
+  usePrizePoolsQuery,
+} from "@hooks/thegraph";
 import {
   EpochToCalendarDate,
   TablePagination,
@@ -22,11 +25,12 @@ import {
  * @param {Object} props
  */
 export const AwardedControlledTokensGraphTable = (props) => {
-  const { data } = useAwardedControlledTokensQuery({}, { limit: 10 });
+  const { data } = usePrizePoolsQuery({}, { limit: 10 });
 
   return useMemo(() => {
-    if (data && data.awardedControlledTokens.length > 0) {
-      return <TableBase data={data.awardedControlledTokens} />;
+    console.log(data, "data.prizePools");
+    if (data && data.prizePools.length > 0) {
+      return <TableBase data={data.prizePools} />;
     }
     return null;
   }, [data]);
@@ -55,7 +59,7 @@ export function TableBase({
     () => [
       {
         Header: "ID",
-        accessor: "prize.prizePool.currentPrizeId",
+        accessor: "id",
         Cell: ({ value }) => (
           <div className="">
             <span className="text-xs px-2">{value}</span>
@@ -107,7 +111,7 @@ export function TableBase({
       },
       {
         Header: "Date",
-        accessor: "prize.awardedTimestamp",
+        accessor: "awardedTimestamp",
         Cell: ({ value }) => (
           <div className="">
             <EpochToCalendarDate className="text-xs" epoch={value} />

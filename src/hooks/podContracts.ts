@@ -34,6 +34,7 @@ export function useGetPodRelatedAddresses(pod: string) {
  */
  export const useGetPodDAIAddress = () => {
   const pod = useGetContractAddress("PodDAI");
+  const token = useGetContractAddress("PodDAIToken");
   const tokenDrop = useGetContractAddress("PodDAITokenDrop");
   const prizePool = useGetContractAddress("PodDAIPrizePool");
   const strategy = useGetContractAddress(
@@ -51,7 +52,7 @@ export function useGetPodRelatedAddresses(pod: string) {
   );
 
   return {
-    pod, tokenDrop, prizePool,strategy, faucet,ctoken,ticket,
+    pod, token, tokenDrop, prizePool,strategy, faucet,ctoken,ticket,
     sponsorship, reward
   };
 };
@@ -62,6 +63,7 @@ export function useGetPodRelatedAddresses(pod: string) {
  */
  export const useGetPodUSDCAddress = () => {
   const pod = useGetContractAddress("PodUSDC");
+  const token = useGetContractAddress("PodUSDCToken");
   const tokenDrop = useGetContractAddress("PodUSDCTokenDrop");
   const prizePool = useGetContractAddress("PodUSDCPrizePool");
   const strategy = useGetContractAddress(
@@ -79,7 +81,7 @@ export function useGetPodRelatedAddresses(pod: string) {
   );
 
   return {
-    pod, tokenDrop, prizePool,strategy, faucet, ctoken,ticket,
+    pod, token, tokenDrop, prizePool,strategy, faucet, ctoken,ticket,
     sponsorship, reward
   };
 };
@@ -89,17 +91,18 @@ export function useGetPodRelatedAddresses(pod: string) {
  * @description Get all Pod related address for DAI.
  */
  export const useGetPodCOMPAddress = () => {
-  const pod = useGetContractAddress("PodDAI");
-  const tokenDrop = useGetContractAddress("PodDAITokenDrop");
-  const prizePool = useGetContractAddress("PodDAIPrizePool");
+  const pod = useGetContractAddress("PodCOMP");
+  const token = useGetContractAddress("PodCOMPToken");
+  const tokenDrop = useGetContractAddress("PodCOMPTokenDrop");
+  const prizePool = useGetContractAddress("PodCOMPPrizePool");
   const strategy = useGetContractAddress(
-    "PodDAIPrizePoolStrategy"
+    "PodCOMPPrizePoolStrategy"
   );
-  const faucet = useGetContractAddress("PodDAIFaucet");
-  const ctoken = useGetContractAddress("PodDAIcToken");
-  const ticket = useGetContractAddress("PodDAIPrizePoolTicket");
+  const faucet = useGetContractAddress("PodCOMPFaucet");
+  const ctoken = useGetContractAddress("PodCOMPcToken");
+  const ticket = useGetContractAddress("PodCOMPPrizePoolTicket");
   const sponsorship = useGetContractAddress(
-    "PodDAIPrizePoolTicketSponsored"
+    "PodCOMPPrizePoolTicketSponsored"
   );
 
   return {
@@ -113,17 +116,18 @@ export function useGetPodRelatedAddresses(pod: string) {
  * @description Get all Pod related address for DAI.
  */
  export const useGetPodUNIAddress = () => {
-  const pod = useGetContractAddress("PodDAI");
-  const tokenDrop = useGetContractAddress("PodDAITokenDrop");
-  const prizePool = useGetContractAddress("PodDAIPrizePool");
+  const pod = useGetContractAddress("PodUNI");
+  const token = useGetContractAddress("PodUNIToken");
+  const tokenDrop = useGetContractAddress("PodUNITokenDrop");
+  const prizePool = useGetContractAddress("PodUNIPrizePool");
   const strategy = useGetContractAddress(
-    "PodDAIPrizePoolStrategy"
+    "PodUNIPrizePoolStrategy"
   );
-  const faucet = useGetContractAddress("PodDAIFaucet");
-  const ctoken = useGetContractAddress("PodDAIcToken");
-  const ticket = useGetContractAddress("PodDAIPrizePoolTicket");
+  const faucet = useGetContractAddress("PodUNIFaucet");
+  const ctoken = useGetContractAddress("PodUNIcToken");
+  const ticket = useGetContractAddress("PodUNIPrizePoolTicket");
   const sponsorship = useGetContractAddress(
-    "PodDAIPrizePoolTicketSponsored"
+    "PodUNIPrizePoolTicketSponsored"
   );
 
   return {

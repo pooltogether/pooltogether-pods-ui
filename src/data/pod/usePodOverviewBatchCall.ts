@@ -21,9 +21,6 @@ export const usePodOverviewBatchCall = (config: PodDataConfig) => {
     pod,
   } = config;
 
-  console.log(pod, 'podpod')
-
-
   const query = useQuery([pod], async () => {
     try {
       let results = await batch(
@@ -31,8 +28,8 @@ export const usePodOverviewBatchCall = (config: PodDataConfig) => {
           PodBatchContract(pod)
           .totalSupply()
           .getPricePerShare()
-          .vaultTokenBalance()
-          .vaultTicketBalance()
+          // .vaultTokenBalance()
+          // .vaultTicketBalance()
           .balanceOf(account)
           .balance(),
           // PrizePoolFaucetBatchContract('Faucet', faucet)
