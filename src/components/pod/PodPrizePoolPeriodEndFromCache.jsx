@@ -1,8 +1,5 @@
 import { DateTime, Duration } from "luxon";
-import {
-  convertNumberToBigNumber,
-  convertBigNumberToUSD,
-} from "@src/utils/convert";
+import { convertNumberToBigNumber } from "@src/utils/convert";
 import { useMemo } from "react";
 
 /**

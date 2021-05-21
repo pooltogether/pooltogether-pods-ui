@@ -67,7 +67,7 @@ const ManageTabs = (props) => {
                 orderDirection="asc"
                 underlyingCollateralSymbol="DAI"
                 decimals={18}
-                podAddress="0x57e848a6915455a7e77cf0d55a1474befd9c374d"
+                podAddress="0xaD104c86c0f9A05ed445F858CdE948fE7E0Bbac6"
                 symbolColor="text-yellow-400"
               />
             </TabPanel>
@@ -125,7 +125,7 @@ const ManageTabs = (props) => {
 const Header = ({ symbol, image }) => {
   return (
     <div
-      className="flex justify-center items-center text-center py-14 rounded-xl"
+      className="flex justify-center items-center text-center py-14 rounded-t-xl"
       style={{ backgroundColor: "#1f1236" }}
     >
       <img src={image} width={54} /> <Spacer className="mx-2" />

@@ -51,6 +51,8 @@ export const ERC20UnlockTransferFrom = ({
     allowanceOf,
   ]);
 
+  console.log(state, "statestate");
+
   /* ----------------------- */
   /* --- Component Hooks --- */
   /* ----------------------- */
@@ -73,7 +75,7 @@ export const ERC20UnlockTransferFrom = ({
       }
     }
     // return () => allowanceStatusSet(0);
-  }, [balanceOfAccount, allowanceOfPod]);
+  }, [balanceOfAccount, allowanceOfPod, state]);
 
   // Compare Balance/Allowance : Memo
   const allowanceFormatted = useMemo(() => {
@@ -137,25 +139,13 @@ export const ERC20UnlockTransferFrom = ({
           >
             Enable Pod Deposits
           </button>
-          {/* <button
-            type="button"
-            className="btn-purple w-1/2 ml-3"
-            onClick={() => handleApproveAction(infiniteApproveAmount)}
-          >
-            Infinite Unlock
-          </button>
-          <span
-            onClick={handleCancel}
-            className="cursor-pointer flex flex-col flex-center ml-1 px-4 tag-blue rounded-lg"
-          >
-            <img src="/images/close.svg" width={14} height="auto" />
-          </span> */}
           <div className="text-right self-start mt-2"></div>
         </div>
       </>
     );
 
   if (allowanceStatus === 2) {
+    // return
     return (
       <>
         <div className="flex-1">{children}</div>

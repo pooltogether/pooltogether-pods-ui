@@ -6,8 +6,6 @@ import {
 } from "@src/helpers/blockchain";
 import { isBigNumber } from "../is";
 
-isBigNumber
-
 /**
  * @name prizePoolWinningDate
  * @param {*} time

@@ -5,7 +5,6 @@ import {
   useContractFunction,
   useEthers,
 } from "@usedapp/core";
-
 /* --- Local Modules --- */
 import { ERC20Interface } from "@constants";
 import { useGetERC20Contract } from "@hooks/contracts";

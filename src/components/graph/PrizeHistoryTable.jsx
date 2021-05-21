@@ -1,4 +1,3 @@
-import idx from "idx";
 import _ from "lodash";
 import { useMemo } from "react";
 import Link from "next/link";
@@ -16,7 +15,6 @@ import {
   EpochToCalendarDate,
   TablePagination,
   TokenBalance,
-  EtherscanLink,
 } from "@components";
 import { utils, BigNumber } from "ethers";
 
@@ -53,7 +51,6 @@ export const PrizeHistoryTable = ({
   return useMemo(() => {
     if (data && data.prizePools.length > 0) {
       let prizes = [];
-      console.log(data.prizePools, "data.prizePools");
       data.prizePools.forEach((prizePool) => {
         let isPodWinner = false;
         prizePool.prizes.forEach((prize) => {
@@ -142,7 +139,7 @@ export function TableBase({
       {
         Header: () => (
           <>
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-start justify-center">
               <h3 className=" font-bold text-lg">Prize</h3>
               <span className="text-xs font-light" style={{ fontSize: 8 }}>
                 (Excludes LOOT Box)
@@ -153,36 +150,28 @@ export function TableBase({
         accessor: "totalPrizeControlledokens",
         Cell: ({ value, row }) => {
           return (
-            <div className="">
+            <div className="text-left">
               <TokenBalance balance={value} decimals={decimals} />
               <span className={`font-bold ml-1 ${symbolColor}`}>
                 {row.original.prizePool.underlyingCollateralSymbol}
               </span>
+              {row.original.isPodWinner && (
+                <span
+                  className="tag-purple text-white text-xs px-4 ml-3"
+                  style={{
+                    background:
+                      "linear-gradient(71.84deg, rgba(255, 119, 225, 0.9) -59.48%, #4C249F 100.31%)",
+                    borderRadius: "30px",
+                  }}
+                >
+                  <img src="/images/pooltogether-trophy.svg" width={10} />
+                  <span className="mx-2">Pod Won</span>
+                  <img src="/images/pooltogether-trophy.svg" width={10} />
+                </span>
+              )}
             </div>
           );
         },
-      },
-      {
-        Header: "Status",
-        accessor: "isPodWinner",
-        Cell: ({ value, row }) => (
-          <div className="">
-            {row.original.isPodWinner && (
-              <span
-                className="tag-purple text-white px-4"
-                style={{
-                  background:
-                    "linear-gradient(71.84deg, rgba(255, 119, 225, 0.9) -59.48%, #4C249F 100.31%)",
-                  borderRadius: "30px",
-                }}
-              >
-                <img src="/images/pooltogether-trophy.svg" width={10} />
-                <span className="mx-2">Pod Won</span>
-                <img src="/images/pooltogether-trophy.svg" width={12} />
-              </span>
-            )}
-          </div>
-        ),
       },
       {
         Header: "Winner Count",
@@ -201,23 +190,8 @@ export function TableBase({
         Header: "Date",
         accessor: "awardedTimestamp",
         Cell: ({ value }) => (
-          <div className="">
-            <EpochToCalendarDate className="text-lg font-thin" epoch={value} />
-          </div>
-        ),
-      },
-      {
-        Header: "Transaction",
-        accessor: "transaction",
-        Cell: ({ value }) => (
           <div className="text-right pr-3">
-            <EtherscanLink
-              transaction
-              className="text-xs text-purple-300 hover:text-purple-400 "
-              hash={value}
-            >
-              View Transcation
-            </EtherscanLink>
+            <EpochToCalendarDate className="text-lg font-thin" epoch={value} />
           </div>
         ),
       },

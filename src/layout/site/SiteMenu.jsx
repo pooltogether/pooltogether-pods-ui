@@ -18,12 +18,13 @@ export const SiteMenu = () => {
           Manage
         </a>
       </Link>
-      {/* <Link href="/prize-history">
+      <Link href="/prize-history">
         <a className="text-sm text-teal-300 hover:text-teal-600 font-medium text-center">
           Prize History
         </a>
-      </Link> */}
+      </Link>
     </div>
   );
 };
+
 export default SiteMenu;

@@ -30,6 +30,10 @@ import {
 import { useERC20ContractCall } from "@hooks/useContractERC20";
 
 import {
+  PodBalanceOfUnderlying,
+  PodShareOfPodTotal,
+  PodBalanceTotal,
+  PodUserShareOfPrize,
   ERC20Balance,
   TokenBalance,
   UserClaimablePool,
@@ -69,6 +73,7 @@ export const PodCardAPI = ({ token, ...props }) => {
       return (
         <PodCard
           address={addresses?.pod}
+          addressPrizePool={addresses?.prizePool}
           addressPodTokenDrop={addresses?.tokenDrop}
           addressReward={addresses.reward}
           addressReward={ERC20Reward}
@@ -80,7 +85,7 @@ export const PodCardAPI = ({ token, ...props }) => {
       );
     }
     return null;
-  }, [cacheQuery.isFetching, batchQuery.isFetching]);
+  }, [cacheQuery.isFetching, batchQuery]);
 };
 
 /**
@@ -99,6 +104,7 @@ const PodCard = ({
   addressToken,
   addressPodTokenDrop,
   addressReward,
+  addressPrizePool,
   ...props
 }) => {
   const [isOpen, toggleIsOpen] = useToggle();
@@ -129,7 +135,7 @@ const PodCard = ({
         ),
       });
     }
-  }, []);
+  }, [dataBlock]);
 
   /* --- Styling & Layout --- */
   const classNameContainerComposed = classnames(
@@ -217,17 +223,16 @@ const PodCard = ({
           <div className="text-teal-500 text-center lg:text-left">
             <span className="block text-xs">My deposit:</span>
             <span className="block text-white text-2xl">
-              <TokenBalance
+              {/* <TokenBalance
                 decimals={decimals}
                 balance={idx(dataBlock, (_) => _.Pod.balanceOf[0])}
-              />
+              /> */}
+              <PodBalanceOfUnderlying address={address} />
               <span className="ml-1">{symbol}</span>
             </span>
             <span className="block">
               <span className="text-xs">Share of Pod:</span>
-              <span className="ml-1">
-                {idx(dataCalculations, (_) => _.percentageOfPod)} %
-              </span>
+              <PodShareOfPodTotal className="ml-1" address={address} />
             </span>
           </div>
 
@@ -238,7 +243,11 @@ const PodCard = ({
                 <span className="block text-xs">My share (when Pod wins):</span>
                 <span className="block text-white text-2xl">
                   <span className="ml-1">
-                    {commifyTokenBalanceFromHuman(
+                    <PodUserShareOfPrize
+                      address={address}
+                      addressPrizePool={addressPrizePool}
+                    />
+                    {/* {commifyTokenBalanceFromHuman(
                       transformTokenToHuman(
                         idx(
                           dataCalculations,
@@ -247,7 +256,7 @@ const PodCard = ({
                         2
                       ),
                       2
-                    )}
+                    )} */}
                   </span>
                   <span className="ml-1">{symbol}</span>
                 </span>
@@ -322,14 +331,15 @@ const PodCard = ({
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-10 gap-y-6 row-second mt-10">
             {/* Grid 1 */}
             <div className="text-teal-500 text-center lg:text-left">
-              <span className="block text-xs">Pod's Total Shares</span>
+              <span className="block text-xs">Pod's Total Balance</span>
               <span className="block text-white text-2xl">
-                <TokenBalance
+                <PodBalanceTotal address={address} />
+                {/* <TokenBalance
                   decimals={decimals}
                   balance={idx(dataBlock, (_) =>
                     _.Pod.totalSupply[0].toString()
                   )}
-                />
+                /> */}
                 <span className="ml-1">{symbol}</span>
               </span>
             </div>
@@ -515,6 +525,7 @@ const PodCardDisconnected = ({
   dataCache,
   tokenImage,
   symbol,
+  address,
 }) => {
   const classNameContainerComposed = classnames(
     "bg-purple-900 bg-opacity-40 p-10 px-20 text-center text-white",

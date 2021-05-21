@@ -37,9 +37,7 @@ export const UserPoolApr = ({ address, label, ...props }) => {
       (async () => {
         const claimPOOLAmount = await contract.callStatic.claim(account);
         podClaimableAmountSet(commifyTokenBalance(claimPOOLAmount.toString()));
-
         const price = BigNumber.from(22);
-
         calculateAPR(claimPOOLAmount, price);
       })();
     }
