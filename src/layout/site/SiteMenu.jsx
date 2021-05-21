@@ -2,9 +2,8 @@ import Link from "next/link";
 
 /**
  * @name SiteMenu
- * @param {Object} props
  */
-export const SiteMenu = (props) => {
+export const SiteMenu = () => {
   return (
     <div className="grid grid-cols-3 gap-x-4 my-3">
       <Link href="/deposit">
@@ -12,7 +11,9 @@ export const SiteMenu = (props) => {
           Deposit
         </a>
       </Link>
-      <Link href="/manage?tab=0">
+      <Link
+        href={`/manage?tab=0&token=0xaD104c86c0f9A05ed445F858CdE948fE7E0Bbac6`}
+      >
         <a className="text-sm text-teal-300 hover:text-teal-600 font-medium text-center">
           Manage
         </a>

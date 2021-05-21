@@ -201,7 +201,7 @@ const PodCard = ({
               </button>
             </Link>
             <Spacer className="my-4" />
-            <Link href="/manage?tab=1">
+            <Link href={`/manage?tab=1&token=${address}`}>
               <button className="btn btn-teal bg-teal-800 bg-opacity-60 text-teal-400 uppercase w-full">
                 Manage
               </button>
@@ -307,7 +307,9 @@ const PodCard = ({
                 </span>
                 <Spacer className="my-1" />
                 <span className="inline-block tag-teal bg-teal-700 text-white">
-                  <Link href="/manage?tab=2">Claim POOL</Link>
+                  <Link href={`/manage?tab=2&token=${address}`}>
+                    Claim POOL
+                  </Link>
                 </span>
               </div>
               {/* <Spacer className="my-8" /> */}
@@ -561,7 +563,7 @@ const PodCardDisconnected = ({
           </div>
         </div>
         <div className="col-span-1">
-          <Link href="/manage?tab=0">
+          <Link href={`/manage?tab=0&token=${address}`}>
             <button className="btn-purple-light text-black-60 uppercase w-full">
               Deposit {symbol}
             </button>

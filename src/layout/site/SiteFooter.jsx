@@ -26,10 +26,8 @@ export const SiteFooter = (props) => {
           <h3 className="font-semibold text-4xl uppercases text-teal text-shadow-md">
             {APPLICATION_NAME}
           </h3>
-          <p className="text-sm">
-            <span className="font-normal text-shadow-md">
-              {APPLICATION_TAGLINE}
-            </span>
+          <p className="font-normal text-xs text-shadow-md">
+            {APPLICATION_TAGLINE}
           </p>
         </div>
         <div className="p-5 w-1/2 w-full sm:w-4/12 md:w-3/12">
@@ -84,19 +82,49 @@ export const SiteFooter = (props) => {
             href="https://twitter.com/PoolTogether_"
             className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700"
           >
-            Twitter
+            <img
+              className="inline-block mr-1"
+              src="/social/twitter-white.svg"
+              width={14}
+            />
+            <span className="inline-block">Twitter</span>
           </a>
-        </div>
-      </div>
-
-      <div className="flex m-auto  border-t border-gray-500 p-5 text-white text-sm flex-col md:flex-row max-w-screen-xl">
-        <div className="">
-          © Copyright 2020 |{" "}
-          <span className="text-white">
-            <a target="_blank" href="https://pooltogether.com/">
-              PoolTogether
-            </a>
-          </span>
+          <a
+            target="_blank"
+            href="https://discord.gg/hxPhPDW"
+            className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700"
+          >
+            <img
+              className="inline-block mr-1"
+              src="/social/discord-white.svg"
+              width={14}
+            />
+            <span className="inline-block">Discord</span>
+          </a>
+          <a
+            target="_blank"
+            href="https://github.com/pooltogether"
+            className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700"
+          >
+            <img
+              className="inline-block mr-1"
+              src="/social/github-white.svg"
+              width={14}
+            />
+            <span className="inline-block">Github</span>
+          </a>
+          <a
+            target="_blank"
+            href="https://medium.com/pooltogether"
+            className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700"
+          >
+            <img
+              className="inline-block mr-1"
+              src="/social/medium-white.svg"
+              width={14}
+            />
+            <span className="inline-block">Medium</span>
+          </a>
         </div>
       </div>
     </footer>

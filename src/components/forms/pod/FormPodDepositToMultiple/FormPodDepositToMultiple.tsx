@@ -87,13 +87,12 @@ export const FormPodDepositToMultiple = ({
   // Set Default Token :: Effect
   useEffect(() => {
     if (defaultToken) {
-      console.log(defaultToken, "defaultToken");
       const filtered = selectOptions.filter((option) => {
         return utils.getAddress(option.value) == utils.getAddress(defaultToken);
       });
-
-      console.log(filtered, "filtered");
-      setValue("pod", filtered[0]);
+      if (filtered.length > 0) {
+        setValue("pod", filtered[0]);
+      }
     }
   }, []);
 

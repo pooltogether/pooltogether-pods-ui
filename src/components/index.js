@@ -16,6 +16,7 @@ export { TokenPriceUSDWithAccountBalance } from "./tokens/TokenPriceUSDWithAccou
 /* --- Web3 Components --- */
 /* ------------------------ */
 export { AwardedControlledTokensGraphTable } from "./graph/AwardedControlledTokensGraphTable";
+export { PrizeHistoryTable } from "./graph/PrizeHistoryTable";
 export { RubiksCube } from "./loading/RubiksCube";
 export { TransactionMining } from "./loading/TransactionMining";
 export { TransactionConfetti } from "./loading/TransactionConfetti";

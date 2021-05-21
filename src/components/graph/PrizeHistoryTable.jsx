@@ -1,4 +1,5 @@
 import idx from "idx";
+import _ from "lodash";
 import { useMemo } from "react";
 import Link from "next/link";
 import {
@@ -17,15 +18,19 @@ import {
   TokenBalance,
   EtherscanLink,
 } from "@components";
+import { utils, BigNumber } from "ethers";
 
 /**
  * @name
  * @param {Object} props
  */
-export const AwardedControlledTokensGraphTable = ({
+export const PrizeHistoryTable = ({
   first,
   orderDirection,
   underlyingCollateralSymbol,
+  podAddress,
+  decimals,
+  symbolColor,
 }) => {
   const { data } = usePrizePoolsQuery(
     {
@@ -36,19 +41,51 @@ export const AwardedControlledTokensGraphTable = ({
     {}
   );
 
+  const totalPrizeReducer = (accumulator, currentValue) => {
+    if (BigNumber.isBigNumber(accumulator)) {
+      return accumulator.add(BigNumber.from(currentValue.amount));
+    } else {
+      return BigNumber.from(accumulator.amount).add(
+        BigNumber.from(currentValue.amount)
+      );
+    }
+  };
   return useMemo(() => {
     if (data && data.prizePools.length > 0) {
       let prizes = [];
-
+      console.log(data.prizePools, "data.prizePools");
       data.prizePools.forEach((prizePool) => {
+        let isPodWinner = false;
         prizePool.prizes.forEach((prize) => {
+          prize.isPodWinner = false;
+          prize.awardedControlledTokens.forEach((awarded) => {
+            if (
+              utils.getAddress(awarded.winner) == utils.getAddress(podAddress)
+            ) {
+              prize.isPodWinner = true;
+            }
+          });
+
+          const totalPrizeControlledokens = prize.awardedControlledTokens.reduce(
+            totalPrizeReducer,
+            { amount: "0" }
+          );
+          prize.totalPrizeControlledokens = totalPrizeControlledokens;
           prizes.push(prize);
         });
       });
 
-      console.log(prizes, "prizesprizes");
+      const prizesSortedByDate = _.sortBy(prizes, [
+        "awardedTimestamp",
+      ]).reverse();
 
-      return <TableBase data={prizes} />;
+      return (
+        <TableBase
+          data={prizesSortedByDate}
+          decimals={decimals}
+          symbolColor={symbolColor}
+        />
+      );
     }
     return null;
   }, [data]);
@@ -70,6 +107,8 @@ export function TableBase({
   pageSizeDefault,
   filter,
   setSearchFilter,
+  decimals,
+  symbolColor,
   ...props
 }) {
   console.log(data, "datadata");
@@ -87,70 +126,83 @@ export function TableBase({
         ),
       },
       {
-        Header: "PrizePool",
-        accessor: "underlyingCollateralSymbol",
-        Cell: ({ value }) => (
-          <div className="">
-            <span className="text-xs px-2">{value}</span>
-          </div>
-        ),
-      },
-      {
-        Header: "PrizePool Type",
-        accessor: "prizePoolType",
-        Cell: ({ value }) => (
-          <div className="">
-            <span className="text-xs px-2">{value}</span>
-          </div>
-        ),
-      },
-      {
-        Header: "Prize",
-        accessor: "awardedControlledTokens",
+        Header: "Total Deposits",
+        accessor: "totalTicketSupply",
         Cell: ({ value, row }) => {
           return (
             <div className="">
-              <TokenBalance balance={value[0].amount} />
-              {/* <span className="font-bold ml-1 text-pink-400">
-                {idx(row, (_) => _.original.token.symbol)}
-              </span> */}
+              <TokenBalance balance={value} decimals={decimals} />
+              <span className={`font-bold ml-1 ${symbolColor}`}>
+                {row.original.prizePool.underlyingCollateralSymbol}
+              </span>
             </div>
           );
         },
       },
       {
-        Header: "Winner Count",
-        accessor: "numberOfSubWinners",
+        Header: () => (
+          <>
+            <div className="flex flex-col items-center justify-center">
+              <h3 className=" font-bold text-lg">Prize</h3>
+              <span className="text-xs font-light" style={{ fontSize: 8 }}>
+                (Excludes LOOT Box)
+              </span>
+            </div>
+          </>
+        ),
+        accessor: "totalPrizeControlledokens",
         Cell: ({ value, row }) => {
-          return <span className="font-bold ml-1 text-pink-400">{value}</span>;
+          return (
+            <div className="">
+              <TokenBalance balance={value} decimals={decimals} />
+              <span className={`font-bold ml-1 ${symbolColor}`}>
+                {row.original.prizePool.underlyingCollateralSymbol}
+              </span>
+            </div>
+          );
         },
       },
       {
-        Header: "Winner",
-        accessor: "winner",
-        Cell: ({ value }) => (
+        Header: "Status",
+        accessor: "isPodWinner",
+        Cell: ({ value, row }) => (
           <div className="">
-            <span
-              className="tag-purple text-white px-4"
-              style={{
-                background:
-                  "linear-gradient(71.84deg, rgba(255, 119, 225, 0.9) -59.48%, #4C249F 100.31%)",
-                borderRadius: "30px",
-              }}
-            >
-              <img src="/images/pooltogether-trophy.svg" width={10} />
-              <span className="mx-2">Pod Won</span>
-              <img src="/images/pooltogether-trophy.svg" width={12} />
-            </span>
+            {row.original.isPodWinner && (
+              <span
+                className="tag-purple text-white px-4"
+                style={{
+                  background:
+                    "linear-gradient(71.84deg, rgba(255, 119, 225, 0.9) -59.48%, #4C249F 100.31%)",
+                  borderRadius: "30px",
+                }}
+              >
+                <img src="/images/pooltogether-trophy.svg" width={10} />
+                <span className="mx-2">Pod Won</span>
+                <img src="/images/pooltogether-trophy.svg" width={12} />
+              </span>
+            )}
           </div>
         ),
+      },
+      {
+        Header: "Winner Count",
+        accessor: "numberOfSubWinners",
+        Cell: ({ value, row }) => {
+          return (
+            <div className="">
+              <span className="font-normal ml-1 text-pink-400 text-xl">
+                {value}
+              </span>
+            </div>
+          );
+        },
       },
       {
         Header: "Date",
         accessor: "awardedTimestamp",
         Cell: ({ value }) => (
           <div className="">
-            <EpochToCalendarDate className="text-xs" epoch={value} />
+            <EpochToCalendarDate className="text-lg font-thin" epoch={value} />
           </div>
         ),
       },
@@ -158,7 +210,7 @@ export function TableBase({
         Header: "Transaction",
         accessor: "transaction",
         Cell: ({ value }) => (
-          <div className="">
+          <div className="text-right pr-3">
             <EtherscanLink
               transaction
               className="text-xs text-purple-300 hover:text-purple-400 "
@@ -283,4 +335,4 @@ export function TableBase({
   );
 }
 
-export default AwardedControlledTokensGraphTable;
+export default PrizeHistoryTable;

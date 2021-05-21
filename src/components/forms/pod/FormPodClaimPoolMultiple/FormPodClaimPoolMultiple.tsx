@@ -13,28 +13,19 @@ import {
   commifyTokenBalance,
   transformTokenToHuman,
 } from "@helpers/blockchain";
-import { useGetPodSelectOptions } from "@hooks/useGetPodSelectOptions";
 
-// Contracts
-import { useGetAllPodAndTokenDropAddresses } from "@src/hooks/contractAddress";
-import { useGetAllPodAddress } from "@hooks/contractAddress";
-import {
-  useGetPodContract,
-  useGetTokenDropContract,
-} from "@src/hooks/contracts";
-import { usePodContractFunction } from "@src/hooks/useContractPod";
+import { useGetTokenDropContract } from "@src/hooks/contracts";
+import { useContractTokenDropFunction } from "@src/hooks/useContractTokenDrop";
 import { useGetPodAndTokenDropSelectOptions } from "@src/hooks/useGetPodAndTokenDropSelectOptions";
-
-// COmponents
 import {
-  RubiksCube,
   TransactionConfetti,
   TransactionMining,
   Spacer,
   WalletIsConnected,
   Select,
-} from "@components";
-import { useContractTokenDropFunction } from "@src/hooks/useContractTokenDrop";
+  TokenOption,
+  TokenSingleValue,
+} from "@src/components";
 
 /**
  * @name PodDepositTo
@@ -42,10 +33,9 @@ import { useContractTokenDropFunction } from "@src/hooks/useContractTokenDrop";
  * @return Component
  */
 export const FormPodWithdrawToMultiple = ({
-  className,
   label,
+  defaultToken,
   defaultValues,
-  displayLabels,
 }: IPodForm) => {
   /* ----------------------- */
   /* --- Component State --- */
@@ -57,7 +47,7 @@ export const FormPodWithdrawToMultiple = ({
   /* --- Form State --- */
   /* ------------------ */
   const { handleSubmit, register, control, setValue, watch } = useForm({
-    defaultValues,
+    defaultValues: { pod: selectOptions[0] },
   });
   const formValues = watch();
 
@@ -74,6 +64,18 @@ export const FormPodWithdrawToMultiple = ({
   /* ------------------------ */
   /* --- Blockchain Hooks --- */
   /* ------------------------ */
+  // Set Default Token :: Effect
+  useEffect(() => {
+    if (defaultToken) {
+      const filtered = selectOptions.filter((option) => {
+        return utils.getAddress(option.value) == utils.getAddress(defaultToken);
+      });
+      if (filtered.length > 0) {
+        setValue("pod", filtered[0]);
+      }
+    }
+  }, []);
+
   // Update User Account : Effect
   useEffect(() => {
     if (account) setValue("user", account);
@@ -177,6 +179,10 @@ export const FormPodWithdrawToMultiple = ({
               placeholder="Select Pod"
               styles={selectTokenDropStyles}
               options={selectOptions}
+              components={{
+                Option: TokenOption,
+                SingleValue: TokenSingleValue,
+              }}
             />
           </div>
         </div>

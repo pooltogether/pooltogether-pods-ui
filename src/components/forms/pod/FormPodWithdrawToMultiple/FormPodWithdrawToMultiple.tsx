@@ -41,6 +41,7 @@ import {
  */
 export const FormPodDepositToMultiple = ({
   label,
+  defaultToken,
   defaultValues,
 }: IPodForm) => {
   /* --- Component State --- */
@@ -65,7 +66,9 @@ export const FormPodDepositToMultiple = ({
     watch,
     formState,
   } = useForm({
-    defaultValues,
+    defaultValues: {
+      pod: selectOptions[0],
+    },
   });
   const formValues = watch();
 
@@ -103,6 +106,18 @@ export const FormPodDepositToMultiple = ({
   /* ----------------------- */
   /* --- Component Hooks --- */
   /* ----------------------- */
+  // Set Default Token :: Effect
+  useEffect(() => {
+    if (defaultToken) {
+      const filtered = selectOptions.filter((option) => {
+        return utils.getAddress(option.value) == utils.getAddress(defaultToken);
+      });
+      if (filtered.length > 0) {
+        setValue("pod", filtered[0]);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (account) setValue("to", account);
   }, [account]);

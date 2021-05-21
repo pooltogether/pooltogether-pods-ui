@@ -5,7 +5,10 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 /* --- Local Modules --- */
 import { BalanceRender, Spacer } from "../../src/components";
-import { AwardedControlledTokensGraphTable } from "@components";
+import {
+  AwardedControlledTokensGraphTable,
+  PrizeHistoryTable,
+} from "@components";
 
 /**
  * @name PageDeposit
@@ -51,21 +54,35 @@ const ManageTabs = (props) => {
           <TabList className="flex justify-center">
             <Tab>DAI</Tab>
             <Tab>USDC</Tab>
-            <Tab>COMP</Tab>
+            {/* <Tab>COMP</Tab>
             <Tab>UNI</Tab>
-            <Tab>POOL</Tab>
+            <Tab>POOL</Tab> */}
           </TabList>
           <Spacer className="my-10" />
           <div className="text-left text-white">
             <TabPanel>
               <Header symbol="DAI" image="/tokens/token-dai.png" />
-              <AwardedControlledTokensGraphTable />
+              <PrizeHistoryTable
+                first={40}
+                orderDirection="asc"
+                underlyingCollateralSymbol="DAI"
+                decimals={18}
+                podAddress="0x57e848a6915455a7e77cf0d55a1474befd9c374d"
+                symbolColor="text-yellow-400"
+              />
             </TabPanel>
             <TabPanel>
               <Header symbol="USDC" image="/tokens/token-usdc.png" />
-              <AwardedControlledTokensGraphTable />
+              <PrizeHistoryTable
+                first={40}
+                orderDirection="desc"
+                underlyingCollateralSymbol="USDC"
+                decimals={6}
+                podAddress="0x4C8A84387A2ad7a85113e913fb650Def886DCc04"
+                symbolColor="text-blue-400"
+              />
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
               <Header symbol="COMP" image="/tokens/token-comp.png" />
               <AwardedControlledTokensGraphTable />
             </TabPanel>
@@ -76,7 +93,7 @@ const ManageTabs = (props) => {
             <TabPanel>
               <Header symbol="POOL" image="/tokens/token-pool.png" />
               <AwardedControlledTokensGraphTable />
-            </TabPanel>
+            </TabPanel> */}
           </div>
         </Tabs>
         <style global jsx>{`

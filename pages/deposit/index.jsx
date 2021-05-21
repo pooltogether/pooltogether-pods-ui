@@ -79,19 +79,10 @@ const PodsFromConnectedNetwork = (props) => {
             decimals={6}
             tokenImage="/tokens/token-usdc.png"
           />
-          <PodCardAPI
-            classNameContainer="border-solid border-t-4 border-blue-400 mt-10"
-            token="BAT"
-            symbol="BAT"
-            tokenSymbol="BAT"
-            decimals={18}
-            tokenImage="/tokens/token-bat.svg"
-          />
         </>
       );
     default:
       return null;
-      break;
   }
 };
 
