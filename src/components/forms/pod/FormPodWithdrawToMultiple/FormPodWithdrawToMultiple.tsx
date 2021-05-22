@@ -95,9 +95,9 @@ export const FormPodDepositToMultiple = ({
   );
 
   const [podTokenBalance] = usePodContractCall(
-    cachedValues.token,
+    idx(formValues, (_) => _.pod.value),
     "balanceOf",
-    [idx(formValues, (_) => _.pod.value)]
+    [account]
   );
 
   // ERC20 Contract
@@ -147,7 +147,8 @@ export const FormPodDepositToMultiple = ({
   };
 
   const setInputAmountMax = () => {
-    setValue("tokenAmount", utils.formatUnits(podTokenBalance, decimals));
+    console.log(podTokenBalance, "podTokenBalancepodTokenBalance");
+    setValue("shareAmount", utils.formatUnits(podTokenBalance, decimals));
   };
 
   /* --------------------------- */
@@ -158,7 +159,7 @@ export const FormPodDepositToMultiple = ({
       (async () => {
         try {
           const getEarlyExitFee = await contract.callStatic.getEarlyExitFee(
-            utils.parseEther(formValues.shareAmount, decimals)
+            utils.parseUnits(formValues.shareAmount, decimals)
           );
           earlyExitFeeSet(getEarlyExitFee);
           setValue("maxFee", transformTokenToHuman(getEarlyExitFee.toString()));
@@ -245,46 +246,6 @@ export const FormPodDepositToMultiple = ({
           classNameInputContainer="bg-teal-600 bg-opacity-20 h-15 flex items-center justify-between input-skinny relative"
           // classNameSelectContainer="ml-0 text-gray-600 bg-teal-600 bg-opacity-20"
         />
-
-        {/* <div className="grid grid-cols-7">
-          <div className="col-span-5">
-            <input
-              className="input-skinny text-xl font-light text-white w-full"
-              name="shareAmount"
-              placeholder={`Amount ${
-                !formValues.pod ? "(Select Token First)" : ""
-              }`}
-              ref={register({ required: true })}
-              disabled={!formValues.pod}
-              onChange={throttleEarlyExitFee}
-              style={{
-                background: "rgba(14,163,164,0.2)",
-                height: 50,
-              }}
-            />
-          </div>
-          <div className="col-span-2 ml-0 text-gray-600">
-            <Select
-              name="pod"
-              className="h-50"
-              placeholder="Token"
-              styles={selectTokenDropStyles}
-              options={selectOptions}
-              control={control}
-            />
-          </div>
-        </div>
-        <input
-          hidden
-          className="input-skinny text-xl font-light text-white w-full"
-          name="maxFee"
-          placeholder="MaxFee"
-          ref={register({ required: true })}
-          style={{
-            background: "rgba(14,163,164,0.2)",
-            height: 50,
-          }}
-        /> */}
         <input
           hidden
           className="input-skinny text-xl font-light text-white w-full"

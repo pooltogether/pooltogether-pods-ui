@@ -19,7 +19,13 @@ export const PodBalanceTotal = ({ className, address, decimals, ...props }) => {
   /* --- Component Render --- */
   /* ------------------------ */
   return useMemo(() => {
-    return <TokenBalance className={className} balance={balance} />;
+    return (
+      <TokenBalance
+        className={className}
+        balance={balance}
+        decimals={decimals}
+      />
+    );
   }, [balance]);
 };
 

@@ -1,15 +1,6 @@
-import { PodCardAPI } from "@views/PodCardAPI";
-import { PodCard } from "@views/PodCard";
-import { ViewDepositPodOverview } from "@views/ViewDepositPodOverview";
-
-import { ErrorBoundary, Spacer } from "@components";
-import {
-  useGetPodDAIAddress,
-  useGetPodUSDCAddress,
-  useGetPodCOMPAddress,
-  useGetPodUNIAddress,
-} from "@hooks/contractAddress";
 import { useEthers } from "@usedapp/core";
+import { ErrorBoundary } from "@components";
+import { PodCardAPI } from "@views/PodCardAPI";
 
 /**
  * @name PageDeposit

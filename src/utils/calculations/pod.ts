@@ -37,7 +37,6 @@ export const prizePoolWinningDate = (time) => {
  */
 export const podWinningOdds = (tickets: BigNumber, totalTickets: BigNumber): BigNumber => {
   if(isBigNumber(totalTickets) && isBigNumber(tickets) && totalTickets.gt(0) && tickets.gt(0)) {
-    console.log(tickets.toString(), totalTickets.toString(), 'tickets')
     const percentage = totalTickets.div(tickets)
     return percentage
   }

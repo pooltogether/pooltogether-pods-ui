@@ -1,44 +1,80 @@
-import Link from "next/link";
-import { Spacer } from "../src/components/";
+import { useEthers } from "@usedapp/core";
+import { ErrorBoundary } from "@components";
+import { PodCardAPI } from "@views/PodCardAPI";
 
 /**
- * @name HomePage
+ * @name PageDeposit
  * @param {Object} props
  */
-const HomePage = (props) => {
+export const PageDeposit = (props) => {
   return (
-    <>
-      <HeroSection />
-    </>
-  );
-};
-
-const HeroSection = (props) => {
-  return (
-    <div className="px-6 pb-40 pt-40 flex flex-col min-h-screens text-teal relative shadow-lg z-10">
-      <div className="absolute inset-y-0 right-0 w-full opacity-10 z-0"></div>
-      <div className="flex-col flex-center flex-1 py-1 mt-12 relative z-10">
-        <div className="mb-10">
-          <div className="text-center">
-            <h2 className="font-black text-3xl lg:text-5xl text-teal">
-              Play Together, Win Together
-            </h2>
-            <p className="text-xl text-teal">
-              PowerPod is a low gas fee deposit pod built on PoolTogether
-              protocol. <br /> The pod helps increase winning chances and lower
-              gas fee for <br /> individual player using batched deposits.
-            </p>
-            <Spacer className="my-4" />
-            <Link href="/deposit">
-              <button className="btn btn-teal btn-large uppercase px-6">
-                Deposit In A Pod
-              </button>
-            </Link>
-          </div>
-        </div>
+    <div className="py-20">
+      <div className="text-center text-center mb-10">
+        <h2 className="font-black text-4xl lg:text-6xl text-teal-600">
+          Deposit
+        </h2>
+        <p className="text-1xl text-white">
+          Deposit with low gas fee and have a chance to win the prize.
+        </p>
+      </div>
+      <div className="max-w-screen-lg mx-auto w-full p-10 lg:p-0">
+        <ErrorBoundary>
+          <PodsFromConnectedNetwork />
+        </ErrorBoundary>
       </div>
     </div>
   );
 };
 
-export default HomePage;
+const PodsFromConnectedNetwork = (props) => {
+  const { chainId } = useEthers();
+  switch (chainId) {
+    case 1:
+    case 1337:
+      return (
+        <>
+          <PodCardAPI
+            classNameContainer="border-solid border-t-4 border-yellow-400"
+            token="DAI"
+            symbol="DAI"
+            tokenSymbol="DAI"
+            decimals={18}
+            tokenImage="/tokens/token-dai.png"
+          />
+          <PodCardAPI
+            classNameContainer="border-solid border-t-4 border-blue-400 mt-10"
+            token="USDC"
+            symbol="USDC"
+            tokenSymbol="USDC"
+            decimals={6}
+            tokenImage="/tokens/token-usdc.png"
+          />
+        </>
+      );
+    case 4:
+      return (
+        <>
+          <PodCardAPI
+            classNameContainer="border-solid border-t-4 border-yellow-400"
+            token="DAI"
+            symbol="DAI"
+            tokenSymbol="DAI"
+            decimals={18}
+            tokenImage="/tokens/token-dai.png"
+          />
+          <PodCardAPI
+            classNameContainer="border-solid border-t-4 border-blue-400 mt-10"
+            token="USDC"
+            symbol="USDC"
+            tokenSymbol="USDC"
+            decimals={6}
+            tokenImage="/tokens/token-usdc.png"
+          />
+        </>
+      );
+    default:
+      return null;
+  }
+};
+
+export default PageDeposit;

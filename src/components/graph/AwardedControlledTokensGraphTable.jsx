@@ -19,7 +19,7 @@ import {
 } from "@components";
 
 /**
- * @name
+ * @name AwardedControlledTokensGraphTable
  * @param {Object} props
  */
 export const AwardedControlledTokensGraphTable = ({
@@ -72,9 +72,6 @@ export function TableBase({
   setSearchFilter,
   ...props
 }) {
-  console.log(data, "datadata");
-
-  // const { } = useWeb3React();
   const columns = useMemo(
     () => [
       {

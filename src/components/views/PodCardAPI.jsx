@@ -30,7 +30,9 @@ import {
 import { useERC20ContractCall } from "@hooks/useContractERC20";
 
 import {
+  PodAdminClaimTokenDrop,
   PodBalanceOfUnderlying,
+  PodClaimRewardToken,
   PodShareOfPodTotal,
   PodBalanceTotal,
   PodUserShareOfPrize,
@@ -203,13 +205,13 @@ const PodCard = ({
           <div className="col-span-1 mt-8 lg:mt-0 text-center lg:text-left">
             <Link href={`/manage?tab=0&token=${address}`}>
               <button className="btn btn-purple-light uppercase w-full">
-                Deposit {symbol}
+                Deposit
               </button>
             </Link>
             <Spacer className="my-4" />
             <Link href={`/manage?tab=1&token=${address}`}>
               <button className="btn btn-teal bg-teal-800 bg-opacity-60 text-teal-400 uppercase w-full">
-                Manage
+                Withdraw
               </button>
             </Link>
           </div>
@@ -223,11 +225,7 @@ const PodCard = ({
           <div className="text-teal-500 text-center lg:text-left">
             <span className="block text-xs">My deposit:</span>
             <span className="block text-white text-2xl">
-              {/* <TokenBalance
-                decimals={decimals}
-                balance={idx(dataBlock, (_) => _.Pod.balanceOf[0])}
-              /> */}
-              <PodBalanceOfUnderlying address={address} />
+              <PodBalanceOfUnderlying address={address} decimals={decimals} />
               <span className="ml-1">{symbol}</span>
             </span>
             <span className="block">
@@ -308,18 +306,14 @@ const PodCard = ({
               <div className="text-teal-500 text-center lg:text-left">
                 <span className="block text-xs">Claimable POOL:</span>
                 <span className="block text-white text-2xl">
-                  <UserClaimablePool address={address} />
+                  {/* <UserClaimablePool address={address} /> */}
                   <UserClaimablePoolViaTokenDrop
                     address={addressPodTokenDrop}
                   />
                   <span className="ml-1 uppercase">{symbolReward}</span>
                 </span>
                 <Spacer className="my-1" />
-                <span className="inline-block tag-teal bg-teal-700 text-white">
-                  <Link href={`/manage?tab=2&token=${address}`}>
-                    Claim POOL
-                  </Link>
-                </span>
+                <PodClaimRewardToken addressTokenDrop={addressPodTokenDrop} />
               </div>
               {/* <Spacer className="my-8" /> */}
             </>
@@ -333,13 +327,7 @@ const PodCard = ({
             <div className="text-teal-500 text-center lg:text-left">
               <span className="block text-xs">Pod's Total Balance</span>
               <span className="block text-white text-2xl">
-                <PodBalanceTotal address={address} />
-                {/* <TokenBalance
-                  decimals={decimals}
-                  balance={idx(dataBlock, (_) =>
-                    _.Pod.totalSupply[0].toString()
-                  )}
-                /> */}
+                <PodBalanceTotal address={address} decimals={decimals} />
                 <span className="ml-1">{symbol}</span>
               </span>
             </div>
@@ -385,9 +373,9 @@ const PodCard = ({
               <span className="block text-white text-2xl">
                 <ERC20Balance
                   className="text-white"
-                  // address={"0xdD1cba915Be9c7a1e60c4B99DADE1FC49F67f80D"}
                   address={addressReward}
-                  account={"0x32470AcC4aBfbaB48786692a3F23fFC70bc69644"}
+                  account={addressPodTokenDrop}
+                  // account={addressPodTokenDrop}
                   decimals={18}
                   decimalsTrim={7}
                 />
@@ -398,10 +386,14 @@ const PodCard = ({
             {/* Grid 4 */}
             <div className="text-teal-500 text-center lg:text-left">
               <span className="block text-xs">Pod Claimable POOL</span>
-              <span className="block text-white text-2xl">
+              <span className="block mb-1 text-white text-2xl">
                 <PodClaimablePool address={address} />
                 <span className="ml-1 uppercase">{symbolReward}</span>
               </span>
+              <PodAdminClaimTokenDrop
+                addressPod={address}
+                addressTokenDrop={addressPodTokenDrop}
+              />
             </div>
           </div>
         )}

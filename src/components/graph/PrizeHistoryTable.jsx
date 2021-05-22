@@ -108,15 +108,12 @@ export function TableBase({
   symbolColor,
   ...props
 }) {
-  console.log(data, "datadata");
-
-  // const { } = useWeb3React();
   const columns = useMemo(
     () => [
       {
         Header: "ID",
         accessor: "id",
-        Cell: ({ value, row }) => (
+        Cell: ({ row }) => (
           <div className="">
             <span className="text-xs px-2">{row.id}</span>
           </div>

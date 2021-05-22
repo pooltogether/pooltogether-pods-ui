@@ -5,3 +5,4 @@ export { default as FormPodWithdrawToMultiple } from "./FormPodWithdrawToMultipl
 export { default as FormPodClaimPoolMultiple } from "./FormPodClaimPoolMultiple";
 export { default as FormPodClaimPodPool } from "./FormPodClaimPodPool";
 export { default as FormPodBatchMultiple } from "./FormPodBatchMultiple";
+export { default as FormPodDropMultiple } from "./FormPodDropMultiple";

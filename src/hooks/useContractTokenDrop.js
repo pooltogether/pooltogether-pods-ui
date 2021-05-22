@@ -6,8 +6,7 @@ import {
 } from "@usedapp/core";
 
 /* --- Local Modules --- */
-import { Tok, TokenDropInterfaceenDropInterface } from "@constants/interfaces";
-import { useGetTokenFaucetContract } from "@hooks/contracts";
+import { useGetTokenDropContract } from "@hooks/contracts";
 import { isAddress } from "@src/utils/is";
 
 const validateInputs = (inputs) => {
@@ -44,9 +43,8 @@ export const useContractTokenDropCall = (address, method, inputs = []) => {
  * @param {Object} props
  */
 export const useContractTokenDropFunction = (address, method) => {
-  const VS = useGetTokenFaucetContract(address);
   const { send, state } =
-    useContractFunction(useGetTokenFaucetContract(address), method) ?? [];
+    useContractFunction(useGetTokenDropContract(address), method) ?? [];
   return [send, state];
 };
 

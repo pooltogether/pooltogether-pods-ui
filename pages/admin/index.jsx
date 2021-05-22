@@ -1,6 +1,7 @@
 import {
   FormPodClaimPodPool,
   FormPodBatchMultiple,
+  FormPodDropMultiple,
 } from "@components/forms/pod";
 import { Spacer } from "../../src/components";
 
@@ -19,15 +20,25 @@ export const PageDeposit = (props) => {
       </div>
 
       <div className="max-w-screen-md mx-auto">
-        <h4 className="text-5xl text-white">Claim POD Pool</h4>
-        <div className="text-white">
-          <FormPodClaimPodPool />
-        </div>
-        <Spacer className="my-10" />
         <div className="">
           <h4 className="text-5xl text-white">POD Batch</h4>
           <FormPodBatchMultiple />
         </div>
+        <Spacer className="my-10" />
+        <div className="">
+          <h4 className="text-5xl text-white">Claim POD Pool</h4>
+          <div className="text-white">
+            <FormPodClaimPodPool />
+          </div>
+        </div>
+        <Spacer className="my-10" />
+        <div className="">
+          <h4 className="text-5xl text-white">Drop POD POOL</h4>
+          <div className="text-white">
+            <FormPodDropMultiple />
+          </div>
+        </div>
+        <Spacer className="my-10" />
       </div>
     </div>
   );

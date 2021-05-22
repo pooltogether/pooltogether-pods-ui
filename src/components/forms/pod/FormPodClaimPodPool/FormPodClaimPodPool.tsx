@@ -37,8 +37,6 @@ export const FormPodClaimPodPool = ({
   const [podClaimableAmount, podClaimableAmountSet] = useState();
   const options = useGetPodAndTokenFaucetSelectOptions();
 
-  console.log(options, "optionsoptions");
-
   /* --- Form State --- */
   const { handleSubmit, register, control, watch } = useForm({
     defaultValues: { pod: options[0] },

@@ -67,14 +67,14 @@ const ManageTabs = (props) => {
     return (
       <>
         <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-          <TabList className="grid grid-cols-3">
+          <TabList className="grid grid-cols-2">
             <Tab>
               <ManageTab>
                 <div className="">Deposit</div>
               </ManageTab>
             </Tab>
             <Tab>Withdraw</Tab>
-            <Tab>Claim</Tab>
+            {/* <Tab>Claim</Tab> */}
           </TabList>
           <Spacer className="my-20" />
           <div className="text-left text-white">
@@ -84,9 +84,9 @@ const ManageTabs = (props) => {
             <TabPanel>
               <FormPodWithdrawToMultiple defaultToken={token} />
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
               <FormPodClaimPoolMultiple defaultToken={token} />
-            </TabPanel>
+            </TabPanel> */}
           </div>
         </Tabs>
       </>

@@ -5,7 +5,9 @@ import { useForm } from "react-hook-form";
 
 /* --- Local Modules --- */
 import { useGetAllPodAddress } from "@hooks/contractAddress";
+import { useGetPodAndTokenDropSelectOptions } from "@src/hooks/useGetPodAndTokenDropSelectOptions";
 import { usePodContractFunction } from "@hooks/useContractPod";
+import { useContractTokenDropFunction } from "@hooks/useContractTokenDrop";
 import { Select, Spacer, TransactionStatus } from "@components";
 import { customStyles } from "./selectStyles.ts";
 
@@ -23,22 +25,25 @@ interface IPodDepositToProps {
  * @description Execute PodDepositTo transaction
  * @return Component
  */
-export const FormPodDepositToMultiple = ({
+export const FormPodDropMultiple = ({
   label,
   defaultValues,
 }: IPodDepositToProps) => {
   /* --- Component State --- */
   const { PodDAI, PodUSDC, PodCOMP, PodUNI } = useGetAllPodAddress();
+  const selectOptions = useGetPodAndTokenDropSelectOptions();
 
   /* --- Form State --- */
   const { handleSubmit, register, control, watch } = useForm({
     defaultValues,
   });
-  const FORM_VALUES = watch();
+  const formValues = watch();
+
+  console.log(formValues, "formValuesformValues");
 
   /* --- Blockchain State --- */
-  const [send, state] = usePodContractFunction(
-    idx(FORM_VALUES, (_) => _.pod.value),
+  const [send, state] = useContractTokenDropFunction(
+    idx(formValues, (_) => _.pod.drop),
     "drop"
   );
 
@@ -60,24 +65,7 @@ export const FormPodDepositToMultiple = ({
             className="h-50"
             placeholder="Token"
             styles={customStyles}
-            options={[
-              {
-                value: PodDAI,
-                label: "DAI",
-              },
-              {
-                value: PodUSDC,
-                label: "USDC",
-              },
-              {
-                value: PodCOMP,
-                label: "COMP",
-              },
-              {
-                value: PodUNI,
-                label: "UNI",
-              },
-            ]}
+            options={selectOptions}
             control={control}
           />
         </div>
@@ -99,18 +87,18 @@ export const FormPodDepositToMultiple = ({
   );
 };
 
-FormPodDepositToMultiple.defaultProps = {
+FormPodDropMultiple.defaultProps = {
   className: "",
   label: "Batch Deposits Pod",
   displayLabels: true,
   defaultValues: {},
 };
 
-FormPodDepositToMultiple.propTypes = {
+FormPodDropMultiple.propTypes = {
   className: PropTypes.string,
   label: PropTypes.string,
   displayLabels: PropTypes.bool,
   defaultValues: PropTypes.object,
 };
 
-export default FormPodDepositToMultiple;
+export default FormPodDropMultiple;

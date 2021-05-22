@@ -1,29 +1,28 @@
 /* --- Global --- */
 import idx from "idx";
 import { PropTypes } from "prop-types";
+import classnames from "classnames";
+import { useEthers } from "@usedapp/core";
 import { utils, constants, BigNumber } from "ethers";
 
 /* --- Local Modules --- */
 import {
   transformTokenToHuman,
   numberTrimDecimals,
-} from "../../../helpers/blockchain";
+} from "@src/helpers/blockchain";
 import { useEffect, useMemo, useState } from "react";
-import { useWeb3React } from "@web3-react/core";
 import {
   useERC20ContractFunction,
   useERC20ContractCall,
 } from "@hooks/useContractERC20";
-import { useEthers } from "@usedapp/core";
-
-const ERROR_MESSAGE_BITS_96 =
-  "VM Exception while processing transaction: revert Uni::approve: amount exceeds 96 bits";
-
+import { Tooltip } from "@components";
 /**
  * @name ERC20UnlockTransferFrom
  * @param {Object} props
  */
 export const ERC20UnlockTransferFrom = ({
+  className,
+  classNameIncreaseAllowance,
   address,
   allowanceOf,
   label,
@@ -32,8 +31,6 @@ export const ERC20UnlockTransferFrom = ({
   const { account } = useEthers();
   const [allowanceStatusPrev, allowanceStatusPrevSet] = useState(0);
   const [allowanceStatus, allowanceStatusSet] = useState(0);
-  const infiniteApproveAmount = constants.MaxUint256;
-
   const [amountToApprove, amountToApproveSet] = useState();
 
   /* ------------------------ */
@@ -41,7 +38,7 @@ export const ERC20UnlockTransferFrom = ({
   /* ------------------------ */
   const [send, state] = useERC20ContractFunction(address, "approve");
 
-  // address, methods = [], inputs = []
+  const [decimals] = useERC20ContractCall(address, "decimals");
   const [balanceOfAccount] = useERC20ContractCall(address, "balanceOf", [
     account,
   ]);
@@ -51,11 +48,21 @@ export const ERC20UnlockTransferFrom = ({
     allowanceOf,
   ]);
 
-  console.log(state, "statestate");
-
   /* ----------------------- */
   /* --- Component Hooks --- */
   /* ----------------------- */
+  const [transactionStatusMessage, transactionStatusMessageSet] = useState();
+  useEffect(() => {
+    if (state.status == "Mining") {
+      transactionStatusMessageSet("Enabling Pod Deposits");
+    }
+
+    if (state.status == "Success") {
+      allowanceStatusSet(5);
+      transactionStatusMessageSet("Pod Deposits Enabled");
+    }
+  }, [state]);
+
   // Compare Balance/Allowance : Effect
   useEffect(() => {
     if (
@@ -64,30 +71,32 @@ export const ERC20UnlockTransferFrom = ({
     ) {
       if (balanceOfAccount.gt("0")) {
         if (allowanceOfPod.gt("0")) {
+          // Deposit Enabled (Allowance Below Balance)
           if (allowanceOfPod.lt(balanceOfAccount)) allowanceStatusSet(2);
-          if (allowanceOfPod.gte(balanceOfAccount)) allowanceStatusSet(4);
+          // Deposit Enabled (Allowance Above Balance)
+          if (allowanceOfPod.gte(balanceOfAccount)) allowanceStatusSet(5);
         } else {
+          // Deposit Disabled (Zero Allowance)
           if (allowanceOfPod.lt(balanceOfAccount)) allowanceStatusSet(1);
         }
       } else {
-        // ZERO Balance : Display Empty Balance
+        // Deposit Disabled (Zero Balance)
         allowanceStatusSet(3);
       }
     }
-    // return () => allowanceStatusSet(0);
-  }, [balanceOfAccount, allowanceOfPod, state]);
+  }, [balanceOfAccount, allowanceOfPod]);
 
   // Compare Balance/Allowance : Memo
   const allowanceFormatted = useMemo(() => {
     if (allowanceOfPod && allowanceOfPod.gt("0")) {
-      return numberTrimDecimals(transformTokenToHuman(allowanceOfPod));
+      return numberTrimDecimals(
+        transformTokenToHuman(allowanceOfPod, decimals || 18)
+      );
     }
-  }, [allowanceOfPod]);
+  }, [allowanceOfPod, decimals]);
 
-  // Handle Approve ERROR (UNI, COMP, etc..) : Effect
   useEffect(() => {
     if (status.errorMessage) {
-      console.log(status, "status.status.");
       send(allowanceOf, amountToApprove);
     }
   }, [status]);
@@ -106,6 +115,9 @@ export const ERC20UnlockTransferFrom = ({
 
   const handleApproveAction = async (amount) => {
     send(allowanceOf, amount);
+  };
+  const handleDisableAction = async (amount) => {
+    send(allowanceOf, 0);
   };
 
   const handleCancel = () => {
@@ -144,13 +156,18 @@ export const ERC20UnlockTransferFrom = ({
       </>
     );
 
+  const classNameIncreaseAllowanceComposed = classnames(
+    "flex items-center justify-between mt-3",
+    classNameIncreaseAllowance
+  );
+
   if (allowanceStatus === 2) {
     // return
     return (
-      <>
-        <div className="flex-1">{children}</div>
-        <div className="flex items-center justify-between mt-3">
-          <span className="text-gray-500">
+      <div className="block">
+        <div className="block w-full">{children}</div>
+        <div className={classNameIncreaseAllowanceComposed}>
+          <span className="">
             <strong>Allowance: </strong>
             {allowanceFormatted}
           </span>
@@ -158,7 +175,7 @@ export const ERC20UnlockTransferFrom = ({
             Increase Allowance
           </span>
         </div>
-      </>
+      </div>
     );
   }
 
@@ -171,7 +188,35 @@ export const ERC20UnlockTransferFrom = ({
   }
 
   if (allowanceStatus === 4) {
-    return children;
+    return (
+      <button type="button" className="btn-green w-full">
+        <span className="">{transactionStatusMessage}</span>
+      </button>
+    );
+  }
+
+  const classNameDecreaseAllowance = classnames(
+    "flex justify-center items-center text-xs mt-1",
+    classNameIncreaseAllowance
+  );
+
+  if (allowanceStatus === 5) {
+    return (
+      <div className="">
+        <div className="">{children}</div>
+        <div className={classNameDecreaseAllowance}>
+          <span
+            className="cursor-pointer mr-1 hover:text-blue-200"
+            onClick={handleDisableAction}
+          >
+            Disable Deposits (Decrease Allowance)
+          </span>{" "}
+          <Tooltip>
+            <DecreaseAllowanceTooltip />
+          </Tooltip>
+        </div>
+      </div>
+    );
   }
   return null;
 };
@@ -181,6 +226,22 @@ ERC20UnlockTransferFrom.defaultProps = {
 };
 ERC20UnlockTransferFrom.propTypes = {
   label: PropTypes.string,
+};
+
+const DecreaseAllowanceTooltip = (props) => {
+  return (
+    <div className="card bg-purple-500 text-white max-w-sm ">
+      <h4 className="text-xl border-bottom">
+        Disable Pod Deposits (Decrease Allowance)
+      </h4>
+      <p className="text-xs">
+        Disabling deposits prevents a Pod from transfering token's on your
+        behalf. Effectively managing token allowances decreases smart contract
+        risks by preventing the unintended spending of tokens in the unlikely
+        scenario a hack or unintended side-effect occurs.
+      </p>
+    </div>
+  );
 };
 
 export default ERC20UnlockTransferFrom;
