@@ -57,6 +57,7 @@ export const FormPodDepositToMultiple = ({
 
   // Exit Fee
   const [earlyExitFee, earlyExitFeeSet] = useState();
+  const [earlyExitFeeBN, earlyExitFeeBNSet] = useState();
   const [earlyExitFeeError, earlyExitFeeErrorSet] = useState();
   const [cachedValues, cachedValuesSet] = useState({});
 
@@ -112,9 +113,6 @@ export const FormPodDepositToMultiple = ({
 
   // ERC20 Contract
   const [tokenSymbol] = useERC20ContractCall(cachedValues.token, "symbol");
-  const [podFloat] = useERC20ContractCall(cachedValues.token, "balanceOf", [
-    idx(formValues, (_) => _.pod.value),
-  ]);
 
   useTransactionToast(state);
 
@@ -152,10 +150,8 @@ export const FormPodDepositToMultiple = ({
 
   /* --- Submit Handler --- */
   const onSubmit = async (values) => {
-    send(
-      utils.parseUnits(values.shareAmount, decimals),
-      utils.parseUnits(values.maxFee, decimals)
-    );
+    send(utils.parseUnits(values.shareAmount, decimals), earlyExitFee);
+
     // Set Withdraw Amount Constant
     withdrawAmountSet(commifyTokenBalanceFromHuman(values.shareAmount));
   };
@@ -165,7 +161,6 @@ export const FormPodDepositToMultiple = ({
       shouldDirty: true,
       shouldValidate: true,
     });
-    // _.set(formState.touched, `shareAmount`, true);
     calculateEarlyExitFee();
   };
 
@@ -187,6 +182,7 @@ export const FormPodDepositToMultiple = ({
           const getEarlyExitFee = await contract.callStatic.getEarlyExitFee(
             utils.parseUnits(formValues.shareAmount, decimals)
           );
+          console.log(getEarlyExitFee, "getEarlyExitFee");
           earlyExitFeeSet(getEarlyExitFee);
           setValue("maxFee", transformTokenToHuman(getEarlyExitFee.toString()));
           earlyExitFeeErrorSet(false);
