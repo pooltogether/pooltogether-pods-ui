@@ -75,5 +75,5 @@ const ERC20BalanceFetch = ({
       );
     }
     return <span className={className}>{defaultValue}</span>;
-  }, [balanceOf]);
+  }, [balanceOf, decimals]);
 };

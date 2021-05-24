@@ -6,7 +6,6 @@ import { utils } from "ethers";
 import { useEthers } from "@usedapp/core";
 
 /* --- Local Modules --- */
-import { useERC20ContractCall } from "@hooks/useContractERC20";
 import { Select, TokenOption, TokenSingleValue } from "@src/components";
 
 /* ------------------------------- */

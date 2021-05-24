@@ -58,7 +58,6 @@ export const FormPodDepositToMultiple = ({
   // Exit Fee
   const [earlyExitFee, earlyExitFeeSet] = useState();
   const [earlyExitFeeError, earlyExitFeeErrorSet] = useState();
-
   const [cachedValues, cachedValuesSet] = useState({});
 
   /* ------------------ */
@@ -78,7 +77,10 @@ export const FormPodDepositToMultiple = ({
     },
   });
   const formValues = watch();
-  const { isDirty, isValid, isValidating } = formState;
+  // const { isDirty, isValid, isValidating, touched, dirtyFields } = formState;
+
+  // console.log(formState, touched, dirtyFields, "touchedtouched");
+  console.log(formValues, "formValues");
 
   /* ------------------------ */
   /* --- Blockchain State --- */
@@ -110,6 +112,9 @@ export const FormPodDepositToMultiple = ({
 
   // ERC20 Contract
   const [tokenSymbol] = useERC20ContractCall(cachedValues.token, "symbol");
+  const [podFloat] = useERC20ContractCall(cachedValues.token, "balanceOf", [
+    idx(formValues, (_) => _.pod.value),
+  ]);
 
   useTransactionToast(state);
 
@@ -147,16 +152,10 @@ export const FormPodDepositToMultiple = ({
 
   /* --- Submit Handler --- */
   const onSubmit = async (values) => {
-    console.log(values, "values");
-    try {
-      send(
-        utils.parseUnits(values.shareAmount, decimals),
-        utils.parseUnits(values.maxFee, decimals)
-      );
-    } catch (error) {
-      console.log(error);
-    }
-
+    send(
+      utils.parseUnits(values.shareAmount, decimals),
+      utils.parseUnits(values.maxFee, decimals)
+    );
     // Set Withdraw Amount Constant
     withdrawAmountSet(commifyTokenBalanceFromHuman(values.shareAmount));
   };
@@ -166,11 +165,21 @@ export const FormPodDepositToMultiple = ({
       shouldDirty: true,
       shouldValidate: true,
     });
+    // _.set(formState.touched, `shareAmount`, true);
+    calculateEarlyExitFee();
   };
 
   /* --------------------------- */
   /* --- Contract Throttling --- */
   /* --------------------------- */
+  const [isExitFeeCalculated, isExitFeeCalculatedSet] = useState(false);
+
+  useEffect(() => {
+    if (idx(formValues, (_) => _.shareAmount)) {
+      throttleEarlyExitFee();
+    }
+  }, [formValues?.shareAmount]);
+
   const calculateEarlyExitFee = () => {
     if (idx(formValues, (_) => _.shareAmount)) {
       (async () => {
@@ -181,15 +190,16 @@ export const FormPodDepositToMultiple = ({
           earlyExitFeeSet(getEarlyExitFee);
           setValue("maxFee", transformTokenToHuman(getEarlyExitFee.toString()));
           earlyExitFeeErrorSet(false);
+          isExitFeeCalculatedSet(true);
         } catch (error) {
           earlyExitFeeErrorSet("Exceeds Pod Token/Ticket Holdings");
-          console.log(error, "earlyExitFeeErrorERROR");
+          isExitFeeCalculatedSet(false);
         }
       })();
     }
   };
 
-  const throttleEarlyExitFee = _.debounce(calculateEarlyExitFee, 400, {
+  const throttleEarlyExitFee = _.debounce(calculateEarlyExitFee, 600, {
     maxWait: "2000",
   });
 
@@ -226,14 +236,11 @@ export const FormPodDepositToMultiple = ({
       <div className="flex items-center justify-between">
         <span className="text-gray-100">Withdraw</span>
         <span className="">
-          {!idx(formValues, (_) => _.pod.value) ? (
-            "0.00"
-          ) : (
-            <ERC20Balance
-              account={account}
-              address={idx(formValues, (_) => _.pod.value)}
-            />
-          )}
+          <ERC20Balance
+            account={account}
+            address={idx(formValues, (_) => _.pod.value)}
+            defaultValue="0.00"
+          />
           <span className="ml-1">Balance</span>
         </span>
       </div>
@@ -257,7 +264,7 @@ export const FormPodDepositToMultiple = ({
           control={control}
           styles={selectTokenDropStyles}
           options={selectOptions}
-          onInputChange={throttleEarlyExitFee}
+          // onInputChange={throttleEarlyExitFee}
           actionMax={setInputAmountMax}
           classNameInput="bg-transparent text-xl font-light text-white h-full w-full focus:outline-none"
           classNameInputContainer="bg-teal-600 bg-opacity-20 h-15 flex items-center justify-between input-skinny relative"
@@ -299,11 +306,11 @@ export const FormPodDepositToMultiple = ({
             <span className="block text-normal text-teal-700 font-light">
               Pod's Float
             </span>
-            <TokenBalance
+            <ERC20Balance
               className="text-4xl text-white"
-              balance={podTokenBalance}
-              decimalsTrim={4}
-              decimals={decimals}
+              address={prizePoolTokenCall}
+              account={idx(formValues, (_) => _.pod.value)}
+              defaultValue="0.00"
             />
           </div>
           <div className="bg-purple-500 bg-opacity-30 rounded-md p-3 text-center">
