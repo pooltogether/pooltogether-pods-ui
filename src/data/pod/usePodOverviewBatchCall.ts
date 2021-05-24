@@ -16,7 +16,7 @@ import {  PodDataConfig } from '@src/interfaces/pod'
  * @param config 
  */
 export const usePodOverviewBatchCall = (config: PodDataConfig) => {
-  const { account, library } = useEthers();
+  const { library } = useEthers();
   const {
     pod,
   } = config;
@@ -28,19 +28,10 @@ export const usePodOverviewBatchCall = (config: PodDataConfig) => {
           PodBatchContract(pod)
           .totalSupply()
           .getPricePerShare()
-          // .vaultTokenBalance()
-          // .vaultTicketBalance()
-          .balanceOf(account)
           .balance(),
-          // PrizePoolFaucetBatchContract('Faucet', faucet)
-          // .dripRatePerSecond(),
-          // PrizePoolBatchContract(prizePool)
-          // .accountedBalance()
-          // .tokens(),
       )
       return results
     } catch (error) {
-      console.log(error, 'ERRROR')
       throw error
     }
   })

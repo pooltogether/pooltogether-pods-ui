@@ -1,11 +1,11 @@
 import { ChainId } from "@usedapp/core";
+import { NETWORK_URL_MAINNET, NETWORK_URL_HARDHAT } from "@src/connectors";
 
 export const dappConfig = {
-  readOnlyChainId: 1337,
+  readOnlyChainId: ChainId.Mainnet,
   readOnlyUrls: {
-    [ChainId.Mainnet]:
-      "https://mainnet.infura.io/v3/62687d1a985d4508b2b7a24827551934",
-    1337: "http://localhost:8545",
+    [ChainId.Mainnet]: NETWORK_URL_MAINNET,
+    1337: NETWORK_URL_HARDHAT,
   },
   supportedChains: [1, 2, 3, 4, 5, 1337],
   multicallAddresses: {

@@ -6,7 +6,6 @@ import { Spacer } from "../../src/components";
 import {
   FormPodDepositToMultiple,
   FormPodWithdrawToMultiple,
-  FormPodClaimPoolMultiple,
 } from "@components/forms/pod";
 
 /**
@@ -84,9 +83,6 @@ const ManageTabs = (props) => {
             <TabPanel>
               <FormPodWithdrawToMultiple defaultToken={token} />
             </TabPanel>
-            {/* <TabPanel>
-              <FormPodClaimPoolMultiple defaultToken={token} />
-            </TabPanel> */}
           </div>
         </Tabs>
       </>

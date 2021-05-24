@@ -1,35 +1,10 @@
 /* --- Global Modules --- */
-import {
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-  setLogger,
-} from "react-query";
+import { QueryCache, QueryClient, QueryClientProvider } from "react-query";
 import { ModalProvider } from "react-modal-hook";
 import { DAppProvider } from "@usedapp/core";
 
 /* --- Local Modules --- */
 import { dappConfig } from "@src/constants";
-
-setLogger({
-  log: (message) => {
-    console.log(message, "message");
-    null;
-  },
-  warn: (message) => {
-    null;
-  },
-  error: (error) => {
-    switch (error.message) {
-      case "Contract Unavailable":
-        return null;
-      default:
-        console.error(error);
-        break;
-    }
-    null;
-  },
-});
 
 /**
  * @name ProviderPrimary
@@ -46,8 +21,6 @@ const queryClient = new QueryClient({
 });
 
 export const Providers = ({ children }) => {
-  // const cache = useMemo(() => new QueryCache(), []);
-
   return (
     <QueryClientProvider cache={cache} client={queryClient}>
       <DAppProvider config={dappConfig}>

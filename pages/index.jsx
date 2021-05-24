@@ -1,5 +1,6 @@
 import { useEthers } from "@usedapp/core";
 import { ErrorBoundary } from "@components";
+
 import { PodCardAPI } from "@views/PodCardAPI";
 
 /**
@@ -7,6 +8,9 @@ import { PodCardAPI } from "@views/PodCardAPI";
  * @param {Object} props
  */
 export const PageDeposit = (props) => {
+  const ethersContext = useEthers();
+  console.log(ethersContext, "ethersContext");
+
   return (
     <div className="py-20">
       <div className="text-center text-center mb-10">

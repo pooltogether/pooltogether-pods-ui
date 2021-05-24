@@ -58,20 +58,6 @@ export const SelectTokenWithAmountInput = ({
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
-  const { account } = useEthers();
-  const [symbol] = useERC20ContractCall(
-    idx(formValues, (_) => _.token.value),
-    "symbol"
-  );
-  const [decimals] = useERC20ContractCall(
-    idx(formValues, (_) => _.token.value),
-    "decimals"
-  );
-  const [balanceOf] = useERC20ContractCall(
-    idx(formValues, (_) => _.token.value),
-    "balanceOf",
-    [account]
-  );
 
   /* ----------------------- */
   /* --- Component Hooks --- */
@@ -98,12 +84,10 @@ export const SelectTokenWithAmountInput = ({
     <div className={containerStyles}>
       <div className={inputContainerStyles}>
         <input
-          // className="input-defaults bg-transparent h-12 h-full text-xl font-light text-gray-500 w-full focus:outline-none"
           className={inputStyles}
           name={name}
-          // type="number"
           placeholder={`Amount`}
-          ref={register({ required: true })}
+          ref={register({ required: false })}
           onChange={onInputChange}
         />
         <span className="mx-2">

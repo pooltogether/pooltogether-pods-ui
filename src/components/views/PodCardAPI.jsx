@@ -22,10 +22,7 @@ import {
   calculateUserPrizeWinningsFromWinningPod,
 } from "@src/utils/calculations/pod";
 
-import {
-  commifyTokenBalanceFromHuman,
-  transformTokenToHuman,
-} from "@src/helpers/blockchain";
+import { commifyTokenBalanceFromHuman } from "@src/helpers/blockchain";
 
 import { useERC20ContractCall } from "@hooks/useContractERC20";
 

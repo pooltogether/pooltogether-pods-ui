@@ -30,7 +30,6 @@ export const FormPodDropMultiple = ({
   defaultValues,
 }: IPodDepositToProps) => {
   /* --- Component State --- */
-  const { PodDAI, PodUSDC, PodCOMP, PodUNI } = useGetAllPodAddress();
   const selectOptions = useGetPodAndTokenDropSelectOptions();
 
   /* --- Form State --- */
@@ -38,8 +37,6 @@ export const FormPodDropMultiple = ({
     defaultValues,
   });
   const formValues = watch();
-
-  console.log(formValues, "formValuesformValues");
 
   /* --- Blockchain State --- */
   const [send, state] = useContractTokenDropFunction(

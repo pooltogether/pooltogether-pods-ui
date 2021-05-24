@@ -6,6 +6,7 @@ import { utils } from "ethers";
 import { useEthers } from "@usedapp/core";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 /* --- Local Modules --- */
 import { IPodForm } from "@src/interfaces/forms";
@@ -18,7 +19,6 @@ import {
 import { useERC20ContractCall } from "@hooks/useContractERC20";
 import { useGetPodContract } from "@src/hooks/contracts";
 import {
-  Select,
   ERC20Balance,
   TokenBalance,
   TransactionConfetti,
@@ -26,13 +26,19 @@ import {
   WalletIsConnected,
   Spacer,
   SelectTokenWithAmountInput,
-} from "@components";
+} from "@src/components";
 
 // Contracts
 import {
   usePodContractCall,
   usePodContractFunction,
 } from "@hooks/useContractPod";
+
+const useTransactionToast = (state) => {
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+};
 
 /**
  * @name PodDepositTo
@@ -64,6 +70,7 @@ export const FormPodDepositToMultiple = ({
     control,
     setValue,
     watch,
+    trigger,
     formState,
   } = useForm({
     defaultValues: {
@@ -71,6 +78,7 @@ export const FormPodDepositToMultiple = ({
     },
   });
   const formValues = watch();
+  const { isDirty, isValid, isValidating } = formState;
 
   /* ------------------------ */
   /* --- Blockchain State --- */
@@ -102,6 +110,8 @@ export const FormPodDepositToMultiple = ({
 
   // ERC20 Contract
   const [tokenSymbol] = useERC20ContractCall(cachedValues.token, "symbol");
+
+  useTransactionToast(state);
 
   /* ----------------------- */
   /* --- Component Hooks --- */
@@ -137,18 +147,25 @@ export const FormPodDepositToMultiple = ({
 
   /* --- Submit Handler --- */
   const onSubmit = async (values) => {
-    send(
-      utils.parseUnits(values.shareAmount, decimals),
-      utils.parseUnits(values.maxFee, decimals)
-    );
+    console.log(values, "values");
+    try {
+      send(
+        utils.parseUnits(values.shareAmount, decimals),
+        utils.parseUnits(values.maxFee, decimals)
+      );
+    } catch (error) {
+      console.log(error);
+    }
 
     // Set Withdraw Amount Constant
     withdrawAmountSet(commifyTokenBalanceFromHuman(values.shareAmount));
   };
 
   const setInputAmountMax = () => {
-    console.log(podTokenBalance, "podTokenBalancepodTokenBalance");
-    setValue("shareAmount", utils.formatUnits(podTokenBalance, decimals));
+    setValue("shareAmount", utils.formatUnits(podTokenBalance, decimals), {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
   };
 
   /* --------------------------- */
