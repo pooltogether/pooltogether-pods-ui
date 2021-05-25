@@ -31,6 +31,7 @@ export { PodNewPrizeCountdownInWords } from "./pod/PodNewPrizeCountdownInWords";
 export { PodNewPrizeCountdown } from "./pod/PodNewPrizeCountdown";
 export { PodShareOfPodTotal } from "./pod/PodShareOfPodTotal";
 export { PodUserShareOfPrize } from "./pod/PodUserShareOfPrize";
+export { PodUserUnderlyingBalance } from "./pod/PodUserUnderlyingBalance";
 export { PodWinningOdds } from "./pod/PodWinningOdds";
 
 // POOL

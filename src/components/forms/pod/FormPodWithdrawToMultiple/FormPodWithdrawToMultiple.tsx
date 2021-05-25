@@ -26,6 +26,7 @@ import {
   WalletIsConnected,
   Spacer,
   SelectTokenWithAmountInput,
+  PodUserUnderlyingBalance,
 } from "@src/components";
 
 // Contracts
@@ -110,6 +111,11 @@ export const FormPodDepositToMultiple = ({
     "balanceOf",
     [account]
   );
+  const [userUnderlyingBalance] = usePodContractCall(
+    idx(formValues, (_) => _.pod.value),
+    "balanceOfUnderlying",
+    [account]
+  );
 
   // ERC20 Contract
   const [tokenSymbol] = useERC20ContractCall(cachedValues.token, "symbol");
@@ -180,14 +186,14 @@ export const FormPodDepositToMultiple = ({
       (async () => {
         try {
           const getEarlyExitFee = await contract.callStatic.getEarlyExitFee(
-            utils.parseUnits(formValues.shareAmount, decimals)
+            userUnderlyingBalance
           );
-          console.log(getEarlyExitFee, "getEarlyExitFee");
           earlyExitFeeSet(getEarlyExitFee);
           setValue("maxFee", transformTokenToHuman(getEarlyExitFee.toString()));
           earlyExitFeeErrorSet(false);
           isExitFeeCalculatedSet(true);
         } catch (error) {
+          console.log(error, "errorerror");
           earlyExitFeeErrorSet("Exceeds Pod Token/Ticket Holdings");
           isExitFeeCalculatedSet(false);
         }
@@ -232,10 +238,10 @@ export const FormPodDepositToMultiple = ({
       <div className="flex items-center justify-between">
         <span className="text-gray-100">Withdraw</span>
         <span className="">
-          <ERC20Balance
-            account={account}
+          <PodUserUnderlyingBalance
             address={idx(formValues, (_) => _.pod.value)}
             defaultValue="0.00"
+            decimals={decimals}
           />
           <span className="ml-1">Balance</span>
         </span>

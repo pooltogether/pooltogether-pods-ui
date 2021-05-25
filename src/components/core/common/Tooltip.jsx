@@ -8,7 +8,6 @@ import { Popover } from "react-tiny-popover";
  */
 export const Tooltip = ({ className, children, label }) => {
   const [open, toggle] = useToggle();
-
   const tooltipClasses = classnames("cursor-pointer inline-flex", className);
 
   return (
