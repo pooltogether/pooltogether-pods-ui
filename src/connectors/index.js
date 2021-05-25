@@ -45,8 +45,6 @@ if (
   );
 }
 
-console.log(NETWORK_URL_MAINNET, INFURA_ID, "INFURA_ID");
-
 /* --- Network Connectors --- */
 
 /**
@@ -98,8 +96,7 @@ export const walletconnect = new WalletConnectConnector({
 export const walletlink = new WalletLinkConnector({
   url: NETWORK_URL_MAINNET,
   appName: "PoolTogether",
-  appLogoUrl:
-    "https://mpng.pngfly.com/20181202/bex/kisspng-emoji-domain-unicorn-pin-badges-sticker-unicorn-tumblr-emoji-unicorn-iphoneemoji-5c046729264a77.5671679315437924251569.jpg",
+  appLogoUrl: "/favicon.png",
 });
 
 export function getErrorMessage(error) {
