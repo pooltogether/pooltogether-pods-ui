@@ -8,7 +8,7 @@ export const ArticleGettingStarted = (props) => {
       <h2 className="text-4xl lg:text-6xl font-black text-purple-900">
         Getting Started
       </h2>
-      <p className="">Pod guide Coming Soon!</p>
+      <p className="">A complete guide to PoolTogether Pods is Coming Soon!</p>
       {/* <h2 className="text-4xl lg:text-6xl font-black text-purple-900 mt-10">
         What Is a Pod?
       </h2>

@@ -1,7 +1,7 @@
 export const menu = [
   {
     label: "Deposit",
-    url: "/deposit",
+    url: "/",
   },
   {
     label: "Manage",

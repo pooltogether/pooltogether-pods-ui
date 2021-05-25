@@ -39,13 +39,27 @@ export const SiteFooter = (props) => {
             href="https://pooltogether.com/"
             className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700"
           >
-            Learn About PoolTogether
+            PoolTogether
           </a>
-          <Link href="/article/getting-started">
+          <a
+            target="_blank"
+            href="https://app.pooltogether.com/"
+            className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700"
+          >
+            Application
+          </a>
+          <a
+            target="_blank"
+            href="https://gov.pooltogether.com/"
+            className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700"
+          >
+            Governance
+          </a>
+          {/* <Link href="/article/getting-started">
             <a className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700">
               Getting Started with Pods
             </a>
-          </Link>
+          </Link> */}
         </div>
         <div className="p-5 w-1/2 w-full sm:w-4/12 md:w-3/12">
           <div className="text-xs uppercase text-white font-bold mb-6">

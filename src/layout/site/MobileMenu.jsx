@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Fragment } from "react";
 import { useModal } from "react-modal-hook";
-// import { Modal } from "./Modal";
 import menu from "../../constants/menu";
 import Menu from "../../../public/images/menu.svg";
 import Close from "../../../public/images/close.svg";
@@ -12,17 +11,27 @@ import Close from "../../../public/images/close.svg";
 export const MobileMenu = ({ className, ...props }) => {
   // Modal : Component
   const [showModal, hideModal] = useModal(() => {
+    const handleHideModal = () => {
+      hideModal();
+      document.querySelector("body").classList.remove("overflow-hidden");
+    };
+
     return (
-      <ModalMenuMobile hideModal={hideModal}>
-        <MobileMenuItems hideModal={hideModal} />
+      <ModalMenuMobile hideModal={handleHideModal}>
+        <MobileMenuItems hideModal={handleHideModal} />
       </ModalMenuMobile>
     );
   }, []);
 
+  const handleShowModal = () => {
+    showModal();
+    document.querySelector("body").classList.add("overflow-hidden");
+  };
+
   // Action : Component
   return (
     <span
-      onClick={showModal}
+      onClick={handleShowModal}
       className="text-gray-500 font-black cursor-pointer mt-2"
     >
       <Menu height={22} width={22} fill="#35F0D0" />
@@ -39,7 +48,7 @@ export const ModalMenuMobile = ({ children, className, hideModal }) => {
     <>
       <div
         onClick={hideModal}
-        className={"bg-gray-900 absolute top-0 bottom-0 left-0 right-0 z-500"}
+        className={"bg-gray-900 fixed top-0 bottom-0 left-0 right-0 z-500"}
         style={{ backgroundColor: "rgba(59, 66, 86, 1)" }}
       />
       <div
@@ -51,7 +60,6 @@ export const ModalMenuMobile = ({ children, className, hideModal }) => {
             <span className="text-teal text-xl font-bold">PowerPods</span>
             <span onClick={hideModal} className="cursor-pointer text-md">
               <Close height={22} width={22} fill="#35F0D0" />
-              {/* <img src="/images/close.svg" width={22} s /> */}
             </span>
           </div>
           {children}

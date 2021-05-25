@@ -297,29 +297,33 @@ export const FormPodDepositToMultiple = ({
           </span>
         </div>
         <Spacer className="my-5" />
-        <div className="grid grid-cols-2 gap-x-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-5">
           <div className="bg-purple-500 bg-opacity-30 rounded-md p-3 text-center">
-            <span className="block text-normal text-teal-700 font-light">
+            <span className="block font-light text-normal text-teal-700 text-sm lg:text-xl">
               Pod's Float
             </span>
             <ERC20Balance
-              className="text-4xl text-white"
+              className="text-3xl lg:text-4xl text-white"
               address={prizePoolTokenCall}
               account={idx(formValues, (_) => _.pod.value)}
               defaultValue="0.00"
             />
           </div>
           <div className="bg-purple-500 bg-opacity-30 rounded-md p-3 text-center">
-            <span className="block text-normal text-teal-700 font-light">
+            <span className="block font-light text-normal text-teal-700 text-sm lg:text-xl">
               Your early exit fee:
             </span>
-            <span className="text-4xl text-white">
-              <TokenBalance
-                className="mr-1"
-                balance={earlyExitFee}
-                decimalsTrim={4}
-                decimals={decimals}
-              />
+            <span className="text-3xl lg:text-4xl text-white">
+              {isExitFeeCalculated ? (
+                <TokenBalance
+                  className="mr-1"
+                  balance={earlyExitFee}
+                  decimalsTrim={4}
+                  decimals={decimals}
+                />
+              ) : (
+                <span className="mr-1">0.0</span>
+              )}
               {tokenSymbol}
             </span>
             <Spacer className="my-3" />

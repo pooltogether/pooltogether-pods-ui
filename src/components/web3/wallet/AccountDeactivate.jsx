@@ -8,10 +8,16 @@ import { useEthers } from "@usedapp/core";
 export const AccountDeactivate = ({ className, ...props }) => {
   const { account, deactivate } = useEthers();
 
+  const handleDesactivateWeb3Wallet = () => {
+    deactivate();
+    // Remove Default Login
+    localStorage.removeItem("wallet-default");
+  };
+
   return useMemo(() => {
     return (
       <>
-        <button className={className} onClick={deactivate}>
+        <button className={className} onClick={handleDesactivateWeb3Wallet}>
           {" "}
           Disconnect{" "}
         </button>

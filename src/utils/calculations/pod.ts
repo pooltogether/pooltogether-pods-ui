@@ -1,10 +1,13 @@
+/* --- Global Modules --- */
 import { DateTime, Duration } from "luxon";
 import { utils, BigNumber } from "ethers";
+
+/* --- Local Modules --- */
+import { isBigNumber, isPositiveBigNumber } from "@src/utils/is";
 import {
   transformTokenToHuman,
   numberTrimDecimals,
 } from "@src/helpers/blockchain";
-import { isBigNumber } from "../is";
 
 /**
  * @name prizePoolWinningDate
@@ -36,7 +39,7 @@ export const prizePoolWinningDate = (time) => {
  * @param {*} totalTickets
  */
 export const podWinningOdds = (tickets: BigNumber, totalTickets: BigNumber): BigNumber => {
-  if(isBigNumber(totalTickets) && isBigNumber(tickets) && totalTickets.gt(0) && tickets.gt(0)) {
+  if(isPositiveBigNumber(totalTickets) && isPositiveBigNumber(tickets)) {
     const percentage = totalTickets.div(tickets)
     return percentage
   }

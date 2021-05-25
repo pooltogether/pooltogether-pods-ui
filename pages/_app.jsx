@@ -35,7 +35,7 @@ class Application extends App {
           <title>
             {APPLICATION_NAME} - {APPLICATION_TAGLINE}
           </title>
-          <link rel="icon" href={`favicon.png`}></link>
+          <link rel="icon" href={`/favicon.png`}></link>
           <link
             rel="stylesheet"
             href="//fonts.googleapis.com/css?family=Barlow:300,400,600,700,800,900&amp;lang=en"

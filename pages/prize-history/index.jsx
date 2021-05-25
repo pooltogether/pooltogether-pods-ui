@@ -4,11 +4,8 @@ import { useRouter } from "next/router";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 /* --- Local Modules --- */
-import { BalanceRender, Spacer } from "../../src/components";
-import {
-  AwardedControlledTokensGraphTable,
-  PrizeHistoryTable,
-} from "@components";
+import { Spacer } from "@src/components";
+import { PrizeHistoryTable } from "@components";
 
 /**
  * @name PageDeposit

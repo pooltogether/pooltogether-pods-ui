@@ -19,12 +19,6 @@ export const ERC20Balance = ({
   ...props
 }) => {
   /* ------------------------ */
-  /* --- Blockchain State --- */
-  /* ------------------------ */
-  // const [decimals] = useERC20ContractCall(address, "decimals", []);
-  // const [balanceOf] = useERC20ContractCall(address, "balanceOf", [account]);
-
-  /* ------------------------ */
   /* --- Component Render --- */
   /* ------------------------ */
   if (isAddress(address) && isAddress(account)) {
@@ -36,7 +30,7 @@ export const ERC20Balance = ({
       />
     );
   } else {
-    return null;
+    return <span className={className}>{defaultValue}</span>;
   }
 };
 

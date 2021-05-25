@@ -3,7 +3,7 @@ import idx from "idx";
 import { PropTypes } from "prop-types";
 import classnames from "classnames";
 import { useEthers } from "@usedapp/core";
-import { utils, constants, BigNumber } from "ethers";
+import { constants, BigNumber } from "ethers";
 
 /* --- Local Modules --- */
 import {
@@ -108,21 +108,11 @@ export const ERC20UnlockTransferFrom = ({
     allowanceStatusSet(1);
   };
 
-  const handleIncreaseAllowance = () => {
-    allowanceStatusPrevSet(allowanceStatus);
-    allowanceStatusSet(1);
-  };
-
   const handleApproveAction = async (amount) => {
     send(allowanceOf, amount);
   };
-  const handleDisableAction = async (amount) => {
+  const handleDisableAction = async () => {
     send(allowanceOf, 0);
-  };
-
-  const handleCancel = () => {
-    allowanceStatusPrevSet(allowanceStatus);
-    allowanceStatusSet(allowanceStatusPrev);
   };
 
   /* ------------------------------ */
@@ -147,7 +137,7 @@ export const ERC20UnlockTransferFrom = ({
           <button
             type="button"
             className="btn-teal w-full"
-            onClick={() => handleApproveAction(balanceOfAccount)}
+            onClick={() => handleApproveAction(constants.MaxUint256)}
           >
             Enable Pod Deposits
           </button>
@@ -171,7 +161,10 @@ export const ERC20UnlockTransferFrom = ({
             <strong>Allowance: </strong>
             {allowanceFormatted}
           </span>
-          <span className="tag-green" onClick={handleIncreaseAllowance}>
+          <span
+            className="tag-green cursor-pointer"
+            onClick={() => handleApproveAction(constants.MaxUint256)}
+          >
             Increase Allowance
           </span>
         </div>
@@ -231,14 +224,21 @@ ERC20UnlockTransferFrom.propTypes = {
 const DecreaseAllowanceTooltip = (props) => {
   return (
     <div className="card bg-purple-500 text-white max-w-sm ">
-      <h4 className="text-xl border-bottom">
-        Disable Pod Deposits (Decrease Allowance)
-      </h4>
+      <h4 className="text-2xl border-bottom pb-1">Disable Pod Deposits</h4>
       <p className="text-xs">
-        Disabling deposits prevents a Pod from transfering token's on your
-        behalf. Effectively managing token allowances decreases smart contract
-        risks by preventing the unintended spending of tokens in the unlikely
-        scenario a hack or unintended side-effect occurs.
+        Disabling deposits prevents a Pod from tokens transfers by decreasing a
+        token allowance to zero.
+      </p>
+      <p className="text-xs">
+        By disabling deposits (setting token allowance to zero) you eliminate
+        the possibility of a smart contract uninentionally transferring tokens.
+      </p>
+      <p className="font-bold text-xs">
+        Reducing allowances to zero when deposits are now longer required is an
+        industry best practice, but does increase your gas costs.
+        {/* In the unlikely scenario the Pod smart contract is hack or compromised
+        you significantly reduce the risk of tokens being transfered without
+        your consent or knowledge. */}
       </p>
     </div>
   );

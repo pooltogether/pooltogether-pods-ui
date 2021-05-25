@@ -32,7 +32,9 @@ import {
   PodClaimRewardToken,
   PodShareOfPodTotal,
   PodBalanceTotal,
+  PodNewPrizeCountdown,
   PodUserShareOfPrize,
+  PodWinningOdds,
   ERC20Balance,
   TokenBalance,
   UserClaimablePool,
@@ -55,6 +57,8 @@ export const PodCardAPI = ({ token, ...props }) => {
   const batchQuery = usePodOverviewBatchCall(addresses);
   const cacheQuery = usePoolTogetherPoolData(addresses?.prizePool);
 
+  // console.log(addresses, "addressesaddresses");
+
   // console.log(cacheQuery, "cacheQuery");
   // console.log(batchQuery, "batchQuerybatchQuery");
   // console.log(addresses, "addressesaddresses");
@@ -68,7 +72,7 @@ export const PodCardAPI = ({ token, ...props }) => {
       return <PodCardDisconnected isError {...props} />;
     }
 
-    if (addresses.pod && batchQuery.isSuccess) {
+    if (addresses.pod && batchQuery.isSuccess && cacheQuery.isSuccess) {
       return (
         <PodCard
           address={addresses?.pod}
@@ -77,6 +81,7 @@ export const PodCardAPI = ({ token, ...props }) => {
           addressReward={addresses.reward}
           addressReward={ERC20Reward}
           addressToken={addresses?.token}
+          addressTicket={addresses?.ticket}
           dataCache={cacheQuery?.data}
           dataBlock={batchQuery?.data}
           {...props}
@@ -101,6 +106,7 @@ const PodCard = ({
   dataBlock,
   address,
   addressToken,
+  addressTicket,
   addressPodTokenDrop,
   addressReward,
   addressPrizePool,
@@ -159,7 +165,7 @@ const PodCard = ({
         <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-x-6 text-center lg:text-left">
           <div className="col-span-3 text-teal-500">
             <div className="flex flex-col lg:flex-row lg:items-center">
-              <h3 className="block font-bold text-center text-5xl lg:text-6xl text-teal lg:text-white">
+              <h3 className="block font-bold text-center text-5xl lg:text-6xl text-white lg:text-white">
                 <USDValue
                   number={idx(dataCache, (_) => _.prize.totalValueUsd)}
                 />
@@ -169,33 +175,17 @@ const PodCard = ({
               </span>
             </div>
             <Spacer className="my-6" />
-            <div className="flex items-center justify-center lg:justify-start">
+            <div className="flex items-center lg:items-start lg:justify-start flex-col lg:flex-row lg:justify-start">
               <img src={tokenImage} width={28} />
               <Spacer className="mx-1" />
-              <span className="block text-xl text-white">
+              <span className="flex items-center text-xl text-white">
                 {symbol} pool rewards
                 <span className="ml-1">
                   {idx(dataCache, (_) => _.prizePoolWinningDate.relative)}
                 </span>
-                <span className="text-xs ml-1">
-                  <PodPrizePoolPeriodEndFromCache
-                    number={idx(
-                      dataCache,
-                      (_) => _.prize.prizePeriodRemainingSeconds
-                    )}
-                  />
-                  (
-                  <span className="text-xs ml-">
-                    <PodPrizePoolPeriodEndFromCache
-                      displayType="calendar"
-                      number={idx(
-                        dataCache,
-                        (_) => _.prize.prizePeriodRemainingSeconds
-                      )}
-                    />
-                  </span>
-                  )
-                </span>
+              </span>
+              <span className="text-xxs mt-3 ml-4 lg:mt-0">
+                <PodNewPrizeCountdown pool={dataCache} />
               </span>
             </div>
           </div>
@@ -220,13 +210,13 @@ const PodCard = ({
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-10 gap-y-6">
           {/* Grid 1 */}
           <div className="text-teal-500 text-center lg:text-left">
-            <span className="block text-xs">My deposit:</span>
+            <span className="block text-xxs">My deposit:</span>
             <span className="block text-white text-2xl">
               <PodBalanceOfUnderlying address={address} decimals={decimals} />
               <span className="ml-1">{symbol}</span>
             </span>
             <span className="block">
-              <span className="text-xs">Share of Pod:</span>
+              <span className="text-xxs">Share of Pod:</span>
               <PodShareOfPodTotal className="ml-1" address={address} />
             </span>
           </div>
@@ -235,7 +225,9 @@ const PodCard = ({
             <>
               {/* Grid 2 */}
               <div className="text-teal-500 text-center lg:text-left">
-                <span className="block text-xs">My share (when Pod wins):</span>
+                <span className="block text-xxs">
+                  My share (when Pod wins):
+                </span>
                 <span className="block text-white text-2xl">
                   <span className="ml-1">
                     <PodUserShareOfPrize
@@ -256,8 +248,15 @@ const PodCard = ({
                   <span className="ml-1">{symbol}</span>
                 </span>
                 <span className="block">
-                  <span className="text-xs">Winning odds:</span>
-                  {idx(dataCalculations, (_) => _.podWinningOdds) > 0 ? (
+                  <span className="text-xxs">Winning odds:</span>
+                  <PodWinningOdds
+                    className="ml-1 text-xxs text-white"
+                    address={address}
+                    addressPrizePool={addressPrizePool}
+                    addressToken={addressToken}
+                    addressTicket={addressTicket}
+                  />
+                  {/* {idx(dataCalculations, (_) => _.podWinningOdds) > 0 ? (
                     <>
                       <span className="mx-1">1 in</span>
                       <span className="">
@@ -270,16 +269,16 @@ const PodCard = ({
                       </span>
                     </>
                   ) : (
-                    <span className="ml-1 text-xs text-white">
+                    <span className="ml-1 text-xxs text-white">
                       Make Deposit
                     </span>
-                  )}
+                  )} */}
                 </span>
               </div>
 
               {/* Grid 3 */}
               <div className="text-teal-500 text-center lg:text-left">
-                <span className="block text-xs">Deposit APR:</span>
+                <span className="block text-xxs">Deposit APR:</span>
                 <span className="block text-white text-2xl">
                   {converNumberToFixed(
                     idx(dataCache, (_) => _.tokenListener.apr)
@@ -287,7 +286,7 @@ const PodCard = ({
                   %
                 </span>
                 <span className="block">
-                  <span className="text-xs">
+                  <span className="text-xxs">
                     Rewards in{" "}
                     <img
                       className="inline"
@@ -301,7 +300,7 @@ const PodCard = ({
 
               {/* Grid 4 */}
               <div className="text-teal-500 text-center lg:text-left">
-                <span className="block text-xs">Claimable POOL:</span>
+                <span className="block text-xxs">Claimable POOL:</span>
                 <span className="block text-white text-2xl">
                   {/* <UserClaimablePool address={address} /> */}
                   <UserClaimablePoolViaTokenDrop
@@ -322,7 +321,7 @@ const PodCard = ({
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-10 gap-y-6 row-second mt-10">
             {/* Grid 1 */}
             <div className="text-teal-500 text-center lg:text-left">
-              <span className="block text-xs">Pod's Total Balance</span>
+              <span className="block text-xxs">Pod's Balance</span>
               <span className="block text-white text-2xl">
                 <PodBalanceTotal address={address} decimals={decimals} />
                 <span className="ml-1">{symbol}</span>
@@ -331,7 +330,7 @@ const PodCard = ({
 
             {/* Grid 2 */}
             <div className="text-teal-500 text-center lg:text-left">
-              <span className="block text-xs">
+              <span className="block text-xxs">
                 Pod Float
                 <span className="ml-1">
                   <Tooltip>
@@ -359,7 +358,7 @@ const PodCard = ({
 
             {/* Grid 3 */}
             <div className="text-teal-500 text-center lg:text-left">
-              <span className="block text-xs">
+              <span className="block text-xxs">
                 Pod POOL{" "}
                 <span className="ml-1">
                   <Tooltip>
@@ -382,15 +381,15 @@ const PodCard = ({
 
             {/* Grid 4 */}
             <div className="text-teal-500 text-center lg:text-left">
-              <span className="block text-xs">Pod Claimable POOL</span>
+              <span className="block text-xxs">Pod Claimable POOL</span>
               <span className="block mb-1 text-white text-2xl">
                 <PodClaimablePool address={address} />
                 <span className="ml-1 uppercase">{symbolReward}</span>
               </span>
-              <PodAdminClaimTokenDrop
+              {/* <PodAdminClaimTokenDrop
                 addressPod={address}
                 addressTokenDrop={addressPodTokenDrop}
-              />
+              /> */}
             </div>
           </div>
         )}
@@ -429,7 +428,7 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
   });
 
   const styleContainer = classnames(
-    "block cursor-pointer text-teal text-xs text-center",
+    "block cursor-pointer text-teal text-xxs text-center",
     {
       "bg-purple-900 bg-opacity-90 -bottom-6 rounded-b-xl py-1 px-5": !isTabletOrMobile,
       "rounded-xl p-0": isTabletOrMobile,
@@ -540,7 +539,7 @@ const PodCardDisconnected = ({
               <span className="ml-1">
                 {idx(dataCache, (_) => _.prizePoolWinningDate.relative)}
               </span>
-              <span className="text-xs ml-1">
+              <span className="text-xxs ml-1">
                 <PodPrizePoolPeriodEndFromCache
                   number={idx(
                     dataCache,
@@ -548,7 +547,7 @@ const PodCardDisconnected = ({
                   )}
                 />
                 (
-                <span className="text-xs ml-">
+                <span className="text-xxs ml-">
                   <PodPrizePoolPeriodEndFromCache
                     displayType="calendar"
                     number={idx(
@@ -618,9 +617,26 @@ const PodFloatTooltip = (props) => {
   return (
     <div className="card bg-purple-500 text-white max-w-sm ">
       <h4 className="text-xl border-bottom">Pod's Float</h4>
-      <p className="text-xs">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <p className="text-xxs">
+        Float refers to deposits which have not been deposited into the
+        PrizePool via the batch function. In other words, when a user deposits
+        tokens, those tokens will be temporarily held in the Pod, before
+        regularily being deposited into the PrizePool.
+      </p>
+      <p className="text-xxs">
+        When a user withdrwas from a Pod, the float{" "}
+        <span className="font-bold">is used first</span> before withdrawing
+        tokens from the PrizePool:{" "}
+        <em>reducing gas costs and minimizing the PrizePool early exit fee.</em>
+      </p>
+      <p className="text-xxs">
+        <span
+          className="tag-purple cursor-pointer hover:shadow-lg"
+          href="https://docs.pooltogether.com/tutorials/operate-a-prize-pool#fairness"
+          target="_blank"
+        >
+          Early Exit Fee Documentation
+        </span>
       </p>
     </div>
   );
@@ -629,11 +645,71 @@ const PodFloatTooltip = (props) => {
 const PodPoolTooltip = (props) => {
   return (
     <div className="card bg-purple-500 text-white max-w-sm ">
-      <h4 className="text-xl border-bottom">Pod's Pool</h4>
-      <p className="text-xs">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <h4 className="text-xl border-bottom">
+        Pod POOL - Fair Token Distribution
+      </h4>
+      <p className="text-xxs">
+        PoolTogether (<span className="italic">currently</span>) distributes{" "}
+        <a
+          className="font-bold underline"
+          href="https://etherscan.io/token/0x0cec1a9154ff802e7934fc916ed7ca50bde6844e"
+          target="_blank"
+        >
+          POOL
+        </a>{" "}
+        tokens for deposits into governance managed PrizePools. Pods due to the
+        unique design, are treated as a single user.
       </p>
+      <p className="text-xxs">
+        However... Pods <span className="font-bold">DO NOT</span> keep the
+        accrued{" "}
+        <a
+          className="font-bold underline"
+          href="https://etherscan.io/token/0x0cec1a9154ff802e7934fc916ed7ca50bde6844e"
+          target="_blank"
+        >
+          POOL
+        </a>{" "}
+        tokens.
+      </p>
+      <p className="text-xxs">
+        Each Pod is deployed with a <span className="font-bold">TokenDrop</span>{" "}
+        smart contract that temporarily holds and fairly distributes{" "}
+        <a
+          className="font-bold underline"
+          href="https://etherscan.io/token/0x0cec1a9154ff802e7934fc916ed7ca50bde6844e"
+          target="_blank"
+        >
+          POOL
+        </a>
+        . Tokens are not automatically distributed and users are responsible for
+        claiming{" "}
+        <a
+          className="font-bold underline"
+          href="https://etherscan.io/token/0x0cec1a9154ff802e7934fc916ed7ca50bde6844e"
+          target="_blank"
+        >
+          POOL
+        </a>{" "}
+        tokens from the Pod.
+      </p>
+      <p className="text-xxs">
+        <span
+          className="tag-purple cursor-pointer hover:shadow-lg"
+          href="https://medium.com/pooltogether/governance-101-fca9ab8b8ba2"
+          target="_blank"
+        >
+          Governance 101
+        </span>
+        <span
+          className="tag-purple cursor-pointer ml-1 hover:shadow-lg"
+          href="https://gov.pooltogether.com/"
+          target="_blank"
+        >
+          Governance Forum
+        </span>
+      </p>
+      <p className="text-xxs"></p>
     </div>
   );
 };

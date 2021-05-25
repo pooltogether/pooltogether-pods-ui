@@ -10,12 +10,7 @@ import { usePodContractCall } from "@hooks/useContractPod";
  * @name PodShareOfPodTotal
  * @param {Object} props
  */
-export const PodShareOfPodTotal = ({
-  className,
-  address,
-  decimals,
-  ...props
-}) => {
+export const PodShareOfPodTotal = ({ className, address, decimals }) => {
   const [percentageCalculated, percentageCalculatedSet] = useState("0");
 
   /* ------------------------ */

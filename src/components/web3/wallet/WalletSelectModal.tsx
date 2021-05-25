@@ -1,8 +1,7 @@
 import { useEthers } from "@usedapp/core";
 import { useModal } from "react-modal-hook";
 import { metamask, walletconnect, walletlink } from "@src/connectors";
-
-import { Modal } from "@components/";
+import { Modal } from "@src/components";
 
 const WALLET_OPTIONS = [
   {
@@ -65,6 +64,7 @@ export const WalletSelectModal = ({ className, children }) => {
 const WalletSelection = ({ activate, connector, label, ...props }) => {
   const handleConnect = () => {
     activate(connector);
+    localStorage.setItem("wallet-default", label);
   };
 
   return (

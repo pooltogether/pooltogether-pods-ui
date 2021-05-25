@@ -42,7 +42,7 @@ export function useGetPodRelatedAddresses(pod: string) {
   );
   const faucet = useGetContractAddress("PodDAIFaucet");
   const ctoken = useGetContractAddress("PodDAIcToken");
-  const ticket = useGetContractAddress("PodDAIPrizePoolTicket");
+  const ticket = useGetContractAddress("PodDAITicket");
   const sponsorship = useGetContractAddress(
     "PodDAIPrizePoolTicketSponsored"
   );
@@ -71,7 +71,7 @@ export function useGetPodRelatedAddresses(pod: string) {
   );
   const faucet = useGetContractAddress("PodUSDCFaucet");
   const ctoken = useGetContractAddress("PodUSDCcToken");
-  const ticket = useGetContractAddress("PodUSDCPrizePoolTicket");
+  const ticket = useGetContractAddress("PodUSDCTicket");
   const sponsorship = useGetContractAddress(
     "PodUSDCPrizePoolTicketSponsored"
   );

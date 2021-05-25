@@ -1,5 +1,5 @@
 /* --- Global Modules --- */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useEthers } from "@usedapp/core";
 
@@ -32,6 +32,19 @@ export const AccountPopover = (props) => {
   const { account } = useEthers();
   const [isPopoverOpen, isPopoverOpenSet] = useState();
   const POOL_TOKEN = useGetContractAddress("ERC20POOL");
+
+  const handlePopoverToggle = () => isPopoverOpenSet(!isPopoverOpen);
+
+  /* ----------------------- */
+  /* --- Component Hooks --- */
+  /* ----------------------- */
+
+  // Close Popover when Web3 connection is disabled
+  useEffect(() => {
+    if (!account) {
+      isPopoverOpenSet(false);
+    }
+  }, [account]);
 
   return (
     <div className="flex items-center">
@@ -91,30 +104,6 @@ export const AccountPopover = (props) => {
 const PopoverInner = (props) => {
   return (
     <div className="card bg-purple-600 border-purple-700 text-white mr-6 mt-2 p-0 w-72">
-      {/* <div className="p-4">
-        <div className="text-center">
-          <span className="flex items-center justify-center font-bold text-xl">
-            <ERC20Balance
-              className="inline-block"
-              account={props.account}
-              address={props.POOL_TOKEN}
-            />{" "}
-          </span>
-          <div className="flex items-center justify-center">
-            <img
-              className="inline-block mr-1"
-              src="/tokens/token-pool.png"
-              width={18}
-            />
-            <span className="inline-block text-lg">POOL</span>
-          </div>
-          <Spacer className="my-1" />
-          <span className="font-normal text-sm">
-            <AccountBalance /> ETH
-          </span>
-        </div>
-      </div> */}
-
       <div className="p-3">
         <AccountDeactivate className="tag-teal cursor-pointer rounded-xl text-xs text-purple-700 py-3 w-full flex-center text-center hover:shadow-md" />
       </div>

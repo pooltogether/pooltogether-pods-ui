@@ -1,13 +1,15 @@
+import classnames from "classnames";
 import { useToggle } from "@src/hooks/helpers/useToggle";
 import { Popover } from "react-tiny-popover";
-useToggle;
 
 /**
  * @name Tooltip
  * @param {Object} props
  */
-export const Tooltip = ({ children, label }) => {
+export const Tooltip = ({ className, children, label }) => {
   const [open, toggle] = useToggle();
+
+  const tooltipClasses = classnames("cursor-pointer inline-flex", className);
 
   return (
     <Popover
@@ -18,7 +20,7 @@ export const Tooltip = ({ children, label }) => {
       onClickOutside={toggle}
       content={children}
     >
-      <span onClick={toggle} className="cursor-pointer">
+      <span onClick={toggle} className={tooltipClasses}>
         {label ? (
           label
         ) : (
