@@ -1,8 +1,8 @@
 /* --- Global Modules --- */
 import idx from "idx";
 import _ from "lodash";
-import React, { useState, useEffect } from "react";
-import { utils } from "ethers";
+import React, { useState, useEffect, useMemo } from "react";
+import { BigNumber, utils } from "ethers";
 import { useEthers } from "@usedapp/core";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
@@ -34,6 +34,7 @@ import {
   usePodContractCall,
   usePodContractFunction,
 } from "@hooks/useContractPod";
+import { isPositiveBigNumber } from "@src/utils/is";
 
 const useTransactionToast = (state) => {
   useEffect(() => {
@@ -58,7 +59,6 @@ export const FormPodDepositToMultiple = ({
 
   // Exit Fee
   const [earlyExitFee, earlyExitFeeSet] = useState();
-  const [earlyExitFeeBN, earlyExitFeeBNSet] = useState();
   const [earlyExitFeeError, earlyExitFeeErrorSet] = useState();
   const [cachedValues, cachedValuesSet] = useState({});
 
@@ -79,14 +79,12 @@ export const FormPodDepositToMultiple = ({
     },
   });
   const formValues = watch();
-  // const { isDirty, isValid, isValidating, touched, dirtyFields } = formState;
-
-  // console.log(formState, touched, dirtyFields, "touchedtouched");
-  console.log(formValues, "formValues");
 
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
+  const CONSTANT_ROUNDING = utils.parseUnits("1", 18);
+
   const contract = useGetPodContract(idx(formValues, (_) => _.pod.value));
   const { account } = useEthers();
 
@@ -125,6 +123,23 @@ export const FormPodDepositToMultiple = ({
   /* ----------------------- */
   /* --- Component Hooks --- */
   /* ----------------------- */
+  const [
+    userSharesToUnderlyingPercentage,
+    userSharesToUnderlyingPercentageSet,
+  ] = useState();
+  useEffect(() => {
+    if (
+      isPositiveBigNumber(podTokenBalance) &&
+      isPositiveBigNumber(userUnderlyingBalance)
+    ) {
+      const s = podTokenBalance
+        .mul(CONSTANT_ROUNDING)
+        .div(userUnderlyingBalance);
+
+      userSharesToUnderlyingPercentageSet(s);
+    }
+  }, [podTokenBalance, userUnderlyingBalance]);
+
   // Set Default Token :: Effect
   useEffect(() => {
     if (defaultToken) {
@@ -156,17 +171,24 @@ export const FormPodDepositToMultiple = ({
 
   /* --- Submit Handler --- */
   const onSubmit = async (values) => {
-    send(utils.parseUnits(values.shareAmount, decimals), earlyExitFee);
-
+    const tokenAmount = utils.parseUnits(values.tokenAmount, decimals);
+    const shareAmount = tokenAmount
+      .mul(userSharesToUnderlyingPercentage)
+      .div(CONSTANT_ROUNDING);
+    send(shareAmount, earlyExitFee);
     // Set Withdraw Amount Constant
-    withdrawAmountSet(commifyTokenBalanceFromHuman(values.shareAmount));
+    withdrawAmountSet(commifyTokenBalanceFromHuman(values.tokenAmount));
   };
 
   const setInputAmountMax = () => {
-    setValue("shareAmount", utils.formatUnits(podTokenBalance, decimals), {
-      shouldDirty: true,
-      shouldValidate: true,
-    });
+    setValue(
+      "tokenAmount",
+      utils.formatUnits(userUnderlyingBalance, decimals),
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      }
+    );
     calculateEarlyExitFee();
   };
 
@@ -176,24 +198,28 @@ export const FormPodDepositToMultiple = ({
   const [isExitFeeCalculated, isExitFeeCalculatedSet] = useState(false);
 
   useEffect(() => {
-    if (idx(formValues, (_) => _.shareAmount)) {
+    if (idx(formValues, (_) => _.tokenAmount)) {
       throttleEarlyExitFee();
     }
-  }, [formValues?.shareAmount]);
+  }, [formValues?.tokenAmount]);
 
   const calculateEarlyExitFee = () => {
-    if (idx(formValues, (_) => _.shareAmount)) {
+    if (idx(formValues, (_) => _.tokenAmount)) {
       (async () => {
         try {
+          const tokenAmount = utils.parseUnits(
+            idx(formValues, (_) => _.tokenAmount),
+            decimals
+          );
+
           const getEarlyExitFee = await contract.callStatic.getEarlyExitFee(
-            userUnderlyingBalance
+            tokenAmount
           );
           earlyExitFeeSet(getEarlyExitFee);
           setValue("maxFee", transformTokenToHuman(getEarlyExitFee.toString()));
           earlyExitFeeErrorSet(false);
           isExitFeeCalculatedSet(true);
         } catch (error) {
-          console.log(error, "errorerror");
           earlyExitFeeErrorSet("Exceeds Pod Token/Ticket Holdings");
           isExitFeeCalculatedSet(false);
         }
@@ -260,7 +286,7 @@ export const FormPodDepositToMultiple = ({
         />
 
         <SelectTokenWithAmountInput
-          name="shareAmount"
+          name="tokenAmount"
           nameSelect="pod"
           register={register}
           control={control}
