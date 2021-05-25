@@ -39,7 +39,7 @@ export const prizePoolWinningDate = (time) => {
  * @param {*} totalTickets
  */
 export const podWinningOdds = (tickets: BigNumber, totalTickets: BigNumber): BigNumber => {
-  if(isPositiveBigNumber(totalTickets) && isPositiveBigNumber(tickets)) {
+  if(isPositiveBigNumber(tickets) && isPositiveBigNumber(totalTickets)) {
     const percentage = totalTickets.div(tickets)
     return percentage
   }
@@ -69,10 +69,10 @@ export const percentageOfPod = (userShares, podTotalShares) => {
  * @param {bignumber} prizePoolReward
  */
 export function calculateUserPrizeWinningsFromWinningPod( userShares: BigNumber, totalShares: BigNumber, prizePoolReward: BigNumber ) {
+  const ROUNDING = utils.parseEther('1')
   if(isBigNumber(userShares) && isBigNumber(totalShares) && totalShares.gt(0)) {
-    const userPercentageSharesOfPod = userShares.div(totalShares);
-    const userPercentageOfWinnings = prizePoolReward.mul(userPercentageSharesOfPod)
-    return userPercentageOfWinnings
+    const userPercentageSharesOfPod = userShares.mul(ROUNDING).div(totalShares);
+    return prizePoolReward.mul(userPercentageSharesOfPod).div(ROUNDING)
   }
   return BigNumber.from(0)
 }

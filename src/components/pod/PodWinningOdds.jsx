@@ -10,6 +10,7 @@ import { useERC20ContractCall } from "@hooks/useContractERC20";
 import { commifyTokenBalanceFromHuman } from "@src/helpers/blockchain";
 import { Tooltip } from "@components";
 import classNames from "classnames";
+import { BigNumber, utils } from "ethers";
 
 /**
  * @name PodWinningOdds
@@ -49,9 +50,17 @@ export const PodWinningOdds = ({ className, address, addressTicket }) => {
         podTotalBalance,
         podTicketsTotalSupply
       );
-      podWinningOddsCalculatedSet(
-        `1 in ${commifyTokenBalanceFromHuman(calculation, 0)}`
-      );
+
+      try {
+        const calculationBN = BigNumber.from(calculation);
+        if (calculationBN.gt("1000000000"))
+          throw new Error("Invalid Calculation");
+        podWinningOddsCalculatedSet(
+          `1 in ${commifyTokenBalanceFromHuman(calculation, 0)}`
+        );
+      } catch (error) {
+        podWinningOddsCalculatedSet(`Unavailable`);
+      }
     }
   }, [userBalanceOf, podTotalBalance, podTicketsTotalSupply]);
 

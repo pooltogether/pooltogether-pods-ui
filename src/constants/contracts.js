@@ -3,9 +3,9 @@ export default {
     ERC20Reward: "0x0cec1a9154ff802e7934fc916ed7ca50bde6844e",
     /* --- DAI Pod --- */
     /* ---------------- */
-    PodDAI: "0xaD104c86c0f9A05ed445F858CdE948fE7E0Bbac6",
+    PodDAI: "0x2f994e2E4F3395649eeE8A89092e63Ca526dA829",
     PodDAIToken: "0x6b175474e89094c44da98b954eedeac495271d0f",
-    PodDAITokenDrop: "0x93F418aBe794B1E38026079A899B267380acA964",
+    PodDAITokenDrop: "0xc5209623E3dFdf9C0cCbe497c8012883C4147731",
     PodDAITicket: "0x334cbb5858417aee161b53ee0d5349ccf54514cf",
     PodDAIPrizePool: "0xEBfb47A7ad0FD6e57323C8A42B2E5A6a4F68fc1a",
     PodDAIPrizePoolStrategy: "0x178969A87a78597d303C47198c66F68E8be67Dc2",
@@ -19,9 +19,9 @@ export default {
 
     /* --- USDC Pod --- */
     /* ---------------- */
-    PodUSDC: "0x4C8A84387A2ad7a85113e913fb650Def886DCc04",
+    PodUSDC: "0x386EB78f2eE79AddE8Bdb0a0e27292755ebFea58",
     PodUSDCToken: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-    PodUSDCTokenDrop: "0xDFeBe25a1496109DE6474AF3557CECc8ce957dd4",
+    PodUSDCTokenDrop: "0x996977379e4a22D625798d6331d38DC9f744Ef30",
     PodUSDCPrizePool: "0xde9ec95d7708b8319ccca4b8bc92c0a3b70bf416",
     PodUSDCTicket: "0xd81b1a8b1ad00baa2d6609e0bae28a38713872f7",
     PodUSDCPrizePoolStrategy: "0xe8726b85236a489a8e84c56c95790d07a368f913",

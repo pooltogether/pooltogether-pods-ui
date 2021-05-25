@@ -9,7 +9,7 @@ import { PodCardAPI } from "@views/PodCardAPI";
  */
 export const PageDeposit = (props) => {
   const ethersContext = useEthers();
-  console.log(ethersContext, "ethersContext");
+  // console.log(ethersContext, "ethersContext");
 
   return (
     <div className="py-20">

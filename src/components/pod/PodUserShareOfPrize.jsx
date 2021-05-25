@@ -50,6 +50,8 @@ export const PodUserShareOfPrize = ({
         )
       ).div(10);
 
+      console.log(share, "shareshare");
+
       const transformed = commifyTokenBalanceFromHuman(
         transformTokenToHuman(share, 2),
         2

@@ -5,6 +5,7 @@ import addSeconds from "date-fns/addSeconds";
 import { useTranslation } from "@src/hooks/useTranslation";
 import { subtractDates } from "@src/utils/subtractDates";
 import { usePrizePeriodTimeLeft } from "src/hooks/usePrizePeriodTimeLeft";
+import idx from "idx";
 
 const SECONDS_PER_DAY = 86400;
 const EIGHT_HOURS_IN_SECONDS = 28800;
@@ -13,9 +14,6 @@ export const PodNewPrizeCountdown = (props) => {
   const { t } = useTranslation();
   const { pool, center, textAlign, textSize } = props;
   let flashy = props.flashy === false ? false : true;
-
-  console.log(props, "propspropsprops");
-
   const { secondsLeft } = usePrizePeriodTimeLeft(pool);
 
   const currentDate = new Date(Date.now());
@@ -26,7 +24,7 @@ export const PodNewPrizeCountdown = (props) => {
   );
 
   let msg;
-  if (pool.prize.isRngRequested) {
+  if (idx(pool, (_) => _.prize.isRngRequested)) {
     return (
       <>
         <p
