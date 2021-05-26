@@ -19,7 +19,7 @@ export const TablePagination = ({
   ...props
 }) => {
   const containerClassName = classnames(
-    "flex justify-between items-center w-full",
+    "flex flex-col items-center justify-center lg:flex-row lg:justify-between lg:items-center w-full",
     className
   );
   const containerButton = classnames("text-xl mx-2 text-teal");
@@ -34,7 +34,7 @@ export const TablePagination = ({
           </strong>{" "}
         </span>
       </div>
-      <div>
+      <div className="my-3 lg:my-0">
         <button
           className={containerButton}
           onClick={() => gotoPage(0)}
@@ -65,9 +65,9 @@ export const TablePagination = ({
           {">>"}
         </button>{" "}
       </div>
-      <div className="self-end">
+      <div className="lg:self-end">
         <select
-          className="input-default text-gray-700"
+          className="input-default text-gray-700 w-full"
           value={pageSize}
           onChange={(e) => {
             setPageSize(Number(e.target.value));

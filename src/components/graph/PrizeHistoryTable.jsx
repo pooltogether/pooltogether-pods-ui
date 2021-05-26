@@ -176,7 +176,7 @@ export function TableBase({
         Cell: ({ value, row }) => {
           return (
             <div className="">
-              <span className="font-normal ml-1 text-pink-400 text-xl">
+              <span className="font-normal ml-1 text-white text-base lg:text-xl">
                 {value}
               </span>
             </div>
@@ -187,8 +187,11 @@ export function TableBase({
         Header: "Date",
         accessor: "awardedTimestamp",
         Cell: ({ value }) => (
-          <div className="text-right pr-3">
-            <EpochToCalendarDate className="text-lg font-thin" epoch={value} />
+          <div className="pr-3">
+            <EpochToCalendarDate
+              className="text-base lg:text-lg font-thin"
+              epoch={value}
+            />
           </div>
         ),
       },
@@ -262,7 +265,7 @@ export function TableBase({
               <tr {...row.getRowProps()} key={i}>
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()} className="py-5">
+                    <td {...cell.getCellProps()} className="py-1 lg:py-5">
                       {cell.render("Cell")}
                     </td>
                   );

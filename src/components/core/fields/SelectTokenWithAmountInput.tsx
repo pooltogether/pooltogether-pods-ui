@@ -65,14 +65,14 @@ export const SelectTokenWithAmountInput = ({
   /* ------------------------ */
   /* --- Component Styles --- */
   /* ------------------------ */
-  const containerStyles = classnames("grid grid-cols-7", className);
+  const containerStyles = classnames("grid grid-cols-9", className);
   const inputStyles = classnames("w-full", classNameInput);
   const inputContainerStyles = classnames(
-    "col-span-5",
+    "col-span-5 md:col-span-6",
     classNameInputContainer
   );
   const selectContainerStyles = classnames(
-    "col-span-2",
+    "col-span-4 md:col-span-3",
     classNameSelectContainer
   );
 
@@ -89,10 +89,10 @@ export const SelectTokenWithAmountInput = ({
           ref={register({ required: false })}
           onChange={onInputChange}
         />
-        <span className="mx-2">
+        <span className="mx-0 xs:mx-1">
           <span
             onClick={actionMax}
-            className="bg-green-600 bg-opacity-70 text-white p-1 px-3 cursor-pointer rounded-md"
+            className="bg-green-600 bg-opacity-70 text-white p-1 text-xs xs:text-base xs:px-3 cursor-pointer rounded-md"
           >
             max
           </span>

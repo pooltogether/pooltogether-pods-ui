@@ -107,11 +107,11 @@ const ManageTabs = (props) => {
 const TableHeader = ({ symbol, image }) => {
   return (
     <div
-      className="flex justify-center items-center text-center py-14 rounded-t-xl"
+      className="flex flex-col lg:flex-row justify-center items-center text-center py-7 lg:py-14 rounded-t-xl"
       style={{ backgroundColor: "#1f1236" }}
     >
       <img src={image} width={54} /> <Spacer className="mx-2" />
-      <span className="font-bold text-5xl">{symbol} POOL</span>
+      <span className="font-bold text-3xl lg:text-5xl">{symbol} POOL</span>
     </div>
   );
 };
