@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 /* --- Local Modules --- */
 import { useGetAllPodAddress } from "@hooks/contractAddress";
 import { usePodContractFunction } from "@hooks/useContractPod";
-import { Select, Spacer, TransactionStatus } from "@components";
+import { Select } from "@components";
 import { customStyles } from "./selectStyles.ts";
 
 // Interface
@@ -28,17 +28,17 @@ export const FormPodDepositToMultiple = ({
   defaultValues,
 }: IPodDepositToProps) => {
   /* --- Component State --- */
-  const { PodDAI, PodUSDC, PodCOMP, PodUNI } = useGetAllPodAddress();
+  const { PodDAI, PodUSDC } = useGetAllPodAddress();
 
   /* --- Form State --- */
-  const { handleSubmit, register, control, watch } = useForm({
+  const { handleSubmit, control, watch } = useForm({
     defaultValues,
   });
-  const FORM_VALUES = watch();
+  const formValues = watch();
 
   /* --- Blockchain State --- */
   const [send, state] = usePodContractFunction(
-    idx(FORM_VALUES, (_) => _.pod.value),
+    idx(formValues, (_) => _.pod.value),
     "drop"
   );
 
@@ -54,47 +54,27 @@ export const FormPodDepositToMultiple = ({
         className={"form-default text-gray-600"}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="col-span-8 ml-0 text-gray-600">
-          <Select
-            name="pod"
-            className="h-50"
-            placeholder="Token"
-            styles={customStyles}
-            options={[
-              {
-                value: PodDAI,
-                label: "DAI",
-              },
-              {
-                value: PodUSDC,
-                label: "USDC",
-              },
-              {
-                value: PodCOMP,
-                label: "COMP",
-              },
-              {
-                value: PodUNI,
-                label: "UNI",
-              },
-            ]}
-            control={control}
-          />
-        </div>
-        <Spacer className="my-2" />
-        <button type="submit" className="btn btn-purple w-full">
+        <Select
+          name="pod"
+          className="h-50"
+          placeholder="Token"
+          styles={customStyles}
+          options={[
+            {
+              value: PodDAI,
+              label: "DAI",
+            },
+            {
+              value: PodUSDC,
+              label: "USDC",
+            },
+          ]}
+          control={control}
+        />
+        <button type="submit" className="btn btn-purple my-3 w-full">
           {label}
         </button>
       </form>
-      <div className="text-center">
-        <TransactionStatus
-          state={state}
-          miningLabel="Transaction Broadcast"
-          sucessLabel="Transaction Success"
-          classNameMining="tag-yellow my-2"
-          classNameSuccess="tag-green my-2"
-        />
-      </div>
     </>
   );
 };

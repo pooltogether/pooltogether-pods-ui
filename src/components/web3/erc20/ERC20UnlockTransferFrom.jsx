@@ -6,10 +6,7 @@ import { useEthers } from "@usedapp/core";
 import { constants, BigNumber } from "ethers";
 
 /* --- Local Modules --- */
-import {
-  transformTokenToHuman,
-  numberTrimDecimals,
-} from "@src/helpers/blockchain";
+import { transformTokenToHuman, numberTrimDecimals } from "@src/utils/convert";
 import { useEffect, useMemo, useState } from "react";
 import {
   useERC20ContractFunction,

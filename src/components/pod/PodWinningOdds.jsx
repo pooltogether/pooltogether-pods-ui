@@ -7,7 +7,7 @@ import { isPositiveBigNumber } from "@src/utils/is";
 import { podWinningOdds } from "@src/utils/calculations/pod";
 import { usePodContractCall } from "@hooks/useContractPod";
 import { useERC20ContractCall } from "@hooks/useContractERC20";
-import { commifyTokenBalanceFromHuman } from "@src/helpers/blockchain";
+import { commifyTokenBalanceFromHuman } from "@src/utils/convert";
 import { Tooltip } from "@components";
 import classNames from "classnames";
 import { BigNumber, utils } from "ethers";

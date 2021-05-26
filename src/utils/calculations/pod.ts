@@ -7,7 +7,7 @@ import { isBigNumber, isPositiveBigNumber } from "@src/utils/is";
 import {
   transformTokenToHuman,
   numberTrimDecimals,
-} from "@src/helpers/blockchain";
+} from "@src/utils/convert";
 
 /**
  * @name prizePoolWinningDate

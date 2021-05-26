@@ -15,7 +15,7 @@ import { selectTokenDropStyles } from "../select-tokendrop-styles";
 import {
   commifyTokenBalanceFromHuman,
   transformTokenToHuman,
-} from "@helpers/blockchain";
+} from "@src/utils/convert";
 import { useERC20ContractCall } from "@hooks/useContractERC20";
 import { useGetPodContract } from "@src/hooks/contracts";
 import {

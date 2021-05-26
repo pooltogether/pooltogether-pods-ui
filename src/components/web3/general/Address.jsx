@@ -1,6 +1,5 @@
-// import React from "react";
-import EtherscanLink from "./EtherscanLink";
-import { shortenAddress } from "@helpers/blockchain";
+import { EtherscanLink } from "@src/components";
+import { shortenAddress } from "@src/utils/convert";
 import { constants } from "ethers";
 
 /**

@@ -31,14 +31,6 @@ export const PageDeposit = (props) => {
             <FormPodClaimPodPool />
           </div>
         </div>
-        <Spacer className="my-10" />
-        <div className="">
-          <h4 className="text-5xl text-white">Drop POD POOL</h4>
-          <div className="text-white">
-            <FormPodDropMultiple />
-          </div>
-        </div>
-        <Spacer className="my-10" />
       </div>
     </div>
   );

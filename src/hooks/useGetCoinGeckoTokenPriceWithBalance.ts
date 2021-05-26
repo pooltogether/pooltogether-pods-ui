@@ -9,7 +9,7 @@ import { tokenPriceAndBalance } from '@src/utils/calculations/tokenPriceAndBalan
 import { fetchCoinGeckoTokenPrice } from '@src/fetch/fetch_coingecko'
 import { useERC20ContractCall } from '@hooks/useContractERC20'
 import { convertNumberToBigNumber } from '@src/utils/convert'
-import { commifyTokenBalance } from "@src/helpers/blockchain";
+import { commifyTokenBalance } from "@src/utils/convert";
 
 /* ------------------------------- */
 /* --------- File Module --------- */

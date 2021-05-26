@@ -9,10 +9,7 @@ import { utils } from "ethers";
 /* --- Local Modules --- */
 import { IPodForm } from "@src/interfaces/forms";
 import { selectTokenDropStyles } from "../select-tokendrop-styles";
-import {
-  commifyTokenBalance,
-  transformTokenToHuman,
-} from "@helpers/blockchain";
+import { commifyTokenBalance, transformTokenToHuman } from "@src/utils/convert";
 
 import { useGetTokenDropContract } from "@src/hooks/contracts";
 import { useContractTokenDropFunction } from "@src/hooks/useContractTokenDrop";

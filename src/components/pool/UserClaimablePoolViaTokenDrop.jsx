@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useEthers } from "@usedapp/core";
 
 /* --- Local Modules --- */
-import { commifyTokenBalance } from "@helpers/blockchain";
+import { commifyTokenBalance } from "@src/utils/convert";
 import {
   useGetPodContract,
   useGetTokenDropContract,

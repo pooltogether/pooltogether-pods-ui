@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 
 /* --- Local Modules --- */
-import { commifyTokenBalance } from "@helpers/blockchain";
+import { commifyTokenBalance } from "@src/utils/convert";
 import { useERC20ContractCall } from "@hooks/useContractERC20";
 import { isAddress } from "@src/utils/is";
 

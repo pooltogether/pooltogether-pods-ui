@@ -6,14 +6,14 @@ import classnames from "classnames";
 import { useMediaQuery } from "react-responsive";
 
 /* --- Local Modules --- */
-import Arrow from "../../../public/images/arrow-circle.svg";
-import { useGetPodRelatedAddresses } from "@hooks/podContracts";
-import { usePodOverviewBatchCall } from "@src/data/pod/usePodOverviewBatchCall";
-import { usePoolTogetherPoolData } from "@src/data/pooltogether";
 import { useToggle } from "@src/hooks/helpers/useToggle";
+import { useGetContractAddress } from "@src/hooks/useGetContractAddress";
+import { useGetPodRelatedAddresses } from "@hooks/podContracts";
+import { usePodOverviewBatchCall } from "@src/hooks/usePodOverviewBatchCall";
+import { usePoolTogetherPoolData } from "@src/hooks/usePoolTogetherPoolData";
+
 import {
   converNumberToFixed,
-  convertBigNumberToString,
   convertNumberToBigNumber,
 } from "@src/utils/convert";
 import {
@@ -21,13 +21,8 @@ import {
   percentageOfPod,
   calculateUserPrizeWinningsFromWinningPod,
 } from "@src/utils/calculations/pod";
-
-import { commifyTokenBalanceFromHuman } from "@src/helpers/blockchain";
-
 import { useERC20ContractCall } from "@hooks/useContractERC20";
-
 import {
-  PodAdminClaimTokenDrop,
   PodBalanceOfUnderlying,
   PodClaimRewardToken,
   PodShareOfPodTotal,
@@ -36,8 +31,6 @@ import {
   PodUserShareOfPrize,
   PodWinningOdds,
   ERC20Balance,
-  TokenBalance,
-  UserClaimablePool,
   UserClaimablePoolViaTokenDrop,
   PodClaimablePool,
   PodPrizePoolPeriodEndFromCache,
@@ -45,7 +38,6 @@ import {
   Spacer,
   Tooltip,
 } from "@components";
-import { useGetContractAddress } from "@src/hooks/useGetContractAddress";
 
 /**
  * @name PodCardAPI
@@ -69,7 +61,7 @@ export const PodCardAPI = ({ token, ...props }) => {
     }
 
     if (batchQuery.isError) {
-      return <PodCardDisconnected isError {...props} />;
+      return <PodCardLoading {...props} />;
     }
 
     if (addresses.pod && batchQuery.isSuccess && cacheQuery.isSuccess) {
@@ -88,7 +80,8 @@ export const PodCardAPI = ({ token, ...props }) => {
         />
       );
     }
-    return null;
+
+    return <PodCardLoading {...props} />;
   }, [cacheQuery.isFetching, batchQuery]);
 };
 
@@ -234,16 +227,6 @@ const PodCard = ({
                       address={address}
                       addressPrizePool={addressPrizePool}
                     />
-                    {/* {commifyTokenBalanceFromHuman(
-                      transformTokenToHuman(
-                        idx(
-                          dataCalculations,
-                          (_) => _.calculateUserPrizeWinningsFromWinningPod
-                        ),
-                        2
-                      ),
-                      2
-                    )} */}
                   </span>
                   <span className="ml-1">{symbol}</span>
                 </span>
@@ -256,23 +239,6 @@ const PodCard = ({
                     addressToken={addressToken}
                     addressTicket={addressTicket}
                   />
-                  {/* {idx(dataCalculations, (_) => _.podWinningOdds) > 0 ? (
-                    <>
-                      <span className="mx-1">1 in</span>
-                      <span className="">
-                        {commifyTokenBalanceFromHuman(
-                          convertBigNumberToString(
-                            idx(dataCalculations, (_) => _.podWinningOdds)
-                          ),
-                          0
-                        )}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="ml-1 text-xxs text-white">
-                      Make Deposit
-                    </span>
-                  )} */}
                 </span>
               </div>
 
@@ -302,7 +268,6 @@ const PodCard = ({
               <div className="text-teal-500 text-center lg:text-left">
                 <span className="block text-xxs">Claimable POOL:</span>
                 <span className="block text-white text-2xl">
-                  {/* <UserClaimablePool address={address} /> */}
                   <UserClaimablePoolViaTokenDrop
                     address={addressPodTokenDrop}
                   />
@@ -311,12 +276,10 @@ const PodCard = ({
                 <Spacer className="my-1" />
                 <PodClaimRewardToken addressTokenDrop={addressPodTokenDrop} />
               </div>
-              {/* <Spacer className="my-8" /> */}
             </>
           )}
         </div>
 
-        {/* <Spacer className="my-3" /> */}
         {isOpen && (
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-10 gap-y-6 row-second mt-10">
             {/* Grid 1 */}
@@ -346,12 +309,6 @@ const PodCard = ({
                   decimals={decimals}
                   decimalsTrim={7}
                 />
-                {/* <TokenBalance
-                  decimals={decimals}
-                  balance={idx(dataBlock, (_) =>
-                    _.Pod.vaultTokenBalance[0].toString()
-                  )}
-                /> */}
                 <span className="ml-1">{symbol}</span>
               </span>
             </div>
@@ -386,10 +343,6 @@ const PodCard = ({
                 <PodClaimablePool address={address} />
                 <span className="ml-1 uppercase">{symbolReward}</span>
               </span>
-              {/* <PodAdminClaimTokenDrop
-                addressPod={address}
-                addressTokenDrop={addressPodTokenDrop}
-              /> */}
             </div>
           </div>
         )}
@@ -473,12 +426,6 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
                   height={22}
                 />
               ) : (
-                // <Arrow
-                //   className={styleArrow}
-                //   width={26}
-                //   height={26}
-                //   fill="rgba(165, 151, 250, 1)"
-                // />
                 <img
                   className={styleArrow}
                   src="/images/arrow-circle.svg"

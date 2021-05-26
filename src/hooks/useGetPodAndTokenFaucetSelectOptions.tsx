@@ -30,18 +30,6 @@ export function useGetPodAndTokenFaucetSelectOptions() {
             label: "USDC",
             image: "/tokens/token-usdc.png",
           },
-          {
-            value: comp.pod,
-            faucet: comp.faucet,
-            label: "COMP",
-            image: "/tokens/token-comp.png",
-          },
-          {
-            value: uni.pod,
-            faucet: uni.faucet,
-            label: "UNI",
-            image: "/tokens/token-uni.png",
-          },
         ];
       case 4:
         return [

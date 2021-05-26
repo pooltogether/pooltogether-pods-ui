@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { commifyTokenBalance } from "@helpers/blockchain";
+import { commifyTokenBalance } from "@src/utils/convert";
 /**
  * @name TokenBalance
  * @param {Object} props

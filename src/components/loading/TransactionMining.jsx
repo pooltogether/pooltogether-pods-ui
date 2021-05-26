@@ -3,7 +3,7 @@ import idx from "idx";
 import React, { useMemo } from "react";
 import { getExplorerTransactionLink, useEthers } from "@usedapp/core";
 /* --- Local Modules --- */
-import { shortenTransactionHash } from "@helpers/blockchain";
+import { shortenTransactionHash } from "@src/utils/convert";
 import { EtherscanLink, RubiksCube, Spacer } from "@components";
 
 /**

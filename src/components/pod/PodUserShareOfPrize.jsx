@@ -8,11 +8,12 @@ import { convertNumberToBigNumber } from "@src/utils/convert";
 import { isBigNumber, isPositiveBigNumber } from "@src/utils/is";
 import { calculateUserPrizeWinningsFromWinningPod } from "@src/utils/calculations/pod";
 import { usePodContractCall } from "@hooks/useContractPod";
-import { usePoolTogetherPoolData } from "@src/data/pooltogether";
+import { usePoolTogetherPoolData } from "@src/hooks/usePoolTogetherPoolData";
+
 import {
   commifyTokenBalanceFromHuman,
   transformTokenToHuman,
-} from "@src/helpers/blockchain";
+} from "@src/utils/convert";
 
 /**
  * @name PodUserShareOfPrize

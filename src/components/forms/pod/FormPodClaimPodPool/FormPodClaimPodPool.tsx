@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { useGetTokenFaucetContract } from "@hooks/contracts";
 import { useGetPodAndTokenFaucetSelectOptions } from "@src/hooks/useGetPodAndTokenFaucetSelectOptions";
 import { useContractTokenFaucetFunction } from "@hooks/useContractTokenFaucet";
-import { commifyTokenBalance } from "@helpers/blockchain";
+import { commifyTokenBalance } from "@src/utils/convert";
 import { Select, Spacer } from "@components";
 import { customStyles } from "./selectStyles.ts";
 
@@ -75,22 +75,16 @@ export const FormPodClaimPodPool = ({
   /* --- Form Component --- */
   return (
     <form className={formStyles} onSubmit={handleSubmit(onSubmit)}>
-      <span className="">Claimable Amount:{podClaimableAmount}</span>
-      <Spacer className="my-2" />
-      <div className="grid grid-cols-7">
-        <div className="col-span-5 ml-0 text-gray-600">
-          <Select
-            name="pod"
-            className="h-50"
-            placeholder="Select Pod"
-            styles={customStyles}
-            options={options}
-            control={control}
-          />
-        </div>
-      </div>
-      <Spacer className="my-3" />
-      <button type="submit" className="btn btn-purple w-full">
+      <span className="my-2">Claimable Amount:{podClaimableAmount}</span>
+      <Select
+        name="pod"
+        className="h-50"
+        placeholder="Select Pod"
+        styles={customStyles}
+        options={options}
+        control={control}
+      />
+      <button type="submit" className="btn btn-purple my-3 w-full">
         {label}
       </button>
     </form>

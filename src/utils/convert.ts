@@ -54,10 +54,96 @@ export function convertBigNumberToString(number: BigNumber | undefined | null): 
 }
 
 /**
+ * @name transformTokenToHuman
+ * @param x
+ * @param precision
+ */
+ export function transformTokenToHuman(token, decimals = 18) {
+  if (!token) return null;
+  if (BigNumber.isBigNumber(token)) {
+    return utils.formatUnits(token, decimals);
+  } else {
+    let bn = BigNumber.from(token);
+    return utils.formatUnits(bn, decimals);
+  }
+}
+
+/**
+ * @name numberTrimDecimals
+ * @param x
+ * @param precision
+ */
+ export function numberTrimDecimals(x, precision = 2) {
+  return Number.parseFloat(x).toFixed(precision);
+}
+
+/**
+ * @name commifyTokenBalance
+ * @param number
+ */
+ export function commifyTokenBalance(number, decimals = 18, decimalsTrim = 6) {
+  if (number) {
+    return utils.commify(
+      numberTrimDecimals(transformTokenToHuman(number, decimals), decimalsTrim)
+    );
+  }
+}
+
+/**
+ * @name commifyTokenBalanceFromHuman
+ * @param number
+ */
+export function commifyTokenBalanceFromHuman(number, decimalsTrim = 7) {
+  if (number) return utils.commify(numberTrimDecimals(number, decimalsTrim));
+  return null;
+}
+
+/**
  * @name converNumberToFixed
  * @param number
  * @param decimals Decimal precision
  */
  export function converNumberToFixed(number: string | number, decimals: number = 2) {
   return Number(number).toFixed(decimals)
+}
+
+/**
+ * @name parseEther
+ * @param number
+ * @returns {BigNumber}
+ */
+ export function parseEther(number: string) {
+  return utils.parseEther(number)
+}
+
+/**
+ * @name converNumberToFixed
+ * @param number
+ * @param decimals
+ * @returns {BigNumber} 
+ */
+ export function parseUnits(number: string, decimals: number = 18) {
+  return utils.parseUnits(number, decimals)
+}
+
+export function shortenAddress(address, num = 7, showEnd = true) {
+  if (!address) return null;
+  return num
+    ? `${address.slice(0).slice(0, num)}...${
+        showEnd ? address.slice(0).slice(-num) : ""
+      }`
+    : address;
+}
+
+export function shortenTransactionHash(txHash, num = 10, showEnd = true) {
+  if (!txHash) return null;
+  return `${txHash.slice(0).slice(0, num)}...${
+    showEnd ? txHash.slice(0).slice(-num) : ""
+  }`;
+}
+export function shortenBlockHash(txHash, num, showEnd = true) {
+  if (!txHash) return null;
+  return `${txHash.slice(0).slice(0, num)}...${
+    showEnd ? txHash.slice(0).slice(-60 - num) : ""
+  }`;
 }

@@ -9,7 +9,7 @@ import {
   useFilters,
 } from "react-table";
 
-import styles from "./AwardedControlledTokensGraphTable.module.css";
+import styles from "./PrizeHistoryTable.module.css";
 import { usePrizePoolsQuery } from "@hooks/thegraph";
 import {
   EpochToCalendarDate,

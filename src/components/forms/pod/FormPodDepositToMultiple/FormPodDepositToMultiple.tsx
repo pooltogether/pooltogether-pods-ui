@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 /* --- Local Modules --- */
 import { IPodForm } from "@src/interfaces/forms";
 import { selectTokenDropStyles } from "../select-tokendrop-styles";
-import { commifyTokenBalanceFromHuman } from "@helpers/blockchain";
+import { commifyTokenBalanceFromHuman } from "@src/utils/convert";
 import { useERC20ContractCall } from "@hooks/useContractERC20";
 import { useGetPodSelectOptions } from "@hooks/useGetPodSelectOptions";
 // Contracts
@@ -30,8 +30,8 @@ import {
   SelectTokenWithAmountInput,
 } from "@src/components";
 
-import { convertNumberToBigNumber } from "@src/helpers/convert";
-import { isBigNumber } from "@src/helpers/checks";
+import { convertNumberToBigNumber } from "@src/utils/convert";
+import { isBigNumber } from "@src/utils/is";
 
 /**
  * @name PodDepositTo

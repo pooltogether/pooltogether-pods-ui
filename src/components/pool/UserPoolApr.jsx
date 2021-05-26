@@ -4,7 +4,7 @@ import { BigNumber } from "ethers";
 import { useEthers } from "@usedapp/core";
 
 /* --- Local Modules --- */
-import { commifyTokenBalance } from "@helpers/blockchain";
+import { commifyTokenBalance } from "@src/utils/convert";
 import { useGetPodContract } from "@src/hooks/contracts";
 
 const calculateAPR = (amount, price) => {

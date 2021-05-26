@@ -1,7 +1,7 @@
 import { useEthers, useEtherBalance } from "@usedapp/core";
 import { useMemo } from "react";
 
-import { commifyTokenBalance } from "@helpers/blockchain";
+import { commifyTokenBalance } from "@src/utils/convert";
 
 /**
  * @name

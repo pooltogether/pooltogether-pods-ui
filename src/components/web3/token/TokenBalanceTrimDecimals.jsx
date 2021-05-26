@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { numberTrimDecimals } from "@helpers/blockchain";
+import { numberTrimDecimals } from "@src/utils/convert";
 /**
  * @name TokenBalanceTrimDecimals
  * @param {Object} props
