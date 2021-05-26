@@ -22,11 +22,8 @@ export { PodUserUnderlyingBalance } from "./pod/PodUserUnderlyingBalance";
 export { PodWinningOdds } from "./pod/PodWinningOdds";
 
 // POOL
-// export { UserPoolApr } from "./pool/UserPoolApr";
-export { UserClaimablePool } from "./pool/UserClaimablePool";
+// export { UserClaimablePool } from "./pool/UserClaimablePool";
 export { UserClaimablePoolViaTokenDrop } from "./pool/UserClaimablePoolViaTokenDrop";
-// export { PodTokenNextRewardAmount } from "./pool/PodTokenNextRewardAmount";
-// export { PodPrizePoolPoolAPR } from "./pool/PodPrizePoolPoolAPR";
 
 // USD
 export { ERC20Balance } from "./web3/erc20/ERC20Balance";
