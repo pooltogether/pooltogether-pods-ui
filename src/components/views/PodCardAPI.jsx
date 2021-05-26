@@ -49,12 +49,6 @@ export const PodCardAPI = ({ token, ...props }) => {
   const batchQuery = usePodOverviewBatchCall(addresses);
   const cacheQuery = usePoolTogetherPoolData(addresses?.prizePool);
 
-  // console.log(addresses, "addressesaddresses");
-
-  // console.log(cacheQuery, "cacheQuery");
-  // console.log(batchQuery, "batchQuerybatchQuery");
-  // console.log(addresses, "addressesaddresses");
-
   return useMemo(() => {
     if (batchQuery.isLoading) {
       return <PodCardLoading {...props} />;
@@ -158,7 +152,7 @@ const PodCard = ({
         <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-x-6 text-center lg:text-left">
           <div className="col-span-3 text-teal-500">
             <div className="flex flex-col lg:flex-row lg:items-center">
-              <h3 className="block font-bold text-center text-5xl lg:text-6xl text-white lg:text-white">
+              <h3 className="block font-bold text-center text-4xl xs:text-5xl md:text-6xl lg:text-6xl text-white lg:text-white">
                 <USDValue
                   number={idx(dataCache, (_) => _.prize.totalValueUsd)}
                 />
@@ -171,15 +165,15 @@ const PodCard = ({
             <div className="flex items-center lg:items-start lg:justify-start flex-col lg:flex-row lg:justify-start">
               <img src={tokenImage} width={28} />
               <Spacer className="mx-1" />
-              <span className="flex items-center text-xl text-white">
-                {symbol} pool rewards
+              <span className="flex items-center text-white">
+                <span className="text-sm lg:text-xl mb-2 lg:mb-0">
+                  {symbol} pool rewards
+                </span>
                 <span className="ml-1">
                   {idx(dataCache, (_) => _.prizePoolWinningDate.relative)}
                 </span>
               </span>
-              <span className="text-xxs mt-3 ml-4 lg:mt-0">
-                <PodNewPrizeCountdown pool={dataCache} />
-              </span>
+              <PodNewPrizeCountdown pool={dataCache} />
             </div>
           </div>
           <div className="col-span-1 mt-8 lg:mt-0 text-center lg:text-left">
@@ -481,11 +475,8 @@ const PodCardDisconnected = ({
           <div className="flex items-center">
             <img src={tokenImage} width={28} />
             <Spacer className="mx-1" />
-            <span className="block text-xl text-white">
-              {symbol} pool rewards
-              <span className="ml-1">
-                {idx(dataCache, (_) => _.prizePoolWinningDate.relative)}
-              </span>
+            <span className="block text-white">
+              <span className="text-sm lg:text-xl">{symbol} pool rewards</span>
               <span className="text-xxs ml-1">
                 <PodPrizePoolPeriodEndFromCache
                   number={idx(
@@ -494,7 +485,7 @@ const PodCardDisconnected = ({
                   )}
                 />
                 (
-                <span className="text-xxs ml-">
+                <span className="text-xxs ml-1">
                   <PodPrizePoolPeriodEndFromCache
                     displayType="calendar"
                     number={idx(

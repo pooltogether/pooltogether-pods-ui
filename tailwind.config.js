@@ -5,9 +5,14 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: (theme) => ({
-        "bg-home": "url('/background/bg-home.png')",
+        "bg-home": "url('/background/bg-home.jpg')",
         internal: "url('/background/bg-internal.png')",
       }),
+      screens: {
+        xs: "531px",
+        // sm: "721px",
+        // lg: "1481px",
+      },
       colors: {
         teal: {
           900: "#1d3941",
@@ -40,28 +45,11 @@ module.exports = {
         "62rem": "62rem",
       },
       fontSize: (fontSizes) => ({
-        // sm: ['14px', '20px'],
-        // base: ['16px', '24px'],
-        // lg: ['20px', '28px'], // line height!
-        // xl: ['24px', '32px'],
         xxxxxs: "0.5rem",
         xxxxs: "0.625rem",
         xxxs: "0.685rem",
         xxs: "0.735rem",
         xs: "0.8rem",
-        // sm: "1.125rem",
-        // base: "1.25rem",
-        // lg: "1.25rem",
-        // xl: "1.5rem",
-        // "2xl": "1.875rem",
-        // "3xl": "2.25rem",
-        // "4xl": "2.5rem",
-        // "5xl": "3rem",
-        // "6xl": "4rem",
-        // "7xl": "5rem",
-        // "8xl": "6rem",
-        // "9xl": "7rem",
-        // "10xl": "8rem",
         ...fontSizes,
       }),
       fontFamily: {

@@ -30,7 +30,7 @@ export const PodNewPrizeCountdown = (props) => {
         <p
           className={classnames(textSize, "font-bold", {
             "text-flashy": flashy,
-            "text-xs xs:text-sm sm:text-xl": !textSize,
+            "text-xxs xs:text-xs sm:text-xl": !textSize,
             "text-right": !textAlign,
           })}
         >
@@ -88,7 +88,7 @@ export const PodNewPrizeCountdown = (props) => {
       <div
         className={classnames(textSize, "flex text-center", {
           "justify-center": center,
-          "text-sm xs:text-xs sm:text-base": !textSize,
+          "text-xxxs xs:text-xs sm:text-base": !textSize,
         })}
       >
         <div

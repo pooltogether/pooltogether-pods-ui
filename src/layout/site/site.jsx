@@ -26,7 +26,7 @@ export const SiteLayout = ({ children, ...props }) => {
               backgroundColor: "#322153",
             }}
           ></div>
-          <div className="bg-internal bg-bottom bg-cover fixed top-0 bottom-0 left-0 right-0 opacity-80 z-1"></div>
+          <div className="bg-internal bg-bottom bg-cover fixed top-0 bottom-0 left-0 right-0 opacity-90 z-1"></div>
         </>
       ) : (
         <>
@@ -41,7 +41,7 @@ export const SiteLayout = ({ children, ...props }) => {
       )}
       <SiteHeader />
       <div className="flex-1 z-200">
-        <div className="relative px-10 lg:px-0 z-100">{children}</div>
+        <div className="relative px-4 lg:px-0 z-100">{children}</div>
       </div>
       <SiteFooter />
     </div>
