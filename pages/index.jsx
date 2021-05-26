@@ -21,7 +21,7 @@ export const PageDeposit = (props) => {
           Deposit with low gas fee and have a chance to win the prize.
         </p>
       </div>
-      <div className="max-w-screen-lg mx-auto w-full p-10 lg:p-0">
+      <div className="max-w-screen-lg mx-auto w-full p-0 lg:p-0">
         <ErrorBoundary>
           <PodsFromConnectedNetwork />
         </ErrorBoundary>

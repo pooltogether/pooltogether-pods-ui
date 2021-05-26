@@ -21,43 +21,6 @@
   z-index: 100;
 }
 
-@media screen and (max-width: 992px) {
-  .table tr {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 10px 0;
-    border-bottom: 1px solid #dadada;
-    width: 100%;
-  }
-  .table tr td {
-    padding: 5px 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-
-  .table tr td:nth-of-type(1) {
-    display: inline-block;
-    text-align: center !important;
-    width: 10% !important;
-  }
-  .table tr td:nth-of-type(2) {
-    width: 80% !important;
-  }
-  .table tr td:nth-of-type(3) {
-    text-align: center !important;
-    width: 10% !important;
-  }
-  .table tr td:nth-of-type(4),
-  .table tr td:nth-of-type(5) {
-    text-align: center !important;
-    width: 50% !important;
-  }
-  .table tr td:nth-of-type(3) {
-    text-align: left !important;
-  }
-}
-
 /* ---------------- */
 /* Table Head       */
 /* ---------------- */
@@ -70,6 +33,7 @@
   border-radius: 6px;
   padding: 10px;
   margin-bottom: 10px;
+  /* display: none; */
 }
 
 .tableHead tr th {
@@ -117,6 +81,72 @@
   text-align: right;
 }
 
+.tableBody tr td {
+  background-color: rgba(33, 28, 66, 0.9);
+  vertical-align: middle;
+}
+
+.tableBody tr:nth-child(odd) {
+  /* background-color: rgba(33, 28, 66, 1); */
+}
+.tableBody tr:nth-child(even) {
+  background-color: rgba(33, 28, 66, 1);
+}
+
+@media screen and (max-width: 992px) {
+  .tableHead {
+    display: none;
+  }
+
+  .table tr {
+    background-color: rgba(33, 28, 66, 1);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 15px 20px;
+    border-bottom: 1px solid #dadada;
+    width: 100%;
+  }
+  .table tr {
+    /* padding: 5px 0 !important; */
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .tableBody tr td:nth-child(1) {
+    display: none;
+  }
+
+  .tableBody tr td {
+    display: table-row;
+    width: 100% !important;
+  }
+  .table tr td {
+    text-align: left !important;
+    width: 100% !important;
+  }
+
+  .table tr td::before {
+    color: cornsilk;
+    font-size: 12px;
+  }
+  .table tr td:nth-of-type(1) {
+    display: none;
+  }
+  .table tr td:nth-of-type(2)::before {
+    content: "Total Deposits";
+  }
+  .table tr td:nth-of-type(3)::before {
+    content: "Prize (Excludes LOOT Box)";
+  }
+  .table tr td:nth-of-type(4)::before {
+    content: "Winners";
+  }
+  .table tr td:nth-of-type(5)::before {
+    content: "Date";
+  }
+}
+
 /* ---------------- */
 /* Table Body       */
 /* ---------------- */
@@ -130,18 +160,6 @@
     width: 100%;
     text-align: left;
     /* line-height: 4; */
-  }
-
-  .tableBody tr td {
-    background-color: rgba(33, 28, 66, 0.9);
-    vertical-align: middle;
-  }
-
-  .tableBody tr:nth-child(odd) {
-    /* background-color: #fff; */
-  }
-  .tableBody tr:nth-child(even) {
-    background-color: rgba(33, 28, 66, 1);
   }
 
   .tableBody tr td:nth-child(1) {
@@ -165,6 +183,9 @@
     padding-right: 15px;
     max-width: 310px !important;
     width: 10% !important;
+  }
+  .tableBody tr td:nth-child(5) {
+    text-align: right;
   }
 }
 

@@ -1,1 +1,0 @@
-{"version":3,"file":"useChainCalls.d.ts","sourceRoot":"","sources":["../../../src/hooks/useChainCalls.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,SAAS,EAAE,MAAM,sCAAsC,CAAA;AAEhE,OAAO,EAAE,KAAK,EAAE,MAAM,gBAAgB,CAAA;AAEtC,wBAAgB,aAAa,CAAC,KAAK,EAAE,SAAS,EAAE,0BAW/C;AAED,wBAAgB,YAAY,CAAC,IAAI,EAAE,SAAS,GAAG,KAAK,sBAGnD"}

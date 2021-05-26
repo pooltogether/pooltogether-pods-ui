@@ -16,7 +16,7 @@ import { Spacer } from "@components";
 export const SiteFooter = (props) => {
   return (
     <footer
-      className="bg-purple-900 border-t-2 border-solid border-top-2 border-white pt-10 px-10 z-10"
+      className="bg-purple-900 border-t-2 border-solid border-top-2 border-white pt-10 lg:px-10 z-10"
       style={{
         backgroundColor: "#221047",
       }}
@@ -66,7 +66,7 @@ export const SiteFooter = (props) => {
             Application
           </div>
 
-          <Link href="/deposit">
+          <Link href="/">
             <a className="my-3 block text-white hover:text-gray-100 text-sm font-medium duration-700">
               Deposit
             </a>
