@@ -176,8 +176,8 @@ const PodCard = ({
           {/* Grid 1 */}
           <div className='text-teal-500 text-center lg:text-left'>
             <span className='block text-xxs'>My deposit:</span>
-            <span className='block text-white text-2xl'>
-              <PodBalanceOfUnderlying address={address} decimals={decimals} />
+            <span className='block text-white'>
+              <PodBalanceOfUnderlying className='text-2xl' address={address} decimals={decimals} />
               <span className='ml-1'>{symbol}</span>
             </span>
             <span className='block'>
@@ -191,10 +191,13 @@ const PodCard = ({
               {/* Grid 2 */}
               <div className='text-teal-500 text-center lg:text-left'>
                 <span className='block text-xxs'>My share (when Pod wins):</span>
-                <span className='block text-white text-2xl'>
-                  <span className='ml-1'>
-                    <PodUserShareOfPrize address={address} addressPrizePool={addressPrizePool} />
-                  </span>
+                <span className='block text-white'>
+                  <PodUserShareOfPrize
+                    className='text-2xl'
+                    address={address}
+                    addressPrizePool={addressPrizePool}
+                  />
+                  {/* <span className='ml-1'></span> */}
                   <span className='ml-1'>{symbol}</span>
                 </span>
                 <span className='block'>
@@ -212,8 +215,11 @@ const PodCard = ({
               {/* Grid 3 */}
               <div className='text-teal-500 text-center lg:text-left'>
                 <span className='block text-xxs'>Deposit APR:</span>
-                <span className='block text-white text-2xl'>
-                  {converNumberToFixed(idx(dataCache, (_) => _.tokenListener.apr))} %
+                <span className='block text-white'>
+                  <span className='text-2xl'>
+                    {converNumberToFixed(idx(dataCache, (_) => _.tokenListener.apr))}
+                  </span>{' '}
+                  %
                 </span>
                 <span className='block'>
                   <span className='text-xxs'>
@@ -226,8 +232,11 @@ const PodCard = ({
               {/* Grid 4 */}
               <div className='text-teal-500 text-center lg:text-left'>
                 <span className='block text-xxs'>Claimable POOL:</span>
-                <span className='block text-white text-2xl'>
-                  <UserClaimablePoolViaTokenDrop address={addressPodTokenDrop} />
+                <span className='block text-white'>
+                  <UserClaimablePoolViaTokenDrop
+                    className='text-2xl'
+                    address={addressPodTokenDrop}
+                  />
                   <span className='ml-1 uppercase'>{symbolReward}</span>
                 </span>
                 <Spacer className='my-1' />
@@ -242,8 +251,13 @@ const PodCard = ({
             {/* Grid 1 */}
             <div className='text-teal-500 text-center lg:text-left'>
               <span className='block text-xxs'>Pod's Balance</span>
-              <span className='block text-white text-2xl'>
-                <PodBalanceTotal address={address} decimals={decimals} decimalsTrim={2} />
+              <span className='block text-white'>
+                <PodBalanceTotal
+                  className='text-2xl'
+                  address={address}
+                  decimals={decimals}
+                  decimalsTrim={2}
+                />
                 <span className='ml-1'>{symbol}</span>
               </span>
             </div>
@@ -258,13 +272,14 @@ const PodCard = ({
                   </Tooltip>
                 </span>
               </span>
-              <span className='block text-white text-2xl'>
+              <span className='block text-white'>
                 <ERC20Balance
-                  className='text-white'
+                  className='text-2xl'
                   address={addressToken}
                   account={address}
                   decimals={decimals}
                   decimalsTrim={2}
+                  defaultValue='0.00'
                 />
                 <span className='ml-1'>{symbol}</span>
               </span>
@@ -280,12 +295,11 @@ const PodCard = ({
                   </Tooltip>
                 </span>
               </span>
-              <span className='block text-white text-2xl'>
+              <span className='block text-white'>
                 <ERC20Balance
-                  className='text-white'
+                  className='text-2xl'
                   address={addressReward}
                   account={addressPodTokenDrop}
-                  // account={addressPodTokenDrop}
                   decimals={18}
                   decimalsTrim={7}
                 />
@@ -296,8 +310,8 @@ const PodCard = ({
             {/* Grid 4 */}
             <div className='text-teal-500 text-center lg:text-left'>
               <span className='block text-xxs'>Pod Claimable POOL</span>
-              <span className='block mb-1 text-white text-2xl'>
-                <PodClaimablePool address={address} />
+              <span className='block mb-1 text-white'>
+                <PodClaimablePool className='text-2xl' address={address} />
                 <span className='ml-1 uppercase'>{symbolReward}</span>
               </span>
             </div>

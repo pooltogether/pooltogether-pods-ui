@@ -24,7 +24,7 @@ export const PodUserShareOfPrize = ({
   ...props
 }) => {
   const cacheQuery = usePoolTogetherPoolData(addressPrizePool)
-  const [userPrizeShareCalculated, userPrizeShareCalculatedSet] = useState('0')
+  const [userPrizeShareCalculated, userPrizeShareCalculatedSet] = useState('0.00')
 
   /* ------------------------ */
   /* --- Blockchain State --- */
@@ -43,8 +43,6 @@ export const PodUserShareOfPrize = ({
           2
         )
       ).div(10)
-
-      console.log(share, 'shareshare')
 
       const transformed = commifyTokenBalanceFromHuman(transformTokenToHuman(share, 2), 2)
       userPrizeShareCalculatedSet(transformed)

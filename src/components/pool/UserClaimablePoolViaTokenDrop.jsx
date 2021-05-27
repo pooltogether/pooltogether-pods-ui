@@ -10,7 +10,7 @@ import { useGetPodContract, useGetTokenDropContract } from '@src/hooks/contracts
  * @name UserClaimablePoolViaTokenDrop
  * @param {Object} props
  */
-export const UserClaimablePoolViaTokenDrop = ({ address, label, ...props }) => {
+export const UserClaimablePoolViaTokenDrop = ({ className, address, label, ...props }) => {
   /* ----------------------- */
   /* --- Component State --- */
   /* ----------------------- */
@@ -25,7 +25,6 @@ export const UserClaimablePoolViaTokenDrop = ({ address, label, ...props }) => {
   /* ------------------------ */
   /* --- Blockchain Hooks --- */
   /* ------------------------ */
-
   // Effect : Update Claimable POOl Tokens
   useEffect(() => {
     if (account && contract && address) {
@@ -44,9 +43,8 @@ export const UserClaimablePoolViaTokenDrop = ({ address, label, ...props }) => {
   /* --- Component Render --- */
   /* ------------------------ */
 
-  return useMemo(() => {
-    return <span className=''>{podClaimableAmount}</span>
-  }, [podClaimableAmount])
+  return <span className={className}>{podClaimableAmount}</span>
+  return useMemo(() => {}, [podClaimableAmount])
 }
 
 UserClaimablePoolViaTokenDrop.defaultProps = {

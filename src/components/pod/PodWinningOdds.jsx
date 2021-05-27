@@ -1,6 +1,7 @@
 /* --- Global Modules --- */
 import { useMemo, useState, useEffect } from 'react'
-import { useEthers } from '@usedapp/core'
+import classNames from 'classnames'
+import { BigNumber } from 'ethers'
 
 /* --- Local Modules --- */
 import { isPositiveBigNumber } from '@src/utils/is'
@@ -9,8 +10,6 @@ import { usePodContractCall } from '@hooks/useContractPod'
 import { useERC20ContractCall } from '@hooks/useContractERC20'
 import { commifyTokenBalanceFromHuman } from '@src/utils/convert'
 import { Tooltip } from '@components'
-import classNames from 'classnames'
-import { BigNumber, utils } from 'ethers'
 
 /**
  * @name PodWinningOdds
@@ -25,31 +24,26 @@ export const PodWinningOdds = ({ className, address, addressTicket }) => {
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
-  const { account } = useEthers()
-  const [userBalanceOf] = usePodContractCall(address, 'balanceOf', [account])
   const [podTotalBalance] = usePodContractCall(address, 'balance')
   const [podTicketsTotalSupply] = useERC20ContractCall(addressTicket, 'totalSupply')
 
-  // TODO: Use active tickets, instead of "presumed" tickets using prebatch token balance.
-  const [podTickets] = useERC20ContractCall(addressTicket, 'balanceOf', [address])
+  // TODO: Use active tickets, instead of "presumed" tickets using prebatch token balance?
+  // const [podTickets] = useERC20ContractCall(addressTicket, 'balanceOf', [address])
 
   useEffect(() => {
-    if (
-      isPositiveBigNumber(userBalanceOf) &&
-      isPositiveBigNumber(podTotalBalance) &&
-      isPositiveBigNumber(podTicketsTotalSupply)
-    ) {
+    'C'
+    if (isPositiveBigNumber(podTotalBalance) && isPositiveBigNumber(podTicketsTotalSupply)) {
       const calculation = podWinningOdds(podTotalBalance, podTicketsTotalSupply)
 
       try {
         const calculationBN = BigNumber.from(calculation)
-        if (calculationBN.gt('1000000000')) throw new Error('Invalid Calculation')
+        if (calculationBN.gt('10000000')) throw new Error('Invalid Calculation')
         podWinningOddsCalculatedSet(`1 in ${commifyTokenBalanceFromHuman(calculation, 0)}`)
       } catch (error) {
         podWinningOddsCalculatedSet(`Unavailable`)
       }
     }
-  }, [userBalanceOf, podTotalBalance, podTicketsTotalSupply])
+  }, [podTotalBalance, podTicketsTotalSupply])
 
   /* ------------------------ */
   /* --- Component Render --- */
