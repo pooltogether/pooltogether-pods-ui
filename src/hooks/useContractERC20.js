@@ -1,30 +1,25 @@
 /* --- Global Modules --- */
-import {
-  useContractCall,
-  useContractCalls,
-  useContractFunction,
-  useEthers,
-} from "@usedapp/core";
+import { useContractCall, useContractCalls, useContractFunction, useEthers } from '@usedapp/core'
 /* --- Local Modules --- */
-import { ERC20Interface } from "@constants";
-import { useGetERC20Contract } from "@hooks/contracts";
-import { getAddress, isAddress } from "@ethersproject/address";
+import { ERC20Interface } from '@constants'
+import { useGetERC20Contract } from '@hooks/contracts'
+import { getAddress, isAddress } from '@ethersproject/address'
 
 const validateInputs = (inputs) => {
-  let valid = true;
+  let valid = true
   Array.isArray(inputs) &&
     inputs.forEach((input) => {
-      if (input == undefined || input == null) valid = false;
-    });
-  return valid;
-};
+      if (input == undefined || input == null) valid = false
+    })
+  return valid
+}
 
 /**
  * @name useERC20ContractCall
  * @param {Object} props
  */
 export const useERC20ContractCall = (address, method, inputs = []) => {
-  const { active } = useEthers();
+  const { active } = useEthers()
   const [value] =
     useContractCall(
       active &&
@@ -34,12 +29,12 @@ export const useERC20ContractCall = (address, method, inputs = []) => {
           abi: ERC20Interface,
           address: getAddress(address),
           method: method,
-          args: inputs,
+          args: inputs
         }
-    ) ?? [];
+    ) ?? []
 
-  return [value];
-};
+  return [value]
+}
 
 /**
  * @name useERC20ContractCalls
@@ -50,21 +45,18 @@ export const useERC20ContractCalls = (address, methods = [], inputs = []) => {
     abi: ERC20Interface,
     address: address,
     method: method,
-    args: inputs[index],
-  }));
+    args: inputs[index]
+  }))
 
-  const values = useContractCalls(address && calls && calls) ?? [];
-  return Array.isArray(values)
-    ? values.map((value) => Array.isArray(value) && value[0])
-    : [];
-};
+  const values = useContractCalls(address && calls && calls) ?? []
+  return Array.isArray(values) ? values.map((value) => Array.isArray(value) && value[0]) : []
+}
 
 /**
  * @name useERC20ContractFunction
  * @param {Object} props
  */
 export const useERC20ContractFunction = (address, method) => {
-  const { send, state } =
-    useContractFunction(useGetERC20Contract(address), method) ?? [];
-  return [send, state];
-};
+  const { send, state } = useContractFunction(useGetERC20Contract(address), method) ?? []
+  return [send, state]
+}

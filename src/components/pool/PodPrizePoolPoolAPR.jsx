@@ -1,8 +1,4 @@
-import {
-  useGetPodPoolAPR,
-  useGetPodPoolUserAPR,
-  useGetPodPOOLAPY,
-} from "@hooks/pod";
+import { useGetPodPoolAPR, useGetPodPoolUserAPR, useGetPodPOOLAPY } from '@hooks/pod'
 
 /**
  * @name
@@ -14,25 +10,25 @@ export const PodPrizePoolPoolAPR = ({
   addressToken,
   addressTicket,
   addressPrizePoolTicket,
-  addressPrizePoolTicketSponsored,
+  addressPrizePoolTicketSponsored
 }) => {
   const APR = useGetPodPOOLAPY({
     addressPrizePool,
     addressFaucet,
     addressToken,
     addressTicket: addressPrizePoolTicket,
-    addressSponsoredTicket: addressPrizePoolTicketSponsored,
-  });
+    addressSponsoredTicket: addressPrizePoolTicketSponsored
+  })
   const prizePoolAPR = useGetPodPoolUserAPR({
     addressPrizePool,
     addressFaucet,
     addressToken,
     addressTicket: addressPrizePoolTicket,
-    addressSponsoredTicket: addressPrizePoolTicketSponsored,
-  });
+    addressSponsoredTicket: addressPrizePoolTicketSponsored
+  })
 
-  console.log(APR, "APR");
+  console.log(APR, 'APR')
 
-  return <div className=""></div>;
-};
-export default PodPrizePoolPoolAPR;
+  return <div className=''></div>
+}
+export default PodPrizePoolPoolAPR

@@ -1,8 +1,8 @@
 /* --- Global Modules --- */
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 /* --- Local Modules --- */
-import { isAddress } from "@src/data/checks";
+import { isAddress } from '@src/data/checks'
 import { fetchCoinGeckoTokenPrice } from '@src/fetch/fetch_coingecko'
 
 /* ------------------------------- */
@@ -10,21 +10,21 @@ import { fetchCoinGeckoTokenPrice } from '@src/fetch/fetch_coingecko'
 /* ------------------------------- */
 
 export const useGetCoinGeckoTokenPrice = (token: string | undefined) => {
-  const [price, priceSet] = useState(0.00);
+  const [price, priceSet] = useState(0.0)
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (isAddress(token)) {
         try {
           // @ts-ignore: Manual Type Check
-          const price = await fetchCoinGeckoTokenPrice(token);
-          priceSet(price);
+          const price = await fetchCoinGeckoTokenPrice(token)
+          priceSet(price)
         } catch (error) {
-          throw error;
+          throw error
         }
       }
-    })();
-  }, [token]);
+    })()
+  }, [token])
 
-  return price;
-};
+  return price
+}

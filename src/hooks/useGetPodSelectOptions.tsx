@@ -1,17 +1,17 @@
 /* --- Global Modules --- */
-import { useMemo } from "react";
-import { useEthers } from "@usedapp/core";
+import { useMemo } from 'react'
+import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { useGetAllPodAddress } from "./contractAddress";
+import { useGetAllPodAddress } from './contractAddress'
 
 /**
  * @name useGetPodSelectOptions
  * @returns
  */
 export function useGetPodSelectOptions() {
-  const { chainId } = useEthers();
-  const { PodDAI, PodUSDC, PodCOMP, PodUNI, PodBAT } = useGetAllPodAddress();
+  const { chainId } = useEthers()
+  const { PodDAI, PodUSDC, PodCOMP, PodUNI, PodBAT } = useGetAllPodAddress()
 
   return useMemo(() => {
     switch (chainId) {
@@ -20,14 +20,14 @@ export function useGetPodSelectOptions() {
         return [
           {
             value: PodDAI,
-            label: "DAI",
-            image: "/tokens/token-dai.png",
+            label: 'DAI',
+            image: '/tokens/token-dai.png'
           },
           {
             value: PodUSDC,
-            label: "USDC",
-            image: "/tokens/token-usdc.png",
-          },
+            label: 'USDC',
+            image: '/tokens/token-usdc.png'
+          }
           // {
           //   value: PodCOMP,
           //   label: "COMP",
@@ -38,27 +38,27 @@ export function useGetPodSelectOptions() {
           //   label: "UNI",
           //   image: "/tokens/token-uni.png",
           // },
-        ];
+        ]
       case 4:
         return [
           {
             value: PodDAI,
-            label: "DAI",
-            image: "/tokens/token-dai.png",
+            label: 'DAI',
+            image: '/tokens/token-dai.png'
           },
           {
             value: PodUSDC,
-            label: "USDC",
-            image: "/tokens/token-usdc.png",
-          },
+            label: 'USDC',
+            image: '/tokens/token-usdc.png'
+          }
           // {
           //   value: PodBAT,
           //   label: "BAT",
           //   image: "/tokens/token-bat.svg",
           // },
-        ];
+        ]
       default:
-        return [];
+        return []
     }
-  }, [chainId]);
+  }, [chainId])
 }

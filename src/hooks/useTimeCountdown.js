@@ -1,27 +1,22 @@
-import { useState } from "react";
-import { useInterval } from "beautiful-react-hooks";
-import { addSeconds } from "date-fns";
-import { msToSeconds } from "@src/utils/msToSeconds";
-import { subtractDates } from "@src/utils/subtractDates";
+import { useState } from 'react'
+import { useInterval } from 'beautiful-react-hooks'
+import { addSeconds } from 'date-fns'
+import { msToSeconds } from '@src/utils/msToSeconds'
+import { subtractDates } from '@src/utils/subtractDates'
 
 export const useTimeCountdown = (initialSecondsLeft, countBy = 1000) => {
-  const [secondsLeft, setSecondsLeft] = useState(
-    initialSecondsLeft < 0 ? 0 : initialSecondsLeft
-  );
+  const [secondsLeft, setSecondsLeft] = useState(initialSecondsLeft < 0 ? 0 : initialSecondsLeft)
 
   useInterval(() => {
-    const secondsToCountBy = msToSeconds(countBy);
-    const newRemainder = secondsLeft - secondsToCountBy;
+    const secondsToCountBy = msToSeconds(countBy)
+    const newRemainder = secondsLeft - secondsToCountBy
     if (newRemainder >= 0) {
-      setSecondsLeft(newRemainder);
+      setSecondsLeft(newRemainder)
     }
-  }, countBy);
+  }, countBy)
 
-  const currentDate = new Date(Date.now());
-  const futureDate = addSeconds(currentDate, secondsLeft);
-  const { days, hours, minutes, seconds } = subtractDates(
-    futureDate,
-    currentDate
-  );
-  return { days, hours, minutes, seconds, secondsLeft };
-};
+  const currentDate = new Date(Date.now())
+  const futureDate = addSeconds(currentDate, secondsLeft)
+  const { days, hours, minutes, seconds } = subtractDates(futureDate, currentDate)
+  return { days, hours, minutes, seconds, secondsLeft }
+}

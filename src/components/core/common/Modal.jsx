@@ -5,14 +5,14 @@
 export const Modal = ({ children, className, hideModal }) => {
   return (
     <div className={`modal ${className}`}>
-      <div onClick={hideModal} className={"modalBackground"} />
+      <div onClick={hideModal} className={'modalBackground'} />
       {children}
     </div>
-  );
-};
+  )
+}
 
 Modal.defaultProps = {
-  className: "",
-};
+  className: ''
+}
 
-export default Modal;
+export default Modal

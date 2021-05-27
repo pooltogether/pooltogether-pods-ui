@@ -1,18 +1,9 @@
-import React from "react";
-import ReactSelect from "react-select";
-import { Controller } from "react-hook-form";
+import React from 'react'
+import ReactSelect from 'react-select'
+import { Controller } from 'react-hook-form'
 
 export const Select = (props) => {
-  const {
-    control,
-    options,
-    name,
-    placeholder,
-    rules,
-    defaultValue,
-    styles,
-    components,
-  } = props;
+  const { control, options, name, placeholder, rules, defaultValue, styles, components } = props
   return (
     <Controller
       name={name}
@@ -25,17 +16,17 @@ export const Select = (props) => {
       components={components}
       styles={
         styles || {
-          control: (styles) => ({ flex: 1, marginTop: 10, ...styles }),
+          control: (styles) => ({ flex: 1, marginTop: 10, ...styles })
         }
       }
     />
-  );
-};
+  )
+}
 
 Select.defaultProps = {
-  name: "select",
+  name: 'select',
   options: [],
-  placeholder: "Select",
+  placeholder: 'Select',
   rules: { required: true },
-  defaultValue: null,
-};
+  defaultValue: null
+}
