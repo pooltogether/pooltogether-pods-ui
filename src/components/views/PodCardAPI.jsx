@@ -1,27 +1,27 @@
 /* --- Global Modules --- */
-import idx from "idx";
-import React, { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
-import classnames from "classnames";
-import { useMediaQuery } from "react-responsive";
+import idx from "idx"
+import React, { useEffect, useMemo, useState } from "react"
+import Link from "next/link"
+import classnames from "classnames"
+import { useMediaQuery } from "react-responsive"
 
 /* --- Local Modules --- */
-import { useToggle } from "@src/hooks/helpers/useToggle";
-import { useGetContractAddress } from "@src/hooks/useGetContractAddress";
-import { useGetPodRelatedAddresses } from "@hooks/podContracts";
-import { usePodOverviewBatchCall } from "@src/hooks/usePodOverviewBatchCall";
-import { usePoolTogetherPoolData } from "@src/hooks/usePoolTogetherPoolData";
+import { useToggle } from "@src/hooks/helpers/useToggle"
+import { useGetContractAddress } from "@src/hooks/useGetContractAddress"
+import { useGetPodRelatedAddresses } from "@hooks/podContracts"
+import { usePodOverviewBatchCall } from "@src/hooks/usePodOverviewBatchCall"
+import { usePoolTogetherPoolData } from "@src/hooks/usePoolTogetherPoolData"
 
 import {
   converNumberToFixed,
   convertNumberToBigNumber,
-} from "@src/utils/convert";
+} from "@src/utils/convert"
 import {
   podWinningOdds,
   percentageOfPod,
   calculateUserPrizeWinningsFromWinningPod,
-} from "@src/utils/calculations/pod";
-import { useERC20ContractCall } from "@hooks/useContractERC20";
+} from "@src/utils/calculations/pod"
+import { useERC20ContractCall } from "@hooks/useContractERC20"
 import {
   PodBalanceOfUnderlying,
   PodClaimRewardToken,
@@ -37,25 +37,25 @@ import {
   USDValue,
   Spacer,
   Tooltip,
-} from "@components";
+} from "@components"
 
 /**
  * @name PodCardAPI
  * @param {Object} props
  */
 export const PodCardAPI = ({ token, ...props }) => {
-  const ERC20Reward = useGetContractAddress("ERC20Reward");
-  const addresses = useGetPodRelatedAddresses(token);
-  const batchQuery = usePodOverviewBatchCall(addresses);
-  const cacheQuery = usePoolTogetherPoolData(addresses?.prizePool);
+  const ERC20Reward = useGetContractAddress("ERC20Reward")
+  const addresses = useGetPodRelatedAddresses(token)
+  const batchQuery = usePodOverviewBatchCall(addresses)
+  const cacheQuery = usePoolTogetherPoolData(addresses?.prizePool)
 
   return useMemo(() => {
     if (batchQuery.isLoading) {
-      return <PodCardLoading {...props} />;
+      return <PodCardLoading {...props} />
     }
 
     if (batchQuery.isError) {
-      return <PodCardLoading {...props} />;
+      return <PodCardLoading {...props} />
     }
 
     if (addresses.pod && batchQuery.isSuccess && cacheQuery.isSuccess) {
@@ -72,12 +72,12 @@ export const PodCardAPI = ({ token, ...props }) => {
           dataBlock={batchQuery?.data}
           {...props}
         />
-      );
+      )
     }
 
-    return <PodCardLoading {...props} />;
-  }, [cacheQuery.isFetching, batchQuery]);
-};
+    return <PodCardLoading {...props} />
+  }, [cacheQuery.isFetching, batchQuery])
+}
 
 /**
  * @name PodCard
@@ -99,10 +99,10 @@ const PodCard = ({
   addressPrizePool,
   ...props
 }) => {
-  const [isOpen, toggleIsOpen] = useToggle();
-  const [dataCalculations, dataCalculationsSet] = useState({});
+  const [isOpen, toggleIsOpen] = useToggle()
+  const [dataCalculations, dataCalculationsSet] = useState({})
 
-  const [symbolReward] = useERC20ContractCall(addressReward, "symbol");
+  const [symbolReward] = useERC20ContractCall(addressReward, "symbol")
   useEffect(() => {
     if (dataBlock) {
       dataCalculationsSet({
@@ -125,25 +125,25 @@ const PodCard = ({
             2
           )
         ),
-      });
+      })
     }
-  }, [dataBlock]);
+  }, [dataBlock])
 
   /* --- Styling & Layout --- */
   const classNameContainerComposed = classnames(
     "bg-purple-900 bg-opacity-30 p-10 px-10 lg:px-20 relative card-pods shadow-md",
     classNameContainer
-  );
+  )
 
   const isTabletOrMobile = useMediaQuery({
     query: "(max-width: 980px)",
-  });
+  })
 
   const calculateDisplayStatus = useMemo(() => {
-    if (!isTabletOrMobile) return true;
-    if (isTabletOrMobile && isOpen) return true;
-    return false;
-  }, [isTabletOrMobile, isOpen]);
+    if (!isTabletOrMobile) return true
+    if (isTabletOrMobile && isOpen) return true
+    return false
+  }, [isTabletOrMobile, isOpen])
 
   return (
     <>
@@ -358,8 +358,8 @@ const PodCard = ({
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
 /**
  * @name ExpandButton
@@ -372,7 +372,7 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
   const styleAbsolute = classnames("absolute right-0 bottom-2 cursor-pointer", {
     "bg-purple-700 bg-opacity-20 rounded-xl right-2 h-12 w-12 flex flex-center": isTabletOrMobile,
     "-bottom-6": !isTabletOrMobile,
-  });
+  })
 
   const styleContainer = classnames(
     "block cursor-pointer text-teal text-xxs text-center",
@@ -380,11 +380,11 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
       "bg-purple-900 bg-opacity-90 -bottom-6 rounded-b-xl py-1 px-5": !isTabletOrMobile,
       "rounded-xl p-0": isTabletOrMobile,
     }
-  );
+  )
 
   const styleArrow = classnames("mx-1", {
     "transform rotate-180": isOpen,
-  });
+  })
 
   return (
     <>
@@ -441,8 +441,8 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
 /**
  * @name PodCardDisconnected
@@ -459,7 +459,7 @@ const PodCardDisconnected = ({
   const classNameContainerComposed = classnames(
     "bg-purple-900 bg-opacity-40 p-10 px-20 text-center text-white",
     classNameContainer
-  );
+  )
 
   return (
     <div className={classNameContainerComposed}>
@@ -508,8 +508,8 @@ const PodCardDisconnected = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 /**
  * @name PodCardLoading
@@ -526,7 +526,7 @@ const PodCardLoading = ({
   const classNameContainerComposed = classnames(
     "bg-purple-900 p-10 px-20 text-center text-white",
     classNameContainer
-  );
+  )
 
   if (isError)
     return (
@@ -539,7 +539,7 @@ const PodCardLoading = ({
           </span>
         </div>
       </div>
-    );
+    )
 
   return (
     <div className={classNameContainerComposed}>
@@ -548,8 +548,8 @@ const PodCardLoading = ({
         <h2 className="text-4xl mt-3">Pod Loading...</h2>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const PodFloatTooltip = (props) => {
   return (
@@ -577,8 +577,8 @@ const PodFloatTooltip = (props) => {
         </span>
       </p>
     </div>
-  );
-};
+  )
+}
 
 const PodPoolTooltip = (props) => {
   return (
@@ -649,7 +649,7 @@ const PodPoolTooltip = (props) => {
       </p>
       <p className="text-xxs"></p>
     </div>
-  );
-};
+  )
+}
 
-export default PodCardAPI;
+export default PodCardAPI
