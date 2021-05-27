@@ -20,6 +20,7 @@ export { PodShareOfPodTotal } from './pod/PodShareOfPodTotal'
 export { PodUserShareOfPrize } from './pod/PodUserShareOfPrize'
 export { PodUserUnderlyingBalance } from './pod/PodUserUnderlyingBalance'
 export { PodWinningOdds } from './pod/PodWinningOdds'
+export { PodWinningOddsAfterDeposit } from './pod/PodWinningOddsAfterDeposit'
 
 // POOL
 // export { UserClaimablePool } from "./pool/UserClaimablePool";

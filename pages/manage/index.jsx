@@ -1,8 +1,10 @@
+/* --- Global Modules --- */
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import { Spacer } from '../../src/components'
 
+/* --- Local Modules --- */
+import { Spacer } from '@src/components'
 import { FormPodDepositToMultiple, FormPodWithdrawToMultiple } from '@components/forms/pod'
 
 /**
