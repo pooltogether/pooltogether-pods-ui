@@ -1,24 +1,19 @@
 /* --- Global Modules --- */
-import { useMemo } from "react"
+import { useMemo } from 'react'
 
 /* --- Local Modules --- */
-import { usePodContractCall } from "@hooks/useContractPod"
-import { TokenBalance } from "@src/components"
+import { usePodContractCall } from '@hooks/useContractPod'
+import { TokenBalance } from '@src/components'
 
 /**
  * @name PodBalanceTotal
  * @param {Object} props
  */
-export const PodBalanceTotal = ({
-  className,
-  address,
-  decimals,
-  decimalsTrim,
-}) => {
+export const PodBalanceTotal = ({ className, address, decimals, decimalsTrim }) => {
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
-  const [balance] = usePodContractCall(address, "balance", [])
+  const [balance] = usePodContractCall(address, 'balance', [])
 
   /* ------------------------ */
   /* --- Component Render --- */
@@ -38,7 +33,7 @@ export const PodBalanceTotal = ({
 PodBalanceTotal.defaultProps = {
   address: undefined,
   decimals: 18,
-  decimalsTrim: 2,
+  decimalsTrim: 2
 }
 
 export default PodBalanceTotal

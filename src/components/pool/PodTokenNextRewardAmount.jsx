@@ -1,19 +1,15 @@
-import { useGetPodNextReward } from "@hooks/pod";
-import { useBatchCall } from "@hooks/batch";
-import { useMemo } from "react";
+import { useGetPodNextReward } from '@hooks/pod'
+import { useBatchCall } from '@hooks/batch'
+import { useMemo } from 'react'
 
 /**
  * @name PodTokenNextRewardAmount
  * @param {Object} props
  */
-export const PodTokenNextRewardAmount = ({
-  podAccountBalance,
-  token,
-  ...props
-}) => {
-  const nextPrizePoolReward = useGetPodNextReward({ token });
+export const PodTokenNextRewardAmount = ({ podAccountBalance, token, ...props }) => {
+  const nextPrizePoolReward = useGetPodNextReward({ token })
 
-  console.log(token, "tokentokentoken");
+  console.log(token, 'tokentokentoken')
 
   // const batch = useBatchCall([
   //   // cDAI (Compound DAI)
@@ -46,7 +42,7 @@ export const PodTokenNextRewardAmount = ({
   // ]);
 
   return useMemo(() => {
-    return <div className="">000</div>;
-  }, [nextPrizePoolReward]);
-};
-export default PodTokenNextRewardAmount;
+    return <div className=''>000</div>
+  }, [nextPrizePoolReward])
+}
+export default PodTokenNextRewardAmount

@@ -1,17 +1,17 @@
 /* --- Global Modules --- */
-import idx from "idx";
-import { useMemo, useState } from "react";
-import { constants, ethers } from "ethers";
-import { useEthers } from "@usedapp/core";
-import { batch, contract } from "@pooltogether/etherplex";
+import idx from 'idx'
+import { useMemo, useState } from 'react'
+import { constants, ethers } from 'ethers'
+import { useEthers } from '@usedapp/core'
+import { batch, contract } from '@pooltogether/etherplex'
 
 /* --- Local Modules --- */
-import contracts from "@constants/contracts";
-import ERC20_ABI from "@contracts/ERC20.json";
-import Pod_ABI from "@contracts/Pod.json";
-import PrizePool_ABI from "@contracts/PrizePool_ABI.json";
-import PrizePoolFaucet_ABI from "@contracts/PrizePoolFaucet.json";
-import PrizeStrategy_ABI from "@contracts/PrizeStrategy_ABI.json";
+import contracts from '@constants/contracts'
+import ERC20_ABI from '@contracts/ERC20.json'
+import Pod_ABI from '@contracts/Pod.json'
+import PrizePool_ABI from '@contracts/PrizePool_ABI.json'
+import PrizePoolFaucet_ABI from '@contracts/PrizePoolFaucet.json'
+import PrizeStrategy_ABI from '@contracts/PrizeStrategy_ABI.json'
 /**
  * @name useBatchCall
  *
@@ -19,63 +19,60 @@ import PrizeStrategy_ABI from "@contracts/PrizeStrategy_ABI.json";
  */
 export function useBatchCall(contractAndCalls) {
   /* --- Blockchain State --- */
-  const { library } = useEthers();
+  const { library } = useEthers()
 
   /* --- Component State --- */
-  const [isLoading, isLoadingSet] = useState(false);
-  const [data, dataSet] = useState(undefined);
+  const [isLoading, isLoadingSet] = useState(false)
+  const [data, dataSet] = useState(undefined)
 
   // HACK : TODO find better better way to memoize altered contractCalls
   // to avoid "Too many re-renders. React limits the number of renders to prevent an infinite loop.""
   // IF contracts change on Wallet connecting requires the first contract in the array to be a dynamic address
   const addresses = useMemo(() => {
-    return contractAndCalls.map(
-      (contractCall) => contractCall.contract.__address
-    );
-  }, [contractAndCalls[0].contract.__address]);
+    return contractAndCalls.map((contractCall) => contractCall.contract.__address)
+  }, [contractAndCalls[0].contract.__address])
 
   useMemo(async () => {
     if (library && contractAndCalls) {
       try {
-        isLoadingSet(true);
-        const batchData = await batch(library, ...contractAndCalls);
-        dataSet(batchData);
-        isLoadingSet(false);
+        isLoadingSet(true)
+        const batchData = await batch(library, ...contractAndCalls)
+        dataSet(batchData)
+        isLoadingSet(false)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     }
 
-    return data;
-  }, [addresses, library]);
+    return data
+  }, [addresses, library])
 
   return useMemo(
     () => ({
       data: data,
-      isLoading,
+      isLoading
     }),
     [data, isLoading]
-  );
+  )
 }
 
 export const PrizePoolStrategyBatchContract = (name, address) =>
-  contract(name, PrizeStrategy_ABI, address);
+  contract(name, PrizeStrategy_ABI, address)
 
 export const PrizePoolFaucetBatchContract = (name, address) =>
-  contract(name, PrizePoolFaucet_ABI, address);
+  contract(name, PrizePoolFaucet_ABI, address)
 
-export const PodBatchContract = (address) => contract("Pod", Pod_ABI, address);
+export const PodBatchContract = (address) => contract('Pod', Pod_ABI, address)
 
-export const ERC20BatchContract = (name, address) =>
-  contract(name, ERC20_ABI, address);
+export const ERC20BatchContract = (name, address) => contract(name, ERC20_ABI, address)
 
 export const PrizePoolBatchContract = (address) =>
-  !address ? null : contract("PrizePool", PrizePool_ABI, address);
+  !address ? null : contract('PrizePool', PrizePool_ABI, address)
 
 const ContractsInitialized = {
   Pod: PodBatchContract,
-  PrizePool: PrizePoolBatchContract,
-};
+  PrizePool: PrizePoolBatchContract
+}
 
 const composeCalls = () => {
   // contractAndCalls.map((contract) => {
@@ -95,4 +92,4 @@ const composeCalls = () => {
   // console.log(ContractsInitialized["Pod"], "pdpdpdp");
   // const execute = calls.join(",");
   // console.log(execute, "executeexecute");
-};
+}

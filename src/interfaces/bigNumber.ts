@@ -1,4 +1,4 @@
 export interface BigNumberUnformatted {
-  type: String,
+  type: String
   hex: String
 }

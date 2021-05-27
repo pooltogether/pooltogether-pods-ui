@@ -1,3 +1,3 @@
-import FormPodClaimPodPool from './FormPodClaimPodPool';
-export {FormPodClaimPodPool};
-export default FormPodClaimPodPool;
+import FormPodClaimPodPool from './FormPodClaimPodPool'
+export { FormPodClaimPodPool }
+export default FormPodClaimPodPool

@@ -1,16 +1,16 @@
 export const menu = [
   {
-    label: "Deposit",
-    url: "/",
+    label: 'Deposit',
+    url: '/'
   },
   {
-    label: "Manage",
-    url: "/manage",
+    label: 'Manage',
+    url: '/manage'
   },
   {
-    label: "Prize History",
-    url: "/prize-history",
-  },
-];
+    label: 'Prize History',
+    url: '/prize-history'
+  }
+]
 
-export default menu;
+export default menu

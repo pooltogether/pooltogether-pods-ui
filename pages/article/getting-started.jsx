@@ -4,11 +4,9 @@
  */
 export const ArticleGettingStarted = (props) => {
   return (
-    <div className="py-0">
-      <h2 className="text-4xl lg:text-6xl font-black text-purple-900">
-        Getting Started
-      </h2>
-      <p className="">A complete guide to PoolTogether Pods is Coming Soon!</p>
+    <div className='py-0'>
+      <h2 className='text-4xl lg:text-6xl font-black text-purple-900'>Getting Started</h2>
+      <p className=''>A complete guide to PoolTogether Pods is Coming Soon!</p>
       {/* <h2 className="text-4xl lg:text-6xl font-black text-purple-900 mt-10">
         What Is a Pod?
       </h2>
@@ -36,6 +34,6 @@ export const ArticleGettingStarted = (props) => {
         <li>Decrease Gas Costs</li>
       </ul> */}
     </div>
-  );
-};
-export default ArticleGettingStarted;
+  )
+}
+export default ArticleGettingStarted

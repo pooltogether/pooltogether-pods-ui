@@ -1,6 +1,6 @@
-import { EtherscanLink } from "@src/components";
-import { shortenAddress } from "@src/utils/convert";
-import { constants } from "ethers";
+import { EtherscanLink } from '@src/components'
+import { shortenAddress } from '@src/utils/convert'
+import { constants } from 'ethers'
 
 /**
  * @name Address
@@ -14,19 +14,19 @@ export const Address = ({ address, isLink, className, trim, ...props }) => {
           {shortenAddress(address, trim)}
         </span>
       </EtherscanLink>
-    );
+    )
   }
   return !address ? null : (
     <span className={className} {...props}>
       {shortenAddress(address, trim)}
     </span>
-  );
-};
+  )
+}
 
-export default Address;
+export default Address
 
 Address.defaultProps = {
   address: constants.AddressZero,
   trim: 7,
-  className: "",
-};
+  className: ''
+}

@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { Spacer } from "../../src/components";
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { Spacer } from '../../src/components'
 
-import {
-  FormPodDepositToMultiple,
-  FormPodWithdrawToMultiple,
-} from "@components/forms/pod";
+import { FormPodDepositToMultiple, FormPodWithdrawToMultiple } from '@components/forms/pod'
 
 /**
  * @name PageDeposit
@@ -15,12 +12,12 @@ import {
 export const PageDeposit = (props) => {
   return (
     <>
-      <div className="max-w-screen-xl mx-auto py-20">
-        <div className="text-center mb-10">
-          <h2 className="font-thin text-4xl text-teal-600">Manage my funds</h2>
-          <Spacer className="my-20" />
+      <div className='max-w-screen-xl mx-auto py-20'>
+        <div className='text-center mb-10'>
+          <h2 className='font-thin text-4xl text-teal-600'>Manage my funds</h2>
+          <Spacer className='my-20' />
         </div>
-        <div className="max-w-screen-sm mx-auto">
+        <div className='max-w-screen-sm mx-auto'>
           <ManageTabs />
         </div>
       </div>
@@ -44,39 +41,39 @@ export const PageDeposit = (props) => {
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
-export default PageDeposit;
+export default PageDeposit
 
 const ManageTabs = (props) => {
-  const router = useRouter();
-  const { tab, token } = router.query;
-  const [tabIndex, setTabIndex] = useState(Number(tab));
+  const router = useRouter()
+  const { tab, token } = router.query
+  const [tabIndex, setTabIndex] = useState(Number(tab))
 
   useEffect(() => {
     if (tab) {
-      setTabIndex(Number(tab));
+      setTabIndex(Number(tab))
     } else {
-      setTabIndex(0);
+      setTabIndex(0)
     }
-  }, [tab]);
+  }, [tab])
 
   if (process.browser) {
     return (
       <>
         <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-          <TabList className="grid grid-cols-2">
+          <TabList className='grid grid-cols-2'>
             <Tab>
               <ManageTab>
-                <div className="">Deposit</div>
+                <div className=''>Deposit</div>
               </ManageTab>
             </Tab>
             <Tab>Withdraw</Tab>
             {/* <Tab>Claim</Tab> */}
           </TabList>
-          <Spacer className="my-20" />
-          <div className="text-left text-white">
+          <Spacer className='my-20' />
+          <div className='text-left text-white'>
             <TabPanel>
               <FormPodDepositToMultiple defaultToken={token} />
             </TabPanel>
@@ -86,11 +83,11 @@ const ManageTabs = (props) => {
           </div>
         </Tabs>
       </>
-    );
+    )
   }
-  return null;
-};
+  return null
+}
 
 const ManageTab = ({ children, ...props }) => {
-  return <div>{children}</div>;
-};
+  return <div>{children}</div>
+}

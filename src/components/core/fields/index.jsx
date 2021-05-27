@@ -6,7 +6,7 @@ import Select, { type SelectFieldProps } from '@material-ui/core/Select'
 import React from 'react'
 
 const style = {
-  minWidth: '100%',
+  minWidth: '100%'
 }
 
 const SelectInput = ({
@@ -19,10 +19,13 @@ const SelectInput = ({
   renderValue,
   ...rest
 }: SelectFieldProps) => {
-  const showError = ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) && meta.touched && !disableError
+  const showError =
+    ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
+    meta.touched &&
+    !disableError
   const inputProps = {
     ...restInput,
-    name,
+    name
   }
 
   return (
