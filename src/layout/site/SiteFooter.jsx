@@ -12,7 +12,7 @@ import { Spacer } from '@components'
 export const SiteFooter = (props) => {
   return (
     <footer
-      className='bg-purple-900 border-t-2 border-solid border-top-2 border-white pt-10 lg:px-10 z-10'
+      className='bg-purple-900 py-16 lg:px-10 z-10'
       style={{
         backgroundColor: '#120037'
       }}
@@ -84,7 +84,7 @@ export const SiteFooter = (props) => {
             href='https://twitter.com/PoolTogether_'
             className='my-3 flex text-white hover:text-green-400 text-sm font-medium duration-200'
           >
-            <img className='inline-block mr-1' src='/social/twitter-white.svg' width={14} />
+            <img className='inline-block mr-2' src='/social/twitter-white.svg' width={14} />
             <span className='inline-block'>Twitter</span>
           </a>
           <a
@@ -92,7 +92,7 @@ export const SiteFooter = (props) => {
             href='https://discord.gg/hxPhPDW'
             className='my-3 flex text-white hover:text-green-400 text-sm font-medium duration-200'
           >
-            <img className='inline-block mr-1' src='/social/discord-white.svg' width={14} />
+            <img className='inline-block mr-2' src='/social/discord-white.svg' width={14} />
             <span className='inline-block'>Discord</span>
           </a>
           <a
@@ -100,7 +100,7 @@ export const SiteFooter = (props) => {
             href='https://github.com/pooltogether'
             className='my-3 flex text-white hover:text-green-400 text-sm font-medium duration-200'
           >
-            <img className='inline-block mr-1' src='/social/github-white.svg' width={14} />
+            <img className='inline-block mr-2' src='/social/github-white.svg' width={14} />
             <span className='inline-block'>Github</span>
           </a>
           <a
@@ -108,7 +108,7 @@ export const SiteFooter = (props) => {
             href='https://medium.com/pooltogether'
             className='my-3 flex text-white hover:text-green-400 text-sm font-medium duration-200'
           >
-            <img className='inline-block mr-1' src='/social/medium-white.svg' width={14} />
+            <img className='inline-block mr-2' src='/social/medium-white.svg' width={14} />
             <span className='inline-block'>Medium</span>
           </a>
         </div>

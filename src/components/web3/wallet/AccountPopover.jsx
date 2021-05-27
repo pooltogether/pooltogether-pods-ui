@@ -30,10 +30,8 @@ const Popover = dynamic(
  */
 export const AccountPopover = (props) => {
   const { account } = useEthers()
-  const [isPopoverOpen, isPopoverOpenSet] = useState()
+  const [isPopoverOpen, setIsPopoverOpen] = useState()
   const POOL_TOKEN = useGetContractAddress('ERC20POOL')
-
-  const handlePopoverToggle = () => isPopoverOpenSet(!isPopoverOpen)
 
   /* ----------------------- */
   /* --- Component Hooks --- */
@@ -42,7 +40,7 @@ export const AccountPopover = (props) => {
   // Close Popover when Web3 connection is disabled
   useEffect(() => {
     if (!account) {
-      isPopoverOpenSet(false)
+      setIsPopoverOpen(false)
     }
   }, [account])
 
@@ -53,47 +51,36 @@ export const AccountPopover = (props) => {
         <Popover
           isOpen={isPopoverOpen}
           positions={['bottom', 'top', 'right', 'left']}
-          onClickOutside={() => isPopoverOpenSet(false)}
+          onClickOutside={() => setIsPopoverOpen(false)}
           content={<PopoverInner POOL_TOKEN={POOL_TOKEN} account={account} />}
         >
-          <div
-            // className="cursor-pointer bg-teal-500 p-2 rounded-lg text-teal-500 text-xs"
-            style={{ backgroundColor: 'rgba(14, 163, 164, 0.2' }}
-          >
-            <div className='flex items-center'>
-              <span className=''>
-                <AccountConnect>
-                  {/* Account Disconnected */}
-                  <div
-                    className='cursor-pointer bg-teal-500 p-2 rounded-lg text-teal-500 text-xs hover:shadow-md'
-                    style={{ backgroundColor: 'rgba(14, 163, 164, 0.2' }}
-                  >
-                    <span className='flex items-center'>
-                      <div className='mr-2 mt-1'>
-                        <WalletNetwork />
-                      </div>
-                      <WalletSelectModal>
-                        <span className=''>Connect to Network</span>
-                      </WalletSelectModal>
-                    </span>
-                  </div>
-
-                  {/* Account Connected */}
-                  <div
-                    className='cursor-pointer bg-teal-500 p-2 rounded-lg text-teal-500 text-xs hover:shadow-md'
-                    style={{ backgroundColor: 'rgba(14, 163, 164, 0.2' }}
-                    onClick={() => isPopoverOpenSet(!isPopoverOpen)}
-                  >
-                    <div className='flex items-center'>
-                      <div className='mr-2 mt-1'>
-                        <WalletNetwork />
-                      </div>
-                      <AccountAddress className='tag-whites text-xs' />
+          <div className='flex items-center'>
+            <AccountConnect>
+              {/* Account Disconnected */}
+              <WalletSelectModal>
+                <div className='wallet-select-btn cursor-pointer p-2 px-3 rounded-lg text-teal-500 text-xs'>
+                  <span className='flex items-center'>
+                    <div className='mr-2'>
+                      <WalletNetwork />
                     </div>
+                    Connect wallet
+                  </span>
+                </div>
+              </WalletSelectModal>
+
+              {/* Account Connected */}
+              <div
+                className='wallet-select-btn cursor-pointer p-2 px-3 rounded-lg text-teal-500 text-xs'
+                onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+              >
+                <div className='flex items-center'>
+                  <div className='mr-2'>
+                    <WalletNetwork />
                   </div>
-                </AccountConnect>
-              </span>
-            </div>
+                  <AccountAddress className='tag-whites text-xs' />
+                </div>
+              </div>
+            </AccountConnect>
           </div>
         </Popover>
       </div>

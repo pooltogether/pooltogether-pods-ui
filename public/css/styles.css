@@ -182,7 +182,7 @@ p {
 }
 
 .modalBackground {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: -1;
 }
 
@@ -375,4 +375,12 @@ p {
 
 .bg-blur {
   backdrop-filter: blur(20px);
+}
+
+.wallet-select-btn {
+  background-color: rgba(14, 163, 164, 0.3)
+}
+
+.wallet-select-btn:hover {
+  background-color: rgba(14, 163, 164, 0.4)
 }
