@@ -1,14 +1,23 @@
-import classnames from "classnames";
-import { useToggle } from "@src/hooks/helpers/useToggle";
-import { Popover } from "react-tiny-popover";
+import classnames from "classnames"
+import { useToggle } from "@src/hooks/helpers/useToggle"
+import dynamic from "next/dynamic"
+// import { Popover } from "react-tiny-popover";
+
+// Popover Rendered in Browser
+const Popover = dynamic(
+  () => {
+    return import("react-tiny-popover").then((mod) => mod.Popover)
+  },
+  { ssr: false }
+)
 
 /**
  * @name Tooltip
  * @param {Object} props
  */
 export const Tooltip = ({ className, children, label }) => {
-  const [open, toggle] = useToggle();
-  const tooltipClasses = classnames("cursor-pointer inline-flex", className);
+  const [open, toggle] = useToggle()
+  const tooltipClasses = classnames("cursor-pointer inline-flex", className)
 
   return (
     <Popover
@@ -27,7 +36,7 @@ export const Tooltip = ({ className, children, label }) => {
         )}
       </span>
     </Popover>
-  );
-};
+  )
+}
 
-export default Tooltip;
+export default Tooltip

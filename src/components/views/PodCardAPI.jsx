@@ -49,34 +49,23 @@ export const PodCardAPI = ({ token, ...props }) => {
   const batchQuery = usePodOverviewBatchCall(addresses)
   const cacheQuery = usePoolTogetherPoolData(addresses?.prizePool)
 
-  return useMemo(() => {
-    if (batchQuery.isLoading) {
-      return <PodCardLoading {...props} />
-    }
-
-    if (batchQuery.isError) {
-      return <PodCardLoading {...props} />
-    }
-
-    if (addresses.pod && batchQuery.isSuccess && cacheQuery.isSuccess) {
-      return (
-        <PodCard
-          address={addresses?.pod}
-          addressPrizePool={addresses?.prizePool}
-          addressPodTokenDrop={addresses?.tokenDrop}
-          addressReward={addresses.reward}
-          addressReward={ERC20Reward}
-          addressToken={addresses?.token}
-          addressTicket={addresses?.ticket}
-          dataCache={cacheQuery?.data}
-          dataBlock={batchQuery?.data}
-          {...props}
-        />
-      )
-    }
-
-    return <PodCardLoading {...props} />
-  }, [cacheQuery.isFetching, batchQuery])
+  if (batchQuery.status == "success" && cacheQuery.status == "success") {
+    return (
+      <PodCard
+        address={addresses?.pod}
+        addressPrizePool={addresses?.prizePool}
+        addressPodTokenDrop={addresses?.tokenDrop}
+        addressReward={addresses.reward}
+        addressReward={ERC20Reward}
+        addressToken={addresses?.token}
+        addressTicket={addresses?.ticket}
+        dataCache={cacheQuery?.data}
+        dataBlock={batchQuery?.data}
+        {...props}
+      />
+    )
+  }
+  return <PodCardLoading {...props} />
 }
 
 /**
@@ -280,7 +269,11 @@ const PodCard = ({
             <div className="text-teal-500 text-center lg:text-left">
               <span className="block text-xxs">Pod's Balance</span>
               <span className="block text-white text-2xl">
-                <PodBalanceTotal address={address} decimals={decimals} />
+                <PodBalanceTotal
+                  address={address}
+                  decimals={decimals}
+                  decimalsTrim={2}
+                />
                 <span className="ml-1">{symbol}</span>
               </span>
             </div>
@@ -301,7 +294,7 @@ const PodCard = ({
                   address={addressToken}
                   account={address}
                   decimals={decimals}
-                  decimalsTrim={7}
+                  decimalsTrim={2}
                 />
                 <span className="ml-1">{symbol}</span>
               </span>

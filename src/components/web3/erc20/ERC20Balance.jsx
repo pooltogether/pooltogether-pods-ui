@@ -1,10 +1,10 @@
 /* --- Global Modules --- */
-import { useMemo } from "react";
+import { useMemo } from "react"
 
 /* --- Local Modules --- */
-import { commifyTokenBalance } from "@src/utils/convert";
-import { useERC20ContractCall } from "@hooks/useContractERC20";
-import { isAddress } from "@src/utils/is";
+import { commifyTokenBalance } from "@src/utils/convert"
+import { useERC20ContractCall } from "@hooks/useContractERC20"
+import { isAddress } from "@src/utils/is"
 
 /**
  * @name ERC20Balance
@@ -27,21 +27,22 @@ export const ERC20Balance = ({
         address={address}
         account={account}
         className={className}
+        decimalsTrim={decimalsTrim}
       />
-    );
+    )
   } else {
-    return <span className={className}>{defaultValue}</span>;
+    return <span className={className}>{defaultValue}</span>
   }
-};
+}
 
-export default ERC20Balance;
+export default ERC20Balance
 
 ERC20Balance.defaultProps = {
   balance: "0",
   defaultValue: "0.00",
   decimals: 18,
   decimalsTrim: 2,
-};
+}
 
 const ERC20BalanceFetch = ({
   className,
@@ -54,8 +55,8 @@ const ERC20BalanceFetch = ({
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
-  const [decimals] = useERC20ContractCall(address, "decimals", []);
-  const [balanceOf] = useERC20ContractCall(address, "balanceOf", [account]);
+  const [decimals] = useERC20ContractCall(address, "decimals", [])
+  const [balanceOf] = useERC20ContractCall(address, "balanceOf", [account])
 
   /* ------------------------ */
   /* --- Component Render --- */
@@ -66,8 +67,8 @@ const ERC20BalanceFetch = ({
         <span className={className} {...props}>
           {commifyTokenBalance(balanceOf, decimals, decimalsTrim)}
         </span>
-      );
+      )
     }
-    return <span className={className}>{defaultValue}</span>;
-  }, [balanceOf, decimals]);
-};
+    return <span className={className}>{defaultValue}</span>
+  }, [balanceOf, decimals])
+}

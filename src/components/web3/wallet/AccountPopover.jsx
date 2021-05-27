@@ -1,39 +1,39 @@
 /* --- Global Modules --- */
-import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import { useEthers } from "@usedapp/core";
+import { useEffect, useState } from "react"
+import dynamic from "next/dynamic"
+import { useEthers } from "@usedapp/core"
 
 /* --- Local Modules --- */
-import { WalletNetwork, ChainID, Spacer } from "../../index";
-import { useGetContractAddress } from "@hooks/useGetContractAddress";
+import { WalletNetwork, ChainID, Spacer } from "../../index"
+import { useGetContractAddress } from "@hooks/useGetContractAddress"
 import {
   AccountConnect,
   AccountAddress,
   NetworkBlockNumber,
   AccountDeactivate,
   WalletSelectModal,
-} from "@components";
+} from "@components"
 
 /* --- Dynamic Module --- */
 
 // Popover Rendered in Browser
 const Popover = dynamic(
   () => {
-    return import("react-tiny-popover").then((mod) => mod.Popover);
+    return import("react-tiny-popover").then((mod) => mod.Popover)
   },
   { ssr: false }
-);
+)
 
 /**
  * @name
  * @param {Object} props
  */
 export const AccountPopover = (props) => {
-  const { account } = useEthers();
-  const [isPopoverOpen, isPopoverOpenSet] = useState();
-  const POOL_TOKEN = useGetContractAddress("ERC20POOL");
+  const { account } = useEthers()
+  const [isPopoverOpen, isPopoverOpenSet] = useState()
+  const POOL_TOKEN = useGetContractAddress("ERC20POOL")
 
-  const handlePopoverToggle = () => isPopoverOpenSet(!isPopoverOpen);
+  const handlePopoverToggle = () => isPopoverOpenSet(!isPopoverOpen)
 
   /* ----------------------- */
   /* --- Component Hooks --- */
@@ -42,9 +42,9 @@ export const AccountPopover = (props) => {
   // Close Popover when Web3 connection is disabled
   useEffect(() => {
     if (!account) {
-      isPopoverOpenSet(false);
+      isPopoverOpenSet(false)
     }
-  }, [account]);
+  }, [account])
 
   return (
     <div className="flex items-center">
@@ -98,8 +98,8 @@ export const AccountPopover = (props) => {
         </Popover>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const PopoverInner = (props) => {
   return (
@@ -119,7 +119,7 @@ const PopoverInner = (props) => {
         </span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AccountPopover;
+export default AccountPopover
