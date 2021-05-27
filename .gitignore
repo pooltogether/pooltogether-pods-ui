@@ -8,3 +8,5 @@ out
 *.env
 *.log
 *.log
+
+.envrc
