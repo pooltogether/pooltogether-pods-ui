@@ -1,23 +1,19 @@
 /* --- Global Modules --- */
-import {
-  useContractCall,
-  useContractCalls,
-  useContractFunction,
-} from "@usedapp/core";
+import { useContractCall, useContractCalls, useContractFunction } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { TokenFaucetInterface } from "@constants/interfaces";
-import { useGetTokenFaucetContract } from "@hooks/contracts";
-import { isAddress } from "@src/utils/is";
+import { TokenFaucetInterface } from '@constants/interfaces'
+import { useGetTokenFaucetContract } from '@hooks/contracts'
+import { isAddress } from '@src/utils/is'
 
 const validateInputs = (inputs) => {
-  let valid = true;
+  let valid = true
   Array.isArray(inputs) &&
     inputs.forEach((input) => {
-      if (input == undefined || input == null) valid = false;
-    });
-  return valid;
-};
+      if (input == undefined || input == null) valid = false
+    })
+  return valid
+}
 
 /**
  * @name useContractTokenFaucetCall
@@ -32,43 +28,36 @@ export const useContractTokenFaucetCall = (address, method, inputs = []) => {
           abi: TokenFaucetInterface,
           address: address,
           method: method,
-          args: inputs,
+          args: inputs
         }
-    ) ?? [];
+    ) ?? []
 
-  return [value];
-};
+  return [value]
+}
 
 /**
  * @name useContractTokenFaucetFunction
  * @param {Object} props
  */
 export const useContractTokenFaucetFunction = (address, method) => {
-  const VS = useGetTokenFaucetContract(address);
-  const { send, state } =
-    useContractFunction(useGetTokenFaucetContract(address), method) ?? [];
-  return [send, state];
-};
+  const VS = useGetTokenFaucetContract(address)
+  const { send, state } = useContractFunction(useGetTokenFaucetContract(address), method) ?? []
+  return [send, state]
+}
 
 /**
  * @name useContractTokenFaucetFunctions
  * @param {Object} props
  */
-export const useContractTokenFaucetCalls = (
-  address,
-  methods = [],
-  inputs = []
-) => {
+export const useContractTokenFaucetCalls = (address, methods = [], inputs = []) => {
   const calls = methods.map((method, index) => ({
     abi: TokenFaucetInterface,
     address: address,
     method: method,
-    args: inputs[index],
-  }));
+    args: inputs[index]
+  }))
 
-  const values = useContractCalls(calls) ?? [];
+  const values = useContractCalls(calls) ?? []
 
-  return Array.isArray(values)
-    ? values.map((value) => Array.isArray(value) && value[0])
-    : [];
-};
+  return Array.isArray(values) ? values.map((value) => Array.isArray(value) && value[0]) : []
+}

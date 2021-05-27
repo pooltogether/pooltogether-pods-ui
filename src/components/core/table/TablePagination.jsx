@@ -1,5 +1,5 @@
-import classnames from "classnames";
-import Spacer from "../common/Spacer";
+import classnames from 'classnames'
+import Spacer from '../common/Spacer'
 
 /**
  * @name TablePagination
@@ -19,58 +19,50 @@ export const TablePagination = ({
   ...props
 }) => {
   const containerClassName = classnames(
-    "flex flex-col items-center justify-center lg:flex-row lg:justify-between lg:items-center w-full",
+    'flex flex-col items-center justify-center lg:flex-row lg:justify-between lg:items-center w-full',
     className
-  );
-  const containerButton = classnames("text-xl mx-2 text-teal");
+  )
+  const containerButton = classnames('text-xl mx-2 text-teal')
 
   return (
     <div className={containerClassName}>
       <div>
-        <span className="mx-4">
-          Page{" "}
+        <span className='mx-4'>
+          Page{' '}
           <strong>
             {pageIndex + 1} of {pageOptions.length}
-          </strong>{" "}
+          </strong>{' '}
         </span>
       </div>
-      <div className="my-3 lg:my-0">
-        <button
-          className={containerButton}
-          onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
-        >
-          {"<<"}
-        </button>{" "}
+      <div className='my-3 lg:my-0'>
+        <button className={containerButton} onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </button>{' '}
         <button
           className={containerButton}
           onClick={() => previousPage()}
           disabled={!canPreviousPage}
         >
-          {"<"}
-        </button>{" "}
-        <Spacer className="inline-block mx-4" />
-        <button
-          className={containerButton}
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-        >
-          {">"}
-        </button>{" "}
+          {'<'}
+        </button>{' '}
+        <Spacer className='inline-block mx-4' />
+        <button className={containerButton} onClick={() => nextPage()} disabled={!canNextPage}>
+          {'>'}
+        </button>{' '}
         <button
           className={containerButton}
           onClick={() => gotoPage(pageCount - 1)}
           disabled={!canNextPage}
         >
-          {">>"}
-        </button>{" "}
+          {'>>'}
+        </button>{' '}
       </div>
-      <div className="lg:self-end">
+      <div className='lg:self-end'>
         <select
-          className="input-default text-gray-700 w-full"
+          className='input-default text-gray-700 w-full'
           value={pageSize}
           onChange={(e) => {
-            setPageSize(Number(e.target.value));
+            setPageSize(Number(e.target.value))
           }}
         >
           {[5, 7, 10, 15, 20, 30, 40, 50].map((pageSize) => (
@@ -81,7 +73,7 @@ export const TablePagination = ({
         </select>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TablePagination;
+export default TablePagination

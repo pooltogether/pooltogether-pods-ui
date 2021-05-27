@@ -1,16 +1,16 @@
 /* --- Global Modules --- */
-import { useEffect, useMemo } from "react";
-import { useEthers } from "@usedapp/core";
+import { useEffect, useMemo } from 'react'
+import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { injected } from "@connectors";
+import { injected } from '@connectors'
 
 /**
  * @name AccountConnect
  * @param {Object} props
  */
 export const AccountConnect = ({ className, classNameChildren, children }) => {
-  const { account, activate } = useEthers();
+  const { account, activate } = useEthers()
 
   /* ----------------------- */
   /* --- Component Hooks --- */
@@ -19,12 +19,12 @@ export const AccountConnect = ({ className, classNameChildren, children }) => {
   // Establish Previous Connection with Authorized Wallet using the wallet-default localstorage value
   useEffect(() => {
     injected.isAuthorized().then((isAuthorized) => {
-      const defaultWallet = localStorage.getItem("wallet-default");
-      if (isAuthorized && defaultWallet == "MetaMask") {
-        activate(injected);
+      const defaultWallet = localStorage.getItem('wallet-default')
+      if (isAuthorized && defaultWallet == 'MetaMask') {
+        activate(injected)
       }
-    });
-  }, [activate]);
+    })
+  }, [activate])
 
   return useMemo(() => {
     return (
@@ -35,7 +35,7 @@ export const AccountConnect = ({ className, classNameChildren, children }) => {
           <span>{children[0]}</span>
         )}
       </>
-    );
-  }, [account]);
-};
-export default AccountConnect;
+    )
+  }, [account])
+}
+export default AccountConnect

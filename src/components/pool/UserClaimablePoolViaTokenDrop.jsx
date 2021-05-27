@@ -1,13 +1,10 @@
 /* --- Global Modules --- */
-import { useEffect, useMemo, useState } from "react";
-import { useEthers } from "@usedapp/core";
+import { useEffect, useMemo, useState } from 'react'
+import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { commifyTokenBalance } from "@src/utils/convert";
-import {
-  useGetPodContract,
-  useGetTokenDropContract,
-} from "@src/hooks/contracts";
+import { commifyTokenBalance } from '@src/utils/convert'
+import { useGetPodContract, useGetTokenDropContract } from '@src/hooks/contracts'
 
 /**
  * @name UserClaimablePoolViaTokenDrop
@@ -17,13 +14,13 @@ export const UserClaimablePoolViaTokenDrop = ({ address, label, ...props }) => {
   /* ----------------------- */
   /* --- Component State --- */
   /* ----------------------- */
-  const [podClaimableAmount, podClaimableAmountSet] = useState("0.00");
+  const [podClaimableAmount, podClaimableAmountSet] = useState('0.00')
 
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
-  const { account } = useEthers();
-  const contract = useGetTokenDropContract(address);
+  const { account } = useEthers()
+  const contract = useGetTokenDropContract(address)
 
   /* ------------------------ */
   /* --- Blockchain Hooks --- */
@@ -32,28 +29,28 @@ export const UserClaimablePoolViaTokenDrop = ({ address, label, ...props }) => {
   // Effect : Update Claimable POOl Tokens
   useEffect(() => {
     if (account && contract && address) {
-      (async () => {
+      ;(async () => {
         try {
-          const amount = await contract.callStatic.claim(account);
-          podClaimableAmountSet(commifyTokenBalance(amount, 18, 8));
+          const amount = await contract.callStatic.claim(account)
+          podClaimableAmountSet(commifyTokenBalance(amount, 18, 8))
         } catch (error) {
           // TODO Add error logging
         }
-      })();
+      })()
     }
-  }, [contract]);
+  }, [contract])
 
   /* ------------------------ */
   /* --- Component Render --- */
   /* ------------------------ */
 
   return useMemo(() => {
-    return <span className="">{podClaimableAmount}</span>;
-  }, [podClaimableAmount]);
-};
+    return <span className=''>{podClaimableAmount}</span>
+  }, [podClaimableAmount])
+}
 
 UserClaimablePoolViaTokenDrop.defaultProps = {
-  label: "Claim Pool",
-};
+  label: 'Claim Pool'
+}
 
-export default UserClaimablePoolViaTokenDrop;
+export default UserClaimablePoolViaTokenDrop

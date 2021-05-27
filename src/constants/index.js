@@ -1,2 +1,2 @@
-export { dappConfig } from "./dapp";
-export * from "./interfaces";
+export { dappConfig } from './dapp'
+export * from './interfaces'
