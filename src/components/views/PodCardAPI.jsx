@@ -236,6 +236,7 @@ const PodCard = ({
                   <UserClaimablePoolViaTokenDrop
                     className='text-2xl'
                     address={addressPodTokenDrop}
+                    decimalsTrim={6}
                   />
                   <span className='ml-1 uppercase'>{symbolReward}</span>
                 </span>
@@ -301,7 +302,7 @@ const PodCard = ({
                   address={addressReward}
                   account={addressPodTokenDrop}
                   decimals={18}
-                  decimalsTrim={7}
+                  decimalsTrim={6}
                 />
                 <span className='ml-1 uppercase'>{symbolReward}</span>
               </span>
@@ -311,7 +312,7 @@ const PodCard = ({
             <div className='text-teal-500 text-center lg:text-left'>
               <span className='block text-xxs'>Pod Claimable POOL</span>
               <span className='block mb-1 text-white'>
-                <PodClaimablePool className='text-2xl' address={address} />
+                <PodClaimablePool className='text-2xl' address={address} decimalsTrim={7} />
                 <span className='ml-1 uppercase'>{symbolReward}</span>
               </span>
             </div>
@@ -348,7 +349,7 @@ const PodCard = ({
 const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
   const styleAbsolute = classnames('absolute right-0 bottom-2 cursor-pointer', {
     'bg-purple-700 bg-opacity-20 rounded-xl right-2 h-12 w-12 flex flex-center': isTabletOrMobile,
-    '-bottom-6': !isTabletOrMobile
+    '-bottom-5': !isTabletOrMobile
   })
 
   const styleContainer = classnames('block cursor-pointer text-teal text-xxs text-center', {
