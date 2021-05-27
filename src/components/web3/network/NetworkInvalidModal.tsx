@@ -25,7 +25,7 @@ export const NetworkInvalidModal = ({ className, ...props }: NetworkInvalidModal
   const [showModal, hideModal] = useModal(() => {
     return (
       <Modal hideModal={hideModal} className=''>
-        <div className='pb-10 pt-6 px-10 bg-purple-900 max-w-lg w-full text-center relative'>
+        <div className='pb-10 pt-6 px-10 bg-purple-900 max-w-lg w-full text-center relative rounded-lg'>
           <img className='inline-block' src='/images/warning-red.svg' width={32} />
           <span className='block text-red-600'>You’re on the wrong network!</span>
           <p className='text-white mt-2'>

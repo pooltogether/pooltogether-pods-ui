@@ -30,10 +30,8 @@ const Popover = dynamic(
  */
 export const AccountPopover = (props) => {
   const { account } = useEthers()
-  const [isPopoverOpen, isPopoverOpenSet] = useState()
+  const [isPopoverOpen, setIsPopoverOpen] = useState()
   const POOL_TOKEN = useGetContractAddress('ERC20POOL')
-
-  const handlePopoverToggle = () => isPopoverOpenSet(!isPopoverOpen)
 
   /* ----------------------- */
   /* --- Component Hooks --- */
@@ -42,7 +40,7 @@ export const AccountPopover = (props) => {
   // Close Popover when Web3 connection is disabled
   useEffect(() => {
     if (!account) {
-      isPopoverOpenSet(false)
+      setIsPopoverOpen(false)
     }
   }, [account])
 
@@ -53,47 +51,36 @@ export const AccountPopover = (props) => {
         <Popover
           isOpen={isPopoverOpen}
           positions={['bottom', 'top', 'right', 'left']}
-          onClickOutside={() => isPopoverOpenSet(false)}
+          onClickOutside={() => setIsPopoverOpen(false)}
           content={<PopoverInner POOL_TOKEN={POOL_TOKEN} account={account} />}
         >
-          <div
-            // className="cursor-pointer bg-teal-500 p-2 rounded-lg text-teal-500 text-xs"
-            style={{ backgroundColor: 'rgba(14, 163, 164, 0.2' }}
-          >
-            <div className='flex items-center'>
-              <span className=''>
-                <AccountConnect>
-                  {/* Account Disconnected */}
-                  <div
-                    className='cursor-pointer bg-teal-500 p-2 rounded-lg text-teal-500 text-xs hover:shadow-md'
-                    style={{ backgroundColor: 'rgba(14, 163, 164, 0.2' }}
-                  >
-                    <span className='flex items-center'>
-                      <div className='mr-2 mt-1'>
-                        <WalletNetwork />
-                      </div>
-                      <WalletSelectModal>
-                        <span className=''>Connect to Network</span>
-                      </WalletSelectModal>
-                    </span>
-                  </div>
-
-                  {/* Account Connected */}
-                  <div
-                    className='cursor-pointer bg-teal-500 p-2 rounded-lg text-teal-500 text-xs hover:shadow-md'
-                    style={{ backgroundColor: 'rgba(14, 163, 164, 0.2' }}
-                    onClick={() => isPopoverOpenSet(!isPopoverOpen)}
-                  >
-                    <div className='flex items-center'>
-                      <div className='mr-2 mt-1'>
-                        <WalletNetwork />
-                      </div>
-                      <AccountAddress className='tag-whites text-xs' />
+          <div className='flex items-center'>
+            <AccountConnect>
+              {/* Account Disconnected */}
+              <WalletSelectModal>
+                <div className='wallet-select-btn cursor-pointer py-2 px-3 rounded-lg text-teal-500 text-xs duration-200'>
+                  <span className='flex items-center'>
+                    <div className='mr-2'>
+                      <WalletNetwork />
                     </div>
+                    Connect wallet
+                  </span>
+                </div>
+              </WalletSelectModal>
+
+              {/* Account Connected */}
+              <div
+                className='wallet-select-btn cursor-pointer py-2 px-3 rounded-lg text-teal-500 text-xs duration-200'
+                onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+              >
+                <div className='flex items-center'>
+                  <div className='mr-2'>
+                    <WalletNetwork />
                   </div>
-                </AccountConnect>
-              </span>
-            </div>
+                  <AccountAddress className='tag-whites text-xs' />
+                </div>
+              </div>
+            </AccountConnect>
           </div>
         </Popover>
       </div>
@@ -105,7 +92,7 @@ const PopoverInner = (props) => {
   return (
     <div className='card bg-purple-600 border-purple-700 text-white mr-6 mt-2 p-0 w-72'>
       <div className='p-3'>
-        <AccountDeactivate className='tag-teal cursor-pointer rounded-xl text-xs text-purple-700 py-3 w-full flex-center text-center hover:shadow-md' />
+        <AccountDeactivate className='tag-teal cursor-pointer rounded-xl text-xs text-purple-700 py-2 px-3 w-full flex-center text-center' />
       </div>
       {/* <Spacer className="inline-block mx-3" /> */}
       <div className='bg-purple-900 p-2'>
