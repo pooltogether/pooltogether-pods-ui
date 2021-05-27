@@ -494,7 +494,7 @@ const PodFloatTooltip = (props) => {
         in the Pod, before regularily being deposited into the PrizePool.
       </p>
       <p className='text-xxs'>
-        When a user withdrwas from a Pod, the float <span className='font-bold'>is used first</span>{' '}
+        When a user withdraws from a Pod, the float <span className='font-bold'>is used first</span>{' '}
         before withdrawing tokens from the PrizePool:{' '}
         <em>reducing gas costs and minimizing the PrizePool early exit fee.</em>
       </p>
