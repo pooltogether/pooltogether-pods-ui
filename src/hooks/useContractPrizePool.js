@@ -1,22 +1,18 @@
 /* --- Global Modules --- */
-import {
-  useContractCall,
-  useContractCalls,
-  useContractFunction,
-} from "@usedapp/core";
+import { useContractCall, useContractCalls, useContractFunction } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { PrizePoolCompoundInterface } from "@constants/interfaces";
-import { useGetPodContract } from "@hooks/contracts";
+import { PrizePoolCompoundInterface } from '@constants/interfaces'
+import { useGetPodContract } from '@hooks/contracts'
 
 const validateInputs = (inputs) => {
-  let valid = true;
+  let valid = true
   Array.isArray(inputs) &&
     inputs.forEach((input) => {
-      if (input == undefined || input == null) valid = false;
-    });
-  return valid;
-};
+      if (input == undefined || input == null) valid = false
+    })
+  return valid
+}
 
 /**
  * @name usePrizePoolContractCall
@@ -30,42 +26,35 @@ export const usePrizePoolContractCall = (address, method, inputs = []) => {
           abi: PodInterface,
           address: address,
           method: method,
-          args: inputs,
+          args: inputs
         }
-    ) ?? [];
+    ) ?? []
 
-  return [value];
-};
+  return [value]
+}
 
 /**
  * @name usePodContractFunction
  * @param {Object} props
  */
 export const usePodContractFunction = (address, method) => {
-  const { send, state } =
-    useContractFunction(useGetPodContract(address), method) ?? [];
-  return [send, state];
-};
+  const { send, state } = useContractFunction(useGetPodContract(address), method) ?? []
+  return [send, state]
+}
 
 /**
  * @name usePodContractFunctions
  * @param {Object} props
  */
-export const usePrizePoolContractCalls = (
-  address,
-  methods = [],
-  inputs = []
-) => {
+export const usePrizePoolContractCalls = (address, methods = [], inputs = []) => {
   const calls = methods.map((method, index) => ({
     abi: PodInterface,
     address: address,
     method: method,
-    args: inputs[index],
-  }));
+    args: inputs[index]
+  }))
 
-  const values = useContractCalls(calls) ?? [];
+  const values = useContractCalls(calls) ?? []
 
-  return Array.isArray(values)
-    ? values.map((value) => Array.isArray(value) && value[0])
-    : [];
-};
+  return Array.isArray(values) ? values.map((value) => Array.isArray(value) && value[0]) : []
+}

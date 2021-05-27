@@ -1,3 +1,3 @@
-import FormPodDropMultiple from "./FormPodDropMultiple";
-export { FormPodDropMultiple };
-export default FormPodDropMultiple;
+import FormPodDropMultiple from './FormPodDropMultiple'
+export { FormPodDropMultiple }
+export default FormPodDropMultiple

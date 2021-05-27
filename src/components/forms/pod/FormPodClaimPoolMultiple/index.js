@@ -1,3 +1,3 @@
-import FormPodClaimPoolMultiple from "./FormPodClaimPoolMultiple";
-export { FormPodClaimPoolMultiple };
-export default FormPodClaimPoolMultiple;
+import FormPodClaimPoolMultiple from './FormPodClaimPoolMultiple'
+export { FormPodClaimPoolMultiple }
+export default FormPodClaimPoolMultiple

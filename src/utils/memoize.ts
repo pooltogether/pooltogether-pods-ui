@@ -1,3 +1,5 @@
-import { useMemo } from "react";
+import { useMemo } from 'react'
 
-export const useMemoizeValue = (value: any) => {return useMemo(() => value, [value])};
+export const useMemoizeValue = (value: any) => {
+  return useMemo(() => value, [value])
+}

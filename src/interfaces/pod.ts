@@ -1,13 +1,13 @@
 export interface PodDataConfig {
-  pod: String;
-  prizePool: String;
-  faucet: String;
-  ticket: String;
-  sponsorship: String;
-  strategy: String;
+  pod: String
+  prizePool: String
+  faucet: String
+  ticket: String
+  sponsorship: String
+  strategy: String
 }
 
 export interface PrizePoolTokens {
-  pcTicket: String;
-  pcsTicket: String;
+  pcTicket: String
+  pcsTicket: String
 }

@@ -1,17 +1,17 @@
 /* --- Global Modules --- */
-import { useMemo } from "react";
-import { useEthers } from "@usedapp/core";
+import { useMemo } from 'react'
+import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { useGetAllPodAndTokenDropAddresses } from "./contractAddress";
+import { useGetAllPodAndTokenDropAddresses } from './contractAddress'
 
 /**
  * @name useGetPodTokenFaucetSelectOptions
  * @returns
  */
 export function useGetPodAndTokenDropSelectOptions() {
-  const { chainId } = useEthers();
-  const { dai, usdc } = useGetAllPodAndTokenDropAddresses();
+  const { chainId } = useEthers()
+  const { dai, usdc } = useGetAllPodAndTokenDropAddresses()
 
   return useMemo(() => {
     switch (chainId) {
@@ -20,16 +20,16 @@ export function useGetPodAndTokenDropSelectOptions() {
         return [
           {
             value: dai.pod,
-            label: "DAI",
-            image: "/tokens/token-dai.png",
-            drop: dai.drop,
+            label: 'DAI',
+            image: '/tokens/token-dai.png',
+            drop: dai.drop
           },
           {
             value: usdc.pod,
             drop: usdc.drop,
-            label: "USDC",
-            image: "/tokens/token-usdc.png",
-          },
+            label: 'USDC',
+            image: '/tokens/token-usdc.png'
+          }
           // {
           //   value: comp.pod,
           //   drop: comp.drop,
@@ -42,22 +42,22 @@ export function useGetPodAndTokenDropSelectOptions() {
           //   label: "UNI",
           //   image: "/tokens/token-uni.png",
           // },
-        ];
+        ]
       case 4:
         return [
           {
             value: dai.pod,
-            label: "DAI",
-            image: "/tokens/token-dai.png",
+            label: 'DAI',
+            image: '/tokens/token-dai.png'
           },
           {
             value: usdc.pod,
-            label: "USDC",
-            image: "/tokens/token-usdc.png",
-          },
-        ];
+            label: 'USDC',
+            image: '/tokens/token-usdc.png'
+          }
+        ]
       default:
-        return [];
+        return []
     }
-  }, [chainId]);
+  }, [chainId])
 }
