@@ -67,7 +67,7 @@ export const ERC20UnlockTransferFrom = ({
         }
       } else {
         // Deposit Disabled (Zero Balance)
-        allowanceStatusSet(1)
+        allowanceStatusSet(3)
       }
     }
   }, [balanceOfAccount, allowanceOfPod])
