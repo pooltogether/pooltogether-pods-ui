@@ -117,7 +117,7 @@ const PodCard = ({
 
   /* --- Styling & Layout --- */
   const classNameContainerComposed = classnames(
-    'bg-purple-900 bg-opacity-30 p-10 px-10 lg:px-20 relative card-pods shadow-md',
+    'bg-purple-900 bg-opacity-30 bg-blur p-10 px-10 lg:px-20 relative card-pods shadow-xl',
     classNameContainer
   )
 
@@ -176,8 +176,8 @@ const PodCard = ({
           {/* Grid 1 */}
           <div className='text-teal-500 text-center lg:text-left'>
             <span className='block text-xxs'>My deposit:</span>
-            <span className='block text-white text-2xl'>
-              <PodBalanceOfUnderlying address={address} decimals={decimals} />
+            <span className='block text-white'>
+              <PodBalanceOfUnderlying className='text-2xl' address={address} decimals={decimals} />
               <span className='ml-1'>{symbol}</span>
             </span>
             <span className='block'>
@@ -191,10 +191,13 @@ const PodCard = ({
               {/* Grid 2 */}
               <div className='text-teal-500 text-center lg:text-left'>
                 <span className='block text-xxs'>My share (when Pod wins):</span>
-                <span className='block text-white text-2xl'>
-                  <span className='ml-1'>
-                    <PodUserShareOfPrize address={address} addressPrizePool={addressPrizePool} />
-                  </span>
+                <span className='block text-white'>
+                  <PodUserShareOfPrize
+                    className='text-2xl'
+                    address={address}
+                    addressPrizePool={addressPrizePool}
+                  />
+                  {/* <span className='ml-1'></span> */}
                   <span className='ml-1'>{symbol}</span>
                 </span>
                 <span className='block'>
@@ -212,8 +215,11 @@ const PodCard = ({
               {/* Grid 3 */}
               <div className='text-teal-500 text-center lg:text-left'>
                 <span className='block text-xxs'>Deposit APR:</span>
-                <span className='block text-white text-2xl'>
-                  {converNumberToFixed(idx(dataCache, (_) => _.tokenListener.apr))} %
+                <span className='block text-white'>
+                  <span className='text-2xl'>
+                    {converNumberToFixed(idx(dataCache, (_) => _.tokenListener.apr))}
+                  </span>{' '}
+                  %
                 </span>
                 <span className='block'>
                   <span className='text-xxs'>
@@ -226,8 +232,12 @@ const PodCard = ({
               {/* Grid 4 */}
               <div className='text-teal-500 text-center lg:text-left'>
                 <span className='block text-xxs'>Claimable POOL:</span>
-                <span className='block text-white text-2xl'>
-                  <UserClaimablePoolViaTokenDrop address={addressPodTokenDrop} />
+                <span className='block text-white'>
+                  <UserClaimablePoolViaTokenDrop
+                    className='text-2xl'
+                    address={addressPodTokenDrop}
+                    decimalsTrim={6}
+                  />
                   <span className='ml-1 uppercase'>{symbolReward}</span>
                 </span>
                 <Spacer className='my-1' />
@@ -242,8 +252,13 @@ const PodCard = ({
             {/* Grid 1 */}
             <div className='text-teal-500 text-center lg:text-left'>
               <span className='block text-xxs'>Pod's Balance</span>
-              <span className='block text-white text-2xl'>
-                <PodBalanceTotal address={address} decimals={decimals} decimalsTrim={2} />
+              <span className='block text-white'>
+                <PodBalanceTotal
+                  className='text-2xl'
+                  address={address}
+                  decimals={decimals}
+                  decimalsTrim={2}
+                />
                 <span className='ml-1'>{symbol}</span>
               </span>
             </div>
@@ -258,13 +273,14 @@ const PodCard = ({
                   </Tooltip>
                 </span>
               </span>
-              <span className='block text-white text-2xl'>
+              <span className='block text-white'>
                 <ERC20Balance
-                  className='text-white'
+                  className='text-2xl'
                   address={addressToken}
                   account={address}
                   decimals={decimals}
                   decimalsTrim={2}
+                  defaultValue='0.00'
                 />
                 <span className='ml-1'>{symbol}</span>
               </span>
@@ -280,14 +296,13 @@ const PodCard = ({
                   </Tooltip>
                 </span>
               </span>
-              <span className='block text-white text-2xl'>
+              <span className='block text-white'>
                 <ERC20Balance
-                  className='text-white'
+                  className='text-2xl'
                   address={addressReward}
                   account={addressPodTokenDrop}
-                  // account={addressPodTokenDrop}
                   decimals={18}
-                  decimalsTrim={7}
+                  decimalsTrim={6}
                 />
                 <span className='ml-1 uppercase'>{symbolReward}</span>
               </span>
@@ -296,8 +311,8 @@ const PodCard = ({
             {/* Grid 4 */}
             <div className='text-teal-500 text-center lg:text-left'>
               <span className='block text-xxs'>Pod Claimable POOL</span>
-              <span className='block mb-1 text-white text-2xl'>
-                <PodClaimablePool address={address} />
+              <span className='block mb-1 text-white'>
+                <PodClaimablePool className='text-2xl' address={address} decimalsTrim={7} />
                 <span className='ml-1 uppercase'>{symbolReward}</span>
               </span>
             </div>
@@ -334,7 +349,7 @@ const PodCard = ({
 const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
   const styleAbsolute = classnames('absolute right-0 bottom-2 cursor-pointer', {
     'bg-purple-700 bg-opacity-20 rounded-xl right-2 h-12 w-12 flex flex-center': isTabletOrMobile,
-    '-bottom-6': !isTabletOrMobile
+    '-bottom-5': !isTabletOrMobile
   })
 
   const styleContainer = classnames('block cursor-pointer text-teal text-xxs text-center', {
@@ -387,55 +402,55 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
  * @param {*} param0
  * @returns
  */
-const PodCardDisconnected = ({ classNameContainer, dataCache, tokenImage, symbol, address }) => {
-  const classNameContainerComposed = classnames(
-    'bg-purple-900 bg-opacity-40 p-10 px-20 text-center text-white',
-    classNameContainer
-  )
+// const PodCardDisconnected = ({ classNameContainer, dataCache, tokenImage, symbol, address }) => {
+//   const classNameContainerComposed = classnames(
+//     'bg-purple-900 bg-opacity-40 p-10 px-20 text-center text-white',
+//     classNameContainer
+//   )
 
-  return (
-    <div className={classNameContainerComposed}>
-      <div className='grid gap-x-6 grid-cols-4'>
-        <div className='col-span-3 text-teal-500'>
-          <div className='flex items-center '>
-            <span className='block text-6xl text-white'>
-              <USDValue number={idx(dataCache, (_) => _.prize.totalValueUsd)} />
-            </span>
-            <span className='tag-blue ml-2 self-center'>weekly prize</span>
-          </div>
-          <Spacer className='my-6' />
-          <div className='flex items-center'>
-            <img src={tokenImage} width={28} />
-            <Spacer className='mx-1' />
-            <span className='block text-white'>
-              <span className='text-sm lg:text-xl'>{symbol} pool rewards</span>
-              <span className='text-xxs ml-1'>
-                <PodPrizePoolPeriodEndFromCache
-                  number={idx(dataCache, (_) => _.prize.prizePeriodRemainingSeconds)}
-                />
-                (
-                <span className='text-xxs ml-1'>
-                  <PodPrizePoolPeriodEndFromCache
-                    displayType='calendar'
-                    number={idx(dataCache, (_) => _.prize.prizePeriodRemainingSeconds)}
-                  />
-                </span>
-                )
-              </span>
-            </span>
-          </div>
-        </div>
-        <div className='col-span-1'>
-          <Link href={`/manage?tab=0&token=${address}`}>
-            <button className='btn-purple-light text-black-60 uppercase w-full'>
-              Deposit {symbol}
-            </button>
-          </Link>
-        </div>
-      </div>
-    </div>
-  )
-}
+//   return (
+//     <div className={classNameContainerComposed}>
+//       <div className='grid gap-x-6 grid-cols-4'>
+//         <div className='col-span-3 text-teal-500'>
+//           <div className='flex items-center '>
+//             <span className='block text-6xl text-white'>
+//               <USDValue number={idx(dataCache, (_) => _.prize.totalValueUsd)} />
+//             </span>
+//             <span className='tag-blue ml-2 self-center'>weekly prize</span>
+//           </div>
+//           <Spacer className='my-6' />
+//           <div className='flex items-center'>
+//             <img src={tokenImage} width={28} />
+//             <Spacer className='mx-1' />
+//             <span className='block text-white'>
+//               <span className='text-sm lg:text-xl'>{symbol} pool rewards</span>
+//               <span className='text-xxs ml-1'>
+//                 <PodPrizePoolPeriodEndFromCache
+//                   number={idx(dataCache, (_) => _.prize.prizePeriodRemainingSeconds)}
+//                 />
+//                 (
+//                 <span className='text-xxs ml-1'>
+//                   <PodPrizePoolPeriodEndFromCache
+//                     displayType='calendar'
+//                     number={idx(dataCache, (_) => _.prize.prizePeriodRemainingSeconds)}
+//                   />
+//                 </span>
+//                 )
+//               </span>
+//             </span>
+//           </div>
+//         </div>
+//         <div className='col-span-1'>
+//           <Link href={`/manage?tab=0&token=${address}`}>
+//             <button className='btn-purple-light text-black-60 uppercase w-full'>
+//               Deposit {symbol}
+//             </button>
+//           </Link>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
 
 /**
  * @name PodCardLoading
@@ -444,7 +459,7 @@ const PodCardDisconnected = ({ classNameContainer, dataCache, tokenImage, symbol
  */
 const PodCardLoading = ({ classNameContainer, symbol, tokenImage, isError, ...props }) => {
   const classNameContainerComposed = classnames(
-    'bg-purple-900 p-10 px-20 text-center text-white',
+    'bg-purple-900 bg-opacity-30 bg-blur p-10 px-10 lg:px-20 text-center text-white text-opacity-80 shadow-xl',
     classNameContainer
   )
 
@@ -453,7 +468,7 @@ const PodCardLoading = ({ classNameContainer, symbol, tokenImage, isError, ...pr
       <div className={classNameContainerComposed}>
         <div className='text-center'>
           <img className='inline-block' src={tokenImage} width={48} />
-          <h2 className='text-4xl my-3'>Error Fetching Data</h2>
+          <h2 className='text-2xl my-3'>Error Fetching Data</h2>
           <span className='text-gray-200'>Are you connected to the right network?</span>
         </div>
       </div>
@@ -463,7 +478,7 @@ const PodCardLoading = ({ classNameContainer, symbol, tokenImage, isError, ...pr
     <div className={classNameContainerComposed}>
       <div className='text-center'>
         <img className='inline-block' src={tokenImage} width={48} />
-        <h2 className='text-4xl mt-3'>Pod Loading...</h2>
+        <h2 className='text-2xl mt-3'>Pod Loading...</h2>
       </div>
     </div>
   )

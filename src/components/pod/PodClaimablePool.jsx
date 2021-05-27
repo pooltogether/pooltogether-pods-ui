@@ -9,7 +9,7 @@ import { useGetPodContract } from '@src/hooks/contracts'
  * @name PodClaimablePool
  * @param {Object} props
  */
-export const PodClaimablePool = ({ address, label, ...props }) => {
+export const PodClaimablePool = ({ className, address, decimalsTrim, label, ...props }) => {
   /* ----------------------- */
   /* --- Component State --- */
   /* ----------------------- */
@@ -29,7 +29,7 @@ export const PodClaimablePool = ({ address, label, ...props }) => {
       ;(async () => {
         try {
           const amount = await contract.callStatic.drop()
-          podClaimableAmountSet(commifyTokenBalance(amount, 18, 8))
+          podClaimableAmountSet(commifyTokenBalance(amount, 18, decimalsTrim))
         } catch (error) {
           // TODO Add error logging
         }
@@ -40,13 +40,12 @@ export const PodClaimablePool = ({ address, label, ...props }) => {
   /* ------------------------ */
   /* --- Component Render --- */
   /* ------------------------ */
-  return useMemo(() => {
-    return <span className=''>{podClaimableAmount}</span>
-  }, [podClaimableAmount])
+  return <span className={className}>{podClaimableAmount}</span>
 }
 
 PodClaimablePool.defaultProps = {
-  label: 'Claim Pool'
+  label: 'Claim Pool',
+  decimalsTrim: 7
 }
 
 export default PodClaimablePool

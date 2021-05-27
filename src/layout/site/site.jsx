@@ -10,9 +10,7 @@ import { SiteFooter } from './SiteFooter'
 export const SiteLayout = ({ children, ...props }) => {
   const router = useRouter()
   const isDepositRoute =
-    router.pathname.startsWith('/deposit') ||
-    router.pathname.startsWith('/prize-history') ||
-    router.pathname.startsWith('/manage')
+    router.pathname.startsWith('/prize-history') || router.pathname.startsWith('/manage')
       ? true
       : false
 

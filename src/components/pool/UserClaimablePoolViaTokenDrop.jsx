@@ -10,7 +10,13 @@ import { useGetPodContract, useGetTokenDropContract } from '@src/hooks/contracts
  * @name UserClaimablePoolViaTokenDrop
  * @param {Object} props
  */
-export const UserClaimablePoolViaTokenDrop = ({ address, label, ...props }) => {
+export const UserClaimablePoolViaTokenDrop = ({
+  className,
+  address,
+  decimalsTrim,
+  label,
+  ...props
+}) => {
   /* ----------------------- */
   /* --- Component State --- */
   /* ----------------------- */
@@ -25,14 +31,13 @@ export const UserClaimablePoolViaTokenDrop = ({ address, label, ...props }) => {
   /* ------------------------ */
   /* --- Blockchain Hooks --- */
   /* ------------------------ */
-
   // Effect : Update Claimable POOl Tokens
   useEffect(() => {
     if (account && contract && address) {
       ;(async () => {
         try {
           const amount = await contract.callStatic.claim(account)
-          podClaimableAmountSet(commifyTokenBalance(amount, 18, 8))
+          podClaimableAmountSet(commifyTokenBalance(amount, 18, decimalsTrim))
         } catch (error) {
           // TODO Add error logging
         }
@@ -44,13 +49,12 @@ export const UserClaimablePoolViaTokenDrop = ({ address, label, ...props }) => {
   /* --- Component Render --- */
   /* ------------------------ */
 
-  return useMemo(() => {
-    return <span className=''>{podClaimableAmount}</span>
-  }, [podClaimableAmount])
+  return <span className={className}>{podClaimableAmount}</span>
 }
 
 UserClaimablePoolViaTokenDrop.defaultProps = {
-  label: 'Claim Pool'
+  label: 'Claim Pool',
+  decimalsTrim: 6
 }
 
 export default UserClaimablePoolViaTokenDrop

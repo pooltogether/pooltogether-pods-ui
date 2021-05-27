@@ -15,15 +15,12 @@ export const PodBalanceOfUnderlying = ({ className, address, decimals, ...props 
   /* --- Blockchain State --- */
   /* ------------------------ */
   const { account } = useEthers()
-
   const [balanceOfUnderyling] = usePodContractCall(address, 'balanceOfUnderlying', [account])
 
   /* ------------------------ */
   /* --- Component Render --- */
   /* ------------------------ */
-  return useMemo(() => {
-    return <TokenBalance className={className} balance={balanceOfUnderyling} decimals={decimals} />
-  }, [balanceOfUnderyling])
+  return <TokenBalance className={className} balance={balanceOfUnderyling} decimals={decimals} />
 }
 
 PodBalanceOfUnderlying.defaultProps = {

@@ -28,6 +28,7 @@ export const ERC20Balance = ({
         account={account}
         className={className}
         decimalsTrim={decimalsTrim}
+        defaultValue={defaultValue}
       />
     )
   } else {
