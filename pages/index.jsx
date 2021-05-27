@@ -1,14 +1,14 @@
-import { useEthers } from "@usedapp/core";
-import { ErrorBoundary } from "@components";
+import { useEthers } from "@usedapp/core"
+import { ErrorBoundary } from "@components"
 
-import { PodCardAPI } from "@views/PodCardAPI";
+import { PodCardAPI } from "@views/PodCardAPI"
 
 /**
  * @name PageDeposit
  * @param {Object} props
  */
 export const PageDeposit = (props) => {
-  const ethersContext = useEthers();
+  const ethersContext = useEthers()
   // console.log(ethersContext, "ethersContext");
 
   return (
@@ -18,7 +18,7 @@ export const PageDeposit = (props) => {
           Deposit
         </h2>
         <p className="text-1xl text-white">
-          Deposit with low gas fee and have a chance to win the prize.
+          Deposit with low gas fees and always have a chance to win the prize.
         </p>
       </div>
       <div className="max-w-screen-lg mx-auto w-full p-0 lg:p-0">
@@ -27,11 +27,11 @@ export const PageDeposit = (props) => {
         </ErrorBoundary>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const PodsFromConnectedNetwork = (props) => {
-  const { chainId } = useEthers();
+  const { chainId } = useEthers()
   switch (chainId) {
     case 1:
     case 1337:
@@ -54,7 +54,7 @@ const PodsFromConnectedNetwork = (props) => {
             tokenImage="/tokens/token-usdc.png"
           />
         </>
-      );
+      )
     case 4:
       return (
         <>
@@ -75,10 +75,10 @@ const PodsFromConnectedNetwork = (props) => {
             tokenImage="/tokens/token-usdc.png"
           />
         </>
-      );
+      )
     default:
-      return null;
+      return null
   }
-};
+}
 
-export default PageDeposit;
+export default PageDeposit

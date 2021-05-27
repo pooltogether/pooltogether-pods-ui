@@ -372,3 +372,7 @@ p {
     #0469ff 100%
   );
 }
+
+.bg-blur {
+  backdrop-filter: blur(20px);
+}
