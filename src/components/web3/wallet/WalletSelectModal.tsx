@@ -40,9 +40,9 @@ export const WalletSelectModal = ({ className, children }) => {
   const [showModal, hideModal] = useModal(() => {
     return (
       <Modal hideModal={hideModal} className=''>
-        <div className='pb-10 pt-6 px-10 bg-purple-900 max-w-xl w-full'>
+        <div className='pb-16 pt-12 px-12 bg-purple-900 max-w-xl w-full rounded-lg'>
           <h4 className='text-teal text-3xl text-center mb-5'>Connect your wallet</h4>
-          <div className='grid grid-cols-2 gap-x-3 gap-y-3'>
+          <div className='grid sm:grid-cols-2 gap-x-3 gap-y-3'>
             {WALLET_OPTIONS.map((wallet) => (
               <WalletSelection {...wallet} activate={activate} />
             ))}
@@ -67,8 +67,7 @@ const WalletSelection = ({ activate, connector, label, ...props }) => {
 
   return (
     <div
-      className='bg-blue-700 text-white text-center p-3 cursor-pointer '
-      style={{ backgroundColor: 'rgba(14, 163, 164, 0.2)' }}
+      className='text-white text-center p-3 cursor-pointer rounded-lg wallet-select-btn duration-200'
       onClick={handleConnect}
     >
       {label}

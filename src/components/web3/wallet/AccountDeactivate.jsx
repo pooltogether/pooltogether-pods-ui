@@ -18,8 +18,7 @@ export const AccountDeactivate = ({ className, ...props }) => {
     return (
       <>
         <button className={className} onClick={handleDesactivateWeb3Wallet}>
-          {' '}
-          Disconnect{' '}
+          Change wallet
         </button>
       </>
     )

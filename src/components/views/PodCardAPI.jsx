@@ -117,7 +117,7 @@ const PodCard = ({
 
   /* --- Styling & Layout --- */
   const classNameContainerComposed = classnames(
-    'bg-purple-900 bg-opacity-30 p-10 px-10 lg:px-20 relative card-pods shadow-md',
+    'bg-purple-900 bg-opacity-30 bg-blur p-10 px-10 lg:px-20 relative card-pods shadow-xl',
     classNameContainer
   )
 
@@ -387,55 +387,55 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
  * @param {*} param0
  * @returns
  */
-const PodCardDisconnected = ({ classNameContainer, dataCache, tokenImage, symbol, address }) => {
-  const classNameContainerComposed = classnames(
-    'bg-purple-900 bg-opacity-40 p-10 px-20 text-center text-white',
-    classNameContainer
-  )
+// const PodCardDisconnected = ({ classNameContainer, dataCache, tokenImage, symbol, address }) => {
+//   const classNameContainerComposed = classnames(
+//     'bg-purple-900 bg-opacity-40 p-10 px-20 text-center text-white',
+//     classNameContainer
+//   )
 
-  return (
-    <div className={classNameContainerComposed}>
-      <div className='grid gap-x-6 grid-cols-4'>
-        <div className='col-span-3 text-teal-500'>
-          <div className='flex items-center '>
-            <span className='block text-6xl text-white'>
-              <USDValue number={idx(dataCache, (_) => _.prize.totalValueUsd)} />
-            </span>
-            <span className='tag-blue ml-2 self-center'>weekly prize</span>
-          </div>
-          <Spacer className='my-6' />
-          <div className='flex items-center'>
-            <img src={tokenImage} width={28} />
-            <Spacer className='mx-1' />
-            <span className='block text-white'>
-              <span className='text-sm lg:text-xl'>{symbol} pool rewards</span>
-              <span className='text-xxs ml-1'>
-                <PodPrizePoolPeriodEndFromCache
-                  number={idx(dataCache, (_) => _.prize.prizePeriodRemainingSeconds)}
-                />
-                (
-                <span className='text-xxs ml-1'>
-                  <PodPrizePoolPeriodEndFromCache
-                    displayType='calendar'
-                    number={idx(dataCache, (_) => _.prize.prizePeriodRemainingSeconds)}
-                  />
-                </span>
-                )
-              </span>
-            </span>
-          </div>
-        </div>
-        <div className='col-span-1'>
-          <Link href={`/manage?tab=0&token=${address}`}>
-            <button className='btn-purple-light text-black-60 uppercase w-full'>
-              Deposit {symbol}
-            </button>
-          </Link>
-        </div>
-      </div>
-    </div>
-  )
-}
+//   return (
+//     <div className={classNameContainerComposed}>
+//       <div className='grid gap-x-6 grid-cols-4'>
+//         <div className='col-span-3 text-teal-500'>
+//           <div className='flex items-center '>
+//             <span className='block text-6xl text-white'>
+//               <USDValue number={idx(dataCache, (_) => _.prize.totalValueUsd)} />
+//             </span>
+//             <span className='tag-blue ml-2 self-center'>weekly prize</span>
+//           </div>
+//           <Spacer className='my-6' />
+//           <div className='flex items-center'>
+//             <img src={tokenImage} width={28} />
+//             <Spacer className='mx-1' />
+//             <span className='block text-white'>
+//               <span className='text-sm lg:text-xl'>{symbol} pool rewards</span>
+//               <span className='text-xxs ml-1'>
+//                 <PodPrizePoolPeriodEndFromCache
+//                   number={idx(dataCache, (_) => _.prize.prizePeriodRemainingSeconds)}
+//                 />
+//                 (
+//                 <span className='text-xxs ml-1'>
+//                   <PodPrizePoolPeriodEndFromCache
+//                     displayType='calendar'
+//                     number={idx(dataCache, (_) => _.prize.prizePeriodRemainingSeconds)}
+//                   />
+//                 </span>
+//                 )
+//               </span>
+//             </span>
+//           </div>
+//         </div>
+//         <div className='col-span-1'>
+//           <Link href={`/manage?tab=0&token=${address}`}>
+//             <button className='btn-purple-light text-black-60 uppercase w-full'>
+//               Deposit {symbol}
+//             </button>
+//           </Link>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
 
 /**
  * @name PodCardLoading
@@ -444,7 +444,7 @@ const PodCardDisconnected = ({ classNameContainer, dataCache, tokenImage, symbol
  */
 const PodCardLoading = ({ classNameContainer, symbol, tokenImage, isError, ...props }) => {
   const classNameContainerComposed = classnames(
-    'bg-purple-900 p-10 px-20 text-center text-white',
+    'bg-purple-900 bg-opacity-30 bg-blur p-10 px-10 lg:px-20 text-center text-white text-opacity-80 shadow-xl',
     classNameContainer
   )
 
@@ -453,7 +453,7 @@ const PodCardLoading = ({ classNameContainer, symbol, tokenImage, isError, ...pr
       <div className={classNameContainerComposed}>
         <div className='text-center'>
           <img className='inline-block' src={tokenImage} width={48} />
-          <h2 className='text-4xl my-3'>Error Fetching Data</h2>
+          <h2 className='text-2xl my-3'>Error Fetching Data</h2>
           <span className='text-gray-200'>Are you connected to the right network?</span>
         </div>
       </div>
@@ -463,7 +463,7 @@ const PodCardLoading = ({ classNameContainer, symbol, tokenImage, isError, ...pr
     <div className={classNameContainerComposed}>
       <div className='text-center'>
         <img className='inline-block' src={tokenImage} width={48} />
-        <h2 className='text-4xl mt-3'>Pod Loading...</h2>
+        <h2 className='text-2xl mt-3'>Pod Loading...</h2>
       </div>
     </div>
   )
