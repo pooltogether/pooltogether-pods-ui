@@ -24,8 +24,7 @@ import {
   TransactionMining,
   WalletIsConnected,
   Spacer,
-  SelectTokenWithAmountInput,
-  PodWinningOddsAfterDeposit
+  SelectTokenWithAmountInput
 } from '@src/components'
 
 import { convertNumberToBigNumber } from '@src/utils/convert'
@@ -215,19 +214,6 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
             </ERC20UnlockTransferFrom>
           </WalletIsConnected>
         </form>
-        {/* <div className=' mt-4'>
-          <div className='bg-purple-500 bg-opacity-30 rounded-md p-3 text-center'>
-            <span className='block font-light text-normal text-teal-700 text-sm'>
-              Calculated Winning Odds after Deposit
-            </span>
-            <PodWinningOddsAfterDeposit
-              className='text-2xl text-white'
-              depositAmount={convertNumberToBigNumber(formValues.tokenAmount || '0', decimals)}
-              address={idx(formValues, (_) => _.pod.value)}
-            />
-            <Spacer className='my-3' />
-          </div>
-        </div> */}
       </>
     </>
   )

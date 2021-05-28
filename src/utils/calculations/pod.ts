@@ -4,7 +4,7 @@ import { utils, BigNumber } from 'ethers'
 
 /* --- Local Modules --- */
 import { isBigNumber, isPositiveBigNumber } from '@src/utils/is'
-import { transformTokenToHuman, numberTrimDecimals } from '@src/utils/convert'
+import { transformTokenToHuman, numberTrimDecimals, convertNumberToBigNumber } from '@src/utils/convert'
 
 /**
  * @name prizePoolWinningDate
@@ -12,9 +12,6 @@ import { transformTokenToHuman, numberTrimDecimals } from '@src/utils/convert'
  */
 export const prizePoolWinningDate = (time) => {
   const DateFromMillis = DateTime.fromMillis(time.mul(1000).toNumber())
-  var duration = Duration.fromObject({ days: 7 })
-
-  const NextRewardPeriod = DateFromMillis.plus(duration)
   return {
     relative: DateFromMillis.plus({ days: 7 }).toRelative({
       base: DateTime.DATETIME,
@@ -33,7 +30,7 @@ export const prizePoolWinningDate = (time) => {
  * @param {*} tickets
  * @param {*} totalTickets
  */
-export const podWinningOdds = (tickets: BigNumber, totalTickets: BigNumber): BigNumber => {
+export const podWinningOdds = (tickets: BigNumber, totalTickets: BigNumber, numberOfWinners: Number): BigNumber => {
   if (isPositiveBigNumber(tickets) && isPositiveBigNumber(totalTickets)) {
     const percentage = totalTickets.div(tickets)
     return percentage
