@@ -1,6 +1,7 @@
 import '../public/css/tailwind.css'
 import '../public/css/styles.css'
 import 'tailwindcss/tailwind.css'
+import '../public/css/tailwind-pods.css'
 
 import React from 'react'
 import App from 'next/app'

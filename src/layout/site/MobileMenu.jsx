@@ -30,7 +30,7 @@ export const MobileMenu = ({ className, ...props }) => {
 
   // Action : Component
   return (
-    <span onClick={handleShowModal} className='text-gray-500 font-black cursor-pointer mt-2'>
+    <span onClick={handleShowModal} className='text-gray-500 font-semibold cursor-pointer mt-2'>
       <Menu height={22} width={22} fill='#35F0D0' />
     </span>
   )

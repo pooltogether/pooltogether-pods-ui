@@ -15,7 +15,7 @@ export const PageDeposit = (props) => {
   return (
     <div className='py-20'>
       <div className='text-center text-center mb-10'>
-        <h2 className='font-black text-4xl lg:text-6xl text-teal-600'>Prize history</h2>
+        <h2 className='font-semibold text-4xl lg:text-6xl text-teal-600'>Prize history</h2>
         <p className='text-1xl text-white'>
           The logged history for all prizes won by pods. Check if your pod has won here.
         </p>

@@ -141,14 +141,14 @@ const PodCard = ({
               <h3 className='block font-bold text-center text-4xl xs:text-5xl md:text-6xl lg:text-6xl text-white lg:text-white'>
                 <USDValue number={idx(dataCache, (_) => _.prize.totalValueUsd)} />
               </h3>
-              <span className='tag-blue mt-2 lg:mt-0 lg:ml-2 self-center'>weekly prize</span>
+              <span className='tag-teal mt-2 lg:mt-0 lg:ml-2 self-center'>weekly prize</span>
             </div>
             <Spacer className='my-6' />
             <div className='flex items-center lg:items-start lg:justify-start flex-col lg:flex-row lg:justify-start'>
               <img src={tokenImage} width={28} />
               <Spacer className='mx-1' />
               <span className='flex items-center text-white'>
-                <span className='text-sm lg:text-xl mb-2 lg:mb-0'>{symbol} pool rewards</span>
+                <span className='text-sm lg:text-xl mb-2 lg:mb-0'>{symbol} prize in:</span>
                 <span className='ml-1'>
                   {idx(dataCache, (_) => _.prizePoolWinningDate.relative)}
                 </span>
@@ -162,9 +162,7 @@ const PodCard = ({
             </Link>
             <Spacer className='my-4' />
             <Link href={`/manage?tab=1&token=${address}`}>
-              <button className='btn btn-teal bg-teal-800 bg-opacity-60 text-teal-400 uppercase w-full'>
-                Withdraw
-              </button>
+              <button className='btn btn-teal uppercase w-full'>Withdraw</button>
             </Link>
           </div>
         </div>
@@ -347,48 +345,78 @@ const PodCard = ({
  * @returns {React.ComponentElement}
  */
 const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
-  const styleAbsolute = classnames('absolute right-0 bottom-2 cursor-pointer', {
-    'bg-purple-700 bg-opacity-20 rounded-xl right-2 h-12 w-12 flex flex-center': isTabletOrMobile,
-    '-bottom-5': !isTabletOrMobile
+  const styleAbsolute = classnames('absolute right-0 cursor-pointer', {
+    'bg-purple-700 hover:bg-purple-600 bg-opacity-20 duration-200 rounded-xl right-2 h-12 w-12 flex flex-center':
+      isTabletOrMobile
   })
 
   const styleContainer = classnames('block cursor-pointer text-teal text-xxs text-center', {
-    'bg-purple-900 bg-opacity-90 -bottom-6 rounded-b-xl py-1 px-5': !isTabletOrMobile,
+    'bg-purple-900 hover:bg-purple-700 bg-opacity-90 duration-200 -bottom-6 rounded-b-lg py-1 px-5':
+      !isTabletOrMobile,
     'rounded-xl p-0': isTabletOrMobile
   })
 
-  const styleArrow = classnames('mx-1', {
+  const classNamesMobileArrow = classnames('mx-1', {
+    'transform rotate-180': isOpen
+  })
+
+  const classNamesArrow = classnames('relative mr-1', {
     'transform rotate-180': isOpen
   })
 
   return (
     <>
-      <span onClick={toggleIsOpen} className={styleAbsolute}>
+      <span
+        onClick={toggleIsOpen}
+        className={styleAbsolute}
+        style={{
+          bottom: !isTabletOrMobile ? -25 : 10
+        }}
+      >
         <span className={styleContainer}>
           {isOpen ? (
             <span className='flex items-center '>
               {isTabletOrMobile ? (
-                <img className={styleArrow} src='/images/arrow-circle.svg' width={22} height={22} />
+                <img
+                  className={classNamesMobileArrow}
+                  src='/images/arrow-circle.svg'
+                  width={22}
+                  height={22}
+                />
               ) : (
-                <img className={styleArrow} src='/images/arrow-circle.svg' width={12} />
+                <img
+                  className={classNamesArrow}
+                  src='/images/arrow-circle.svg'
+                  width={12}
+                  style={{ top: -1 }}
+                />
               )}
               {!isTabletOrMobile && <span className='inline-block'>Less Info</span>}
             </span>
           ) : (
-            <span className='flex items-center '>
+            <span className='flex items-center'>
               {isTabletOrMobile ? (
-                <img className={styleArrow} src='/images/arrow-circle.svg' width={22} height={22} />
+                <img
+                  className={classNamesMobileArrow}
+                  src='/images/arrow-circle.svg'
+                  width={22}
+                  height={22}
+                />
               ) : (
-                <img className={styleArrow} src='/images/arrow-circle.svg' width={12} />
+                <img
+                  className={classNamesArrow}
+                  src='/images/arrow-circle.svg'
+                  width={12}
+                  style={{ top: -1 }}
+                />
               )}
-              {!isTabletOrMobile && <span className='inline-block'>More Info</span>}
+              {!isTabletOrMobile && <span className='inline-block'>More info</span>}
             </span>
           )}
         </span>
       </span>
       <style jsx>{`
         .toggle-button {
-          // background-color: rgba(165, 151, 250, 0.15);
           border-radius: 0 0 24px 24px;
           display: block;
         }
@@ -423,7 +451,7 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
 //             <img src={tokenImage} width={28} />
 //             <Spacer className='mx-1' />
 //             <span className='block text-white'>
-//               <span className='text-sm lg:text-xl'>{symbol} pool rewards</span>
+//               <span className='text-sm lg:text-xl'>{symbol} prize in:</span>
 //               <span className='text-xxs ml-1'>
 //                 <PodPrizePoolPeriodEndFromCache
 //                   number={idx(dataCache, (_) => _.prize.prizePeriodRemainingSeconds)}

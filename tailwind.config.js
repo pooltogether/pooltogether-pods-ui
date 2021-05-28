@@ -16,9 +16,9 @@ module.exports = {
       colors: {
         teal: {
           900: "#1d3941",
-          800: "#29a3a3",
-          700: "#2fbcbc",
-          600: "#39e4c5",
+          800: "#275a7d",
+          700: "#2a7a9d",
+          600: "#2fbcbc",
           DEFAULT: "#35F0D0",
           500: "#35F0D0",
           400: "#64f2d9",
@@ -32,6 +32,8 @@ module.exports = {
         },
         purple: {
           400: "rgba(165, 151, 250, 1)",
+          80: "rgba(125, 70, 150, 0.8)",
+          ...colors.purple,
         },
         white: colors.white,
         gray: colors.gray,

@@ -1,5 +1,9 @@
 const path = require("path")
 module.exports = {
+  future: {
+    webpack5: true,
+    strictPostcssConfiguration: true
+  },
   assetPrefix: "/",
   trailingSlash: true,
   typescript: {
