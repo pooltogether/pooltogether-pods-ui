@@ -15,31 +15,22 @@ export const SiteLayout = ({ children, ...props }) => {
       : false
 
   return (
-    <div className='flex flex-col h-screen gradient-purple bg-gradient-to-b min-h-full'>
+    // <div className='flex flex-col h-screen gradient-purple bg-gradient-to-b min-h-full'>
+    <div className='flex flex-col h-screen min-h-full'>
       {isDepositRoute ? (
         <>
-          <div
-            className='fixed top-0 bottom-0 left-0 right-0 bg-purple-1000 opacity-100 z-1'
-            style={{
-              backgroundColor: '#322153'
-            }}
-          ></div>
+          <div className='fixed top-0 bottom-0 left-0 right-0 bg-purple-1000 opacity-100 z-1'></div>
           <div className='bg-internal bg-bottom bg-cover fixed top-0 bottom-0 left-0 right-0 opacity-90 z-1'></div>
         </>
       ) : (
         <>
-          <div
-            className='fixed top-0 bottom-0 left-0 right-0 bg-purple-1000 opacity-100 z-1'
-            style={{
-              backgroundColor: '#322153'
-            }}
-          />
-          <div className='bg-bg-home bg-bottom bg-cover fixed top-0 bottom-0 left-0 right-0 opacity-60 z-0'></div>
+          <div className='fixed top-0 bottom-0 left-0 right-0 bg-purple-1000 opacity-100 z-1' />
+          <div className='bg-home bg-bottom bg-cover fixed top-0 bottom-0 left-0 right-0 opacity-60 z-0'></div>
         </>
       )}
       <SiteHeader />
       <div className='flex-1 z-200'>
-        <div className='relative px-4 lg:px-0 z-100'>{children}</div>
+        <div className='relative px-4 z-100'>{children}</div>
       </div>
       <SiteFooter />
     </div>

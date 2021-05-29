@@ -6,10 +6,12 @@ import { useEthers } from '@usedapp/core'
 import { constants, BigNumber } from 'ethers'
 
 /* --- Local Modules --- */
+import { TOOLTIP_CLASSNAMES } from '@src/constants'
 import { transformTokenToHuman, numberTrimDecimals } from '@src/utils/convert'
 import { useEffect, useMemo, useState } from 'react'
 import { useERC20ContractFunction, useERC20ContractCall } from '@hooks/useContractERC20'
 import { Tooltip } from '@components'
+
 /**
  * @name ERC20UnlockTransferFrom
  * @param {Object} props
@@ -200,7 +202,7 @@ ERC20UnlockTransferFrom.propTypes = {
 
 const DecreaseAllowanceTooltip = (props) => {
   return (
-    <div className='card bg-purple-500 text-white max-w-sm '>
+    <div className={TOOLTIP_CLASSNAMES}>
       <h4 className='text-2xl border-bottom pb-1'>Disable Pod Deposits</h4>
       <p className='text-xs'>
         Disabling deposits prevents a Pod from tokens transfers by decreasing a token allowance to

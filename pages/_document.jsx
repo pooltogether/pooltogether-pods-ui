@@ -52,7 +52,12 @@ class DocumentExtended extends Document {
             <meta property='twitter:creator' content={twitterHandle} />
           </>
         </Head>
-        <body className=''>
+        <body
+          className=''
+          style={{
+            backgroundColor: '#111111'
+          }}
+        >
           <Main />
           <NextScript />
         </body>

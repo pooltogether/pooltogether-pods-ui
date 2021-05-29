@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import { BigNumber } from 'ethers'
 
 /* --- Local Modules --- */
+import { TOOLTIP_CLASSNAMES } from '@src/constants'
+console.log({ TOOLTIP_CLASSNAMES })
 import { isPositiveBigNumber } from '@src/utils/is'
 import { podWinningOdds } from '@src/utils/calculations/pod'
 import { usePodContractCall } from '@hooks/useContractPod'
@@ -48,10 +50,11 @@ export const PodWinningOdds = ({ className, address, addressTicket }) => {
   /* ------------------------ */
   /* --- Component Render --- */
   /* ------------------------ */
-  const style = classNames('flex-inline items-center', className)
+  const classnames = classNames('flex-inline items-center', className)
+
   return useMemo(() => {
     return (
-      <span className={style}>
+      <span className={classnames}>
         {podWinningOddsCalculated}{' '}
         <Tooltip className='mt-0'>
           <TooltipContainer />
@@ -68,8 +71,8 @@ PodWinningOdds.defaultProps = {
 
 const TooltipContainer = (props) => {
   return (
-    <div className='card bg-purple-500 text-white max-w-sm '>
-      <h4 className='text-xl border-bottom'>Pod Winning Odds</h4>
+    <div className={TOOLTIP_CLASSNAMES}>
+      <h4 className='text-xl'>Pod Winning Odds</h4>
       <p className='text-xs'>
         Pod winning odds are calculated using a post-batch ticket balance. Pods at times will
         temporarily have a float (i.e. DAI or USDC) which has not been deposited into the PrizePool.

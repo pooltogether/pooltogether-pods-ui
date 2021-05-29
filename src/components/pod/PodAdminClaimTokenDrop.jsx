@@ -3,8 +3,9 @@ import { useEffect, useMemo } from 'react'
 import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { usePodContractCall, usePodContractFunction } from '@hooks/useContractPod'
-import { useContractTokenDropCall, useContractTokenDropFunction } from '@hooks/useContractTokenDrop'
+import { TOOLTIP_CLASSNAMES } from '@src/constants'
+import { usePodContractCall } from '@hooks/useContractPod'
+import { useContractTokenDropFunction } from '@hooks/useContractTokenDrop'
 import { Tooltip } from '@src/components'
 
 /**
@@ -61,8 +62,8 @@ PodAdminClaimTokenDrop.defaultProps = {
 
 const TooltipDisplay = (props) => {
   return (
-    <div className='card bg-purple-500 text-white max-w-sm '>
-      <h4 className='text-xl border-bottom'>Claim Pod Pool</h4>
+    <div className={TOOLTIP_CLASSNAMES}>
+      <h4 className='text-xl'>Claim Pod Pool</h4>
       <p className='text-xs'>
         To distribute the reward token (i.e. POOL) the Pod must first claim the POOl and allocate
         the new tokens to current Pod users.
