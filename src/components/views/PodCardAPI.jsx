@@ -6,6 +6,7 @@ import classnames from 'classnames'
 import { useMediaQuery } from 'react-responsive'
 
 /* --- Local Modules --- */
+import { TOOLTIP_CLASSNAMES } from '@src/constants'
 import { useToggle } from '@src/hooks/helpers/useToggle'
 import { useGetContractAddress } from '@src/hooks/useGetContractAddress'
 import { useGetPodRelatedAddresses } from '@hooks/podContracts'
@@ -514,8 +515,8 @@ const PodCardLoading = ({ classNameContainer, symbol, tokenImage, isError, ...pr
 
 const PodFloatTooltip = (props) => {
   return (
-    <div className='card bg-purple-500 text-white max-w-sm '>
-      <h4 className='text-xl border-bottom'>Pod's Float</h4>
+    <div className={TOOLTIP_CLASSNAMES}>
+      <h4 className='text-xl'>Pod's Float</h4>
       <p className='text-xxs'>
         Float refers to deposits which have not been deposited into the PrizePool via the batch
         function. In other words, when a user deposits tokens, those tokens will be temporarily held
@@ -527,13 +528,13 @@ const PodFloatTooltip = (props) => {
         <em>reducing gas costs and minimizing the PrizePool early exit fee.</em>
       </p>
       <p className='text-xxs'>
-        <span
+        <a
           className='tag-purple cursor-pointer hover:shadow-lg'
           href='https://docs.pooltogether.com/tutorials/operate-a-prize-pool#fairness'
           target='_blank'
         >
           Early Exit Fee Documentation
-        </span>
+        </a>
       </p>
     </div>
   )
@@ -541,8 +542,8 @@ const PodFloatTooltip = (props) => {
 
 const PodPoolTooltip = (props) => {
   return (
-    <div className='card bg-purple-500 text-white max-w-sm '>
-      <h4 className='text-xl border-bottom'>Pod POOL - Fair Token Distribution</h4>
+    <div className={TOOLTIP_CLASSNAMES}>
+      <h4 className='text-xl'>Pod POOL - Fair Token Distribution</h4>
       <p className='text-xxs'>
         PoolTogether (<span className='italic'>currently</span>) distributes{' '}
         <a
@@ -587,20 +588,20 @@ const PodPoolTooltip = (props) => {
         tokens from the Pod.
       </p>
       <p className='text-xxs'>
-        <span
+        <a
           className='tag-purple cursor-pointer hover:shadow-lg'
           href='https://medium.com/pooltogether/governance-101-fca9ab8b8ba2'
           target='_blank'
         >
           Governance 101
-        </span>
-        <span
+        </a>
+        <a
           className='tag-purple cursor-pointer ml-1 hover:shadow-lg'
           href='https://gov.pooltogether.com/'
           target='_blank'
         >
           Governance Forum
-        </span>
+        </a>
       </p>
       <p className='text-xxs'></p>
     </div>

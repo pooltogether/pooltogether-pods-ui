@@ -1,8 +1,4 @@
-import {
-  FormPodClaimPodPool,
-  FormPodBatchMultiple,
-  FormPodDropMultiple
-} from '@components/forms/pod'
+import { FormPodClaimPodPool, FormPodBatchMultiple } from '@components/forms/pod'
 import { Spacer } from '../../src/components'
 
 /**
@@ -13,7 +9,7 @@ export const PageDeposit = (props) => {
   return (
     <div className='py-20'>
       <div className='text-center text-center mb-10'>
-        <h2 className='text-4xl lg:text-6xl text-teal-600 font-black text-shadow-md'>Admin</h2>
+        <h2 className='text-4xl lg:text-6xl text-teal-600 font-semibold text-shadow-md'>Admin</h2>
         <p className='text-1xl text-teal-600'>Pod Administrator Actions</p>
       </div>
 

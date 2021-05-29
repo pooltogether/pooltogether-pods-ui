@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
+import { TOOLTIP_CLASSNAMES } from '@src/constants'
 import { WalletNetwork, ChainID, Spacer } from '../../index'
 import { useGetContractAddress } from '@hooks/useGetContractAddress'
 import {
@@ -90,12 +91,14 @@ export const AccountPopover = (props) => {
 
 const PopoverInner = (props) => {
   return (
-    <div className='card bg-purple-600 border-purple-700 text-white mr-6 mt-2 p-0 w-72'>
-      <div className='p-3'>
+    <div
+      className={`text-white rounded-sm bg-opacity-90 bg-purple-900 border-purple-700 mr-4 mt-2 p-0 w-72`}
+    >
+      <div className='pt-3 px-3'>
         <AccountDeactivate className='tag-teal cursor-pointer rounded-xl text-xs text-purple-700 py-2 px-3 w-full flex-center text-center' />
       </div>
       {/* <Spacer className="inline-block mx-3" /> */}
-      <div className='bg-purple-900 p-2'>
+      <div className='pb-3 px-3'>
         <span className='text-xs'>
           <span className='font-semibold'>ChainID:</span> <ChainID />
         </span>

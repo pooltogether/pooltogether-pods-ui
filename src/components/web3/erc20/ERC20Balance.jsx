@@ -65,11 +65,11 @@ const ERC20BalanceFetch = ({
   return useMemo(() => {
     if (balanceOf && decimals) {
       return (
-        <span className={className} {...props}>
+        <h4 className={className} {...props}>
           {commifyTokenBalance(balanceOf, decimals, decimalsTrim)}
-        </span>
+        </h4>
       )
     }
-    return <span className={className}>{defaultValue}</span>
+    return <h4 className={className}>{defaultValue}</h4>
   }, [balanceOf, decimals])
 }

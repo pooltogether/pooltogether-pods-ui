@@ -25,11 +25,11 @@
 /* Table Head       */
 /* ---------------- */
 .tableHead {
-  background-color: #36304a;
-  background-color: rgba(33, 28, 66, 1);
+  /* background-color: #36304a; */
+  background-color: rgba(20, 10, 30, 0.05);
   border-radius: 10px 10px 0 0;
   /* background-color: var(--color-gray); */
-  border: 1px solid transparent;
+  border: 0;
   border-radius: 6px;
   padding: 10px;
   margin-bottom: 10px;
@@ -41,11 +41,12 @@
 }
 
 .tableHead th {
-  background-color: rgba(33, 28, 66, 1);
-  font-family: OpenSans-Regular;
+  @apply text-teal-600;
+  background-color: rgba(20, 10, 30, 0.4);
   font-size: 14px;
   line-height: 1.2;
   text-align: left;
+  font-weight: 100 !important;
   /* font-weight: unset; */
 }
 
@@ -65,13 +66,13 @@
 }
 .tableHead tr th:nth-child(3) {
   /* text-align: center; */
-  padding-left: 15px;
+  /* padding-left: 15px; */
   max-width: 100px;
 }
 
 .tableHead tr th:nth-child(4),
 .tableHead tr th:nth-child(5) {
-  /* text-align: center; */
+  text-align: center;
   max-width: 120px;
 }
 
@@ -82,15 +83,15 @@
 }
 
 .tableBody tr td {
-  background-color: rgba(33, 28, 66, 0.9);
+  background-color: rgba(20, 10, 30, 0.4);
   vertical-align: middle;
 }
 
 .tableBody tr:nth-child(odd) {
-  /* background-color: rgba(33, 28, 66, 1); */
+  /* background-color: rgba(33, 28, 66, 0.2); */
 }
 .tableBody tr:nth-child(even) {
-  background-color: rgba(33, 28, 66, 1);
+  background-color: rgba(33, 28, 66, 0.2);
 }
 
 @media screen and (max-width: 992px) {
@@ -99,12 +100,12 @@
   }
 
   .table tr {
-    background-color: rgba(33, 28, 66, 1);
+    background-color: rgba(33, 28, 66, 0.2);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 15px 20px;
-    border-bottom: 1px solid #dadada;
+    /* padding: 15px 20px; */
+    border-bottom: 2px solid black;
     width: 100%;
   }
   .table tr {
@@ -119,8 +120,10 @@
 
   .tableBody tr td {
     display: table-row;
+    padding: 5px 20px 15px;
     width: 100% !important;
   }
+
   .table tr td {
     text-align: left !important;
     width: 100% !important;
@@ -134,16 +137,16 @@
     display: none;
   }
   .table tr td:nth-of-type(2)::before {
-    content: "Total Deposits";
+    content: 'Total Deposits';
   }
   .table tr td:nth-of-type(3)::before {
-    content: "Prize (Excludes LOOT Box)";
+    content: 'Prize (Excludes LOOT Box)';
   }
   .table tr td:nth-of-type(4)::before {
-    content: "Winners";
+    content: 'Winners';
   }
   .table tr td:nth-of-type(5)::before {
-    content: "Date";
+    content: 'Date';
   }
 }
 
@@ -179,6 +182,7 @@
     width: 40% !important;
   }
   .tableBody tr td:nth-child(4) {
+    @apply text-center;
     padding-left: 15px;
     padding-right: 15px;
     max-width: 310px !important;
