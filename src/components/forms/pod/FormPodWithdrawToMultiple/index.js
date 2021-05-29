@@ -1,3 +1,3 @@
-import FormPodWithdrawToMultiple from "./FormPodWithdrawToMultiple";
-export { FormPodWithdrawToMultiple };
-export default FormPodWithdrawToMultiple;
+import FormPodWithdrawToMultiple from './FormPodWithdrawToMultiple'
+export { FormPodWithdrawToMultiple }
+export default FormPodWithdrawToMultiple

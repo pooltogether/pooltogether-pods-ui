@@ -1,17 +1,12 @@
 /* --- Global Modules --- */
-import { useEffect, useMemo } from "react";
-import { useEthers } from "@usedapp/core";
+import { useEffect, useMemo } from 'react'
+import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import {
-  usePodContractCall,
-  usePodContractFunction,
-} from "@hooks/useContractPod";
-import {
-  useContractTokenDropCall,
-  useContractTokenDropFunction,
-} from "@hooks/useContractTokenDrop";
-import { Tooltip } from "@src/components";
+import { TOOLTIP_CLASSNAMES } from '@src/constants'
+import { usePodContractCall } from '@hooks/useContractPod'
+import { useContractTokenDropFunction } from '@hooks/useContractTokenDrop'
+import { Tooltip } from '@src/components'
 
 /**
  * @name PodAdminClaimTokenDrop
@@ -28,27 +23,26 @@ export const PodAdminClaimTokenDrop = ({
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
-  const { account } = useEthers();
-  const [balance] = usePodContractCall(addressPod, "balance", []);
-  const [
-    claimExecute,
-    claimState,
-  ] = useContractTokenDropFunction(addressTokenDrop, "claim", [account]);
+  const { account } = useEthers()
+  const [balance] = usePodContractCall(addressPod, 'balance', [])
+  const [claimExecute, claimState] = useContractTokenDropFunction(addressTokenDrop, 'claim', [
+    account
+  ])
 
   const handleClaimRewardToken = () => {
-    claimExecute(account);
-  };
+    claimExecute(account)
+  }
 
   // TODO - Add Toast to track to Transaction Status
-  useEffect(() => {}, [claimState]);
+  useEffect(() => {}, [claimState])
 
   /* ------------------------ */
   /* --- Component Render --- */
   /* ------------------------ */
   return (
-    <div className="flex items-center ">
+    <div className='flex items-center '>
       <button
-        className="btn btn-teal tag-teal bg-teal-700 mr-1 text-white text-xs"
+        className='btn btn-teal tag-teal bg-teal-700 mr-1 text-white text-xs'
         onClick={handleClaimRewardToken}
       >
         {label}
@@ -57,25 +51,25 @@ export const PodAdminClaimTokenDrop = ({
         <TooltipDisplay />
       </Tooltip>
     </div>
-  );
-};
+  )
+}
 
 PodAdminClaimTokenDrop.defaultProps = {
   address: undefined,
   decimals: 18,
-  label: "Claim Pod POOL",
-};
+  label: 'Claim Pod POOL'
+}
 
 const TooltipDisplay = (props) => {
   return (
-    <div className="card bg-purple-500 text-white max-w-sm ">
-      <h4 className="text-xl border-bottom">Claim Pod Pool</h4>
-      <p className="text-xs">
-        To distribute the reward token (i.e. POOL) the Pod must first claim the
-        POOl and allocate the new tokens to current Pod users.
+    <div className={TOOLTIP_CLASSNAMES}>
+      <h4 className='text-xl'>Claim Pod Pool</h4>
+      <p className='text-xs'>
+        To distribute the reward token (i.e. POOL) the Pod must first claim the POOl and allocate
+        the new tokens to current Pod users.
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default PodAdminClaimTokenDrop;
+export default PodAdminClaimTokenDrop

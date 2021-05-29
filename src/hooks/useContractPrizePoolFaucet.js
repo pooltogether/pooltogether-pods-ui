@@ -1,13 +1,9 @@
 /* --- Global Modules --- */
-import {
-  useContractCall,
-  useContractCalls,
-  useContractFunction,
-} from "@usedapp/core";
+import { useContractCall, useContractCalls, useContractFunction } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { PrizePoolFaucetInterface } from "@constants";
-import { useGetPrizePoolFaucet } from "@hooks/contracts";
+import { PrizePoolFaucetInterface } from '@constants'
+import { useGetPrizePoolFaucet } from '@hooks/contracts'
 
 /**
  * @name usePrizePoolFaucetCall
@@ -20,12 +16,12 @@ export const usePrizePoolFaucetCall = (address, method, inputs = []) => {
         abi: PrizePoolFaucetInterface,
         address: address,
         method: method,
-        args: inputs,
+        args: inputs
       }
-    ) ?? [];
+    ) ?? []
 
-  return [value];
-};
+  return [value]
+}
 
 /**
  * @name usePrizePoolFaucetCalls
@@ -36,22 +32,19 @@ export const usePrizePoolFaucetCalls = (address, methods = [], inputs = []) => {
     abi: PrizePoolFaucetInterface,
     address: address,
     method: method,
-    args: inputs[index],
-  }));
+    args: inputs[index]
+  }))
 
-  const values = useContractCalls(address && calls && calls) ?? [];
+  const values = useContractCalls(address && calls && calls) ?? []
 
-  return Array.isArray(values)
-    ? values.map((value) => Array.isArray(value) && value[0])
-    : [];
-};
+  return Array.isArray(values) ? values.map((value) => Array.isArray(value) && value[0]) : []
+}
 
 /**
  * @name usePrizePoolFaucetFunction
  * @param {Object} props
  */
 export const usePrizePoolFaucetFunction = (address, method) => {
-  const { send, state } =
-    useContractFunction(useGetPrizePoolFaucet(address), method) ?? [];
-  return [send, state];
-};
+  const { send, state } = useContractFunction(useGetPrizePoolFaucet(address), method) ?? []
+  return [send, state]
+}

@@ -1,24 +1,24 @@
 /* --- Global Modules --- */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react'
 
 /* --- Local Modules --- */
-import { commifyTokenBalance } from "@src/utils/convert";
-import { useGetPodContract } from "@src/hooks/contracts";
+import { commifyTokenBalance } from '@src/utils/convert'
+import { useGetPodContract } from '@src/hooks/contracts'
 
 /**
  * @name PodClaimablePool
  * @param {Object} props
  */
-export const PodClaimablePool = ({ address, label, ...props }) => {
+export const PodClaimablePool = ({ className, address, decimalsTrim, label, ...props }) => {
   /* ----------------------- */
   /* --- Component State --- */
   /* ----------------------- */
-  const [podClaimableAmount, podClaimableAmountSet] = useState("0.00");
+  const [podClaimableAmount, podClaimableAmountSet] = useState('0.00')
 
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
-  const contract = useGetPodContract(address);
+  const contract = useGetPodContract(address)
 
   /* ------------------------ */
   /* --- Blockchain Hooks --- */
@@ -26,27 +26,26 @@ export const PodClaimablePool = ({ address, label, ...props }) => {
   // Effect : Update Claimable POOl Tokens
   useEffect(() => {
     if (contract && address) {
-      (async () => {
+      ;(async () => {
         try {
-          const amount = await contract.callStatic.drop();
-          podClaimableAmountSet(commifyTokenBalance(amount, 18, 8));
+          const amount = await contract.callStatic.drop()
+          podClaimableAmountSet(commifyTokenBalance(amount, 18, decimalsTrim))
         } catch (error) {
           // TODO Add error logging
         }
-      })();
+      })()
     }
-  }, [contract]);
+  }, [contract])
 
   /* ------------------------ */
   /* --- Component Render --- */
   /* ------------------------ */
-  return useMemo(() => {
-    return <span className="">{podClaimableAmount}</span>;
-  }, [podClaimableAmount]);
-};
+  return <span className={className}>{podClaimableAmount}</span>
+}
 
 PodClaimablePool.defaultProps = {
-  label: "Claim Pool",
-};
+  label: 'Claim Pool',
+  decimalsTrim: 7
+}
 
-export default PodClaimablePool;
+export default PodClaimablePool

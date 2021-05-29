@@ -1,34 +1,27 @@
 /* --- Global Modules --- */
-import { useEffect } from "react";
-import { useQuery } from "react-query";
-import { useEthers } from "@usedapp/core";
+import { useEffect } from 'react'
+import { useQuery } from 'react-query'
+import { useEthers } from '@usedapp/core'
 import { batch } from '@pooltogether/etherplex'
 
 /* --- Local Modules --- */
-import {
-  PodBatchContract,
-} from "@hooks/batch";
+import { PodBatchContract } from '@hooks/batch'
 
-import {  PodDataConfig } from '@src/interfaces/pod'
+import { PodDataConfig } from '@src/interfaces/pod'
 
 /**
  * @name usePodOverviewBatchCall
- * @param config 
+ * @param config
  */
 export const usePodOverviewBatchCall = (config: PodDataConfig) => {
-  const { library } = useEthers();
-  const {
-    pod,
-  } = config;
+  const { library } = useEthers()
+  const { pod } = config
 
   const query = useQuery([pod], async () => {
     try {
       let results = await batch(
         library,
-          PodBatchContract(pod)
-          .totalSupply()
-          .getPricePerShare()
-          .balance(),
+        PodBatchContract(pod).totalSupply().getPricePerShare().balance()
       )
       return results
     } catch (error) {
@@ -36,9 +29,9 @@ export const usePodOverviewBatchCall = (config: PodDataConfig) => {
     }
   })
 
-  useEffect( () => { 
-    if(!query.data && library) query.refetch()
+  useEffect(() => {
+    if (!query.data && library) query.refetch()
   }, [library])
-  
+
   return query
-};
+}

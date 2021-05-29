@@ -1,22 +1,18 @@
 /* --- Global Modules --- */
-import {
-  useContractCall,
-  useContractCalls,
-  useContractFunction,
-} from "@usedapp/core";
+import { useContractCall, useContractCalls, useContractFunction } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { useGetTokenDropContract } from "@hooks/contracts";
-import { isAddress } from "@src/utils/is";
+import { useGetTokenDropContract } from '@hooks/contracts'
+import { isAddress } from '@src/utils/is'
 
 const validateInputs = (inputs) => {
-  let valid = true;
+  let valid = true
   Array.isArray(inputs) &&
     inputs.forEach((input) => {
-      if (input == undefined || input == null) valid = false;
-    });
-  return valid;
-};
+      if (input == undefined || input == null) valid = false
+    })
+  return valid
+}
 
 /**
  * @name useContractTokenDropCall
@@ -31,42 +27,35 @@ export const useContractTokenDropCall = (address, method, inputs = []) => {
           abi: TokenDropInterface,
           address: address,
           method: method,
-          args: inputs,
+          args: inputs
         }
-    ) ?? [];
+    ) ?? []
 
-  return [value];
-};
+  return [value]
+}
 
 /**
  * @name useContractTokenDropFunction
  * @param {Object} props
  */
 export const useContractTokenDropFunction = (address, method) => {
-  const { send, state } =
-    useContractFunction(useGetTokenDropContract(address), method) ?? [];
-  return [send, state];
-};
+  const { send, state } = useContractFunction(useGetTokenDropContract(address), method) ?? []
+  return [send, state]
+}
 
 /**
  * @name useContractTokenDropFunctions
  * @param {Object} props
  */
-export const useContractTokenDropCalls = (
-  address,
-  methods = [],
-  inputs = []
-) => {
+export const useContractTokenDropCalls = (address, methods = [], inputs = []) => {
   const calls = methods.map((method, index) => ({
     abi: TokenDropInterface,
     address: address,
     method: method,
-    args: inputs[index],
-  }));
+    args: inputs[index]
+  }))
 
-  const values = useContractCalls(calls) ?? [];
+  const values = useContractCalls(calls) ?? []
 
-  return Array.isArray(values)
-    ? values.map((value) => Array.isArray(value) && value[0])
-    : [];
-};
+  return Array.isArray(values) ? values.map((value) => Array.isArray(value) && value[0]) : []
+}

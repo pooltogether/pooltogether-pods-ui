@@ -1,31 +1,26 @@
-import { Component } from "react";
+import { Component } from 'react'
 
 export class ErrorBoundary extends Component {
   constructor(props) {
-    super(props);
-    this.state = { hasError: false };
+    super(props)
+    this.state = { hasError: false }
   }
 
   static getDerivedStateFromError(error) {
-    return { hasError: true };
+    return { hasError: true }
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log(error, errorInfo);
+    console.log(error, errorInfo)
   }
 
   render() {
     if (this.state.hasError) {
-      I;
-      return (
-        <h3 className="font-normal text-3xl text-white">
-          Something went wrong.
-        </h3>
-      );
+      return <h3 className='font-normal text-3xl text-white'>Something went wrong.</h3>
     }
 
-    return this.props.children;
+    return this.props.children
   }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundary

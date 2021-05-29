@@ -1,17 +1,11 @@
 /* --- Global Modules --- */
-import { useEffect, useMemo } from "react";
-import { useEthers } from "@usedapp/core";
+import { useEffect, useMemo } from 'react'
+import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import {
-  usePodContractCall,
-  usePodContractFunction,
-} from "@hooks/useContractPod";
-import {
-  useContractTokenDropCall,
-  useContractTokenDropFunction,
-} from "@hooks/useContractTokenDrop";
-import { TokenBalance } from "@src/components";
+import { usePodContractCall, usePodContractFunction } from '@hooks/useContractPod'
+import { useContractTokenDropCall, useContractTokenDropFunction } from '@hooks/useContractTokenDrop'
+import { TokenBalance } from '@src/components'
 
 /**
  * @name PodClaimRewardToken
@@ -28,36 +22,32 @@ export const PodClaimRewardToken = ({
   /* ------------------------ */
   /* --- Blockchain State --- */
   /* ------------------------ */
-  const { account } = useEthers();
-  const [
-    claimExecute,
-    claimState,
-  ] = useContractTokenDropFunction(addressTokenDrop, "claim", [account]);
+  const { account } = useEthers()
+  const [claimExecute, claimState] = useContractTokenDropFunction(addressTokenDrop, 'claim', [
+    account
+  ])
 
   const handleClaimRewardToken = () => {
-    claimExecute(account);
-  };
+    claimExecute(account)
+  }
 
   // TODO - Add Toast to track to Transaction Status
-  useEffect(() => {}, [claimState]);
+  useEffect(() => {}, [claimState])
 
   /* ------------------------ */
   /* --- Component Render --- */
   /* ------------------------ */
   return (
-    <button
-      className="btn btn-teal tag-teal bg-teal-700 text-white"
-      onClick={handleClaimRewardToken}
-    >
+    <button className='btn btn-teal btn-small' onClick={handleClaimRewardToken}>
       {label}
     </button>
-  );
-};
+  )
+}
 
 PodClaimRewardToken.defaultProps = {
   address: undefined,
   decimals: 18,
-  label: "Claim POOL",
-};
+  label: 'Claim POOL'
+}
 
-export default PodClaimRewardToken;
+export default PodClaimRewardToken

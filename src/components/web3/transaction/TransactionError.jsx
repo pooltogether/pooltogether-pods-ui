@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo } from 'react'
 
 /**
  * @name TransactionError
@@ -6,10 +6,9 @@ import { useMemo } from "react";
  */
 export const TransactionError = ({ className, state }) => {
   return useMemo(() => {
-    if (state.status == "Exception")
-      return <span className={className}> {state.errorMessage}</span>;
-    return null;
-  }, [state]);
-};
+    if (state.status == 'Exception') return <span className={className}> {state.errorMessage}</span>
+    return null
+  }, [state])
+}
 
-export default TransactionError;
+export default TransactionError

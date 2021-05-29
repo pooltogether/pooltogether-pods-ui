@@ -4,12 +4,10 @@
  */
 export const ArticleGettingStarted = (props) => {
   return (
-    <div className="py-0">
-      <h2 className="text-4xl lg:text-6xl font-black text-purple-900">
-        Getting Started
-      </h2>
-      <p className="">A complete guide to PoolTogether Pods is Coming Soon!</p>
-      {/* <h2 className="text-4xl lg:text-6xl font-black text-purple-900 mt-10">
+    <div className='py-0'>
+      <h2 className='text-4xl lg:text-6xl font-semibold text-purple-900'>Getting Started</h2>
+      <p className=''>A complete guide to PoolTogether Pods is Coming Soon!</p>
+      {/* <h2 className="text-4xl lg:text-6xl font-semibold text-purple-900 mt-10">
         What Is a Pod?
       </h2>
       <p className="">
@@ -22,7 +20,7 @@ export const ArticleGettingStarted = (props) => {
         id est. Nam rhoncus tristique leo, vel venenatis ipsum consectetur eget.
         Nam venenatis cursus justo, in vehicula purus pretium ac.
       </p>
-      <h2 className="text-4xl lg:text-6xl font-black text-purple-900 mt-10">
+      <h2 className="text-4xl lg:text-6xl font-semibold text-purple-900 mt-10">
         The Benefits of a Pod
       </h2>
       <p className="">
@@ -36,6 +34,6 @@ export const ArticleGettingStarted = (props) => {
         <li>Decrease Gas Costs</li>
       </ul> */}
     </div>
-  );
-};
-export default ArticleGettingStarted;
+  )
+}
+export default ArticleGettingStarted
