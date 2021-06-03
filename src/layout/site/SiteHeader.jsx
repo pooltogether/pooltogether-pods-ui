@@ -38,7 +38,7 @@ export const SiteHeader = (props) => {
           ) : (
             <div></div>
           )}
-          <AccountPopover className='btn-blue gradient-green-to-blue' />
+          <AccountPopover className='btn btn-blue gradient-green-to-blue' />
         </div>
       </div>
     </div>

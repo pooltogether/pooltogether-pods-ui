@@ -1,9 +1,12 @@
-.card {
-  @apply bg-white border-gray-200 border-solid border-2 rounded-md text-gray-600 px-3 py-4 hover:shadow-md;
+.border-top {
+  @apply border-t-2 border-solid border-gray-200;
+}
+.border-bottom {
+  @apply border-b-2 border-solid border-gray-200;
 }
 
-.dashboard-header {
-  @apply flex flex-row items-center justify-between py-3 px-3 w-full border-bottom;
+.card {
+  @apply bg-white border-gray-200 border-solid border-2 rounded-md text-gray-600 px-3 py-4 hover:shadow-md;
 }
 
 .link-standard {
@@ -11,41 +14,34 @@
 }
 
 .btn {
-  @apply duration-200;
-}
-
-.btn-basic {
-  @apply py-2 px-4 font-semibold rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75;
-}
-.btn-dynamic-color {
-  @apply py-2 px-4 font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75;
+  @apply py-2 px-4 font-semibold rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75 duration-200;
 }
 .btn-indigo {
-  @apply btn-basic bg-indigo-500 hover:bg-indigo-700 focus:ring-indigo-400;
+  @apply bg-indigo-500 hover:bg-indigo-700 focus:ring-indigo-400;
 }
 .btn-purple {
-  @apply btn-basic bg-purple-500 hover:bg-purple-700 focus:ring-purple-400;
+  @apply bg-purple-500 hover:bg-purple-700 text-white focus:ring-purple-400;
 }
 .btn-purple-light {
-  @apply btn-basic bg-purple-400 hover:bg-purple-300 text-purple-80 hover:text-purple-700 focus:ring-purple-400;
+  @apply bg-purple-400 hover:bg-purple-300 text-white hover:text-purple-700 focus:ring-purple-400;
 }
 .btn-green {
-  @apply btn-basic bg-green-500 hover:bg-green-400 focus:ring-green-400;
+  @apply bg-green-500 hover:bg-green-400 focus:ring-green-400;
 }
 .btn-blue {
-  @apply btn-basic bg-blue-500 hover:bg-blue-700 focus:ring-blue-400;
+  @apply bg-blue-500 hover:bg-blue-700 focus:ring-blue-400;
 }
 .btn-teal {
-  @apply btn-dynamic-color bg-opacity-60 bg-teal-800 hover:bg-teal-700 focus:ring-teal-400 text-teal-400 hover:text-white;
+  @apply bg-opacity-60 bg-teal-800 hover:bg-teal-700 focus:ring-teal-400 text-teal-400 hover:text-white;
 }
 .btn-orange {
-  @apply btn-basic bg-yellow-500 hover:bg-yellow-600 focus:ring-yellow-400 text-purple-600;
+  @apply bg-yellow-500 hover:bg-yellow-600 focus:ring-yellow-400 text-purple-600;
 }
 .btn-disabled {
-  @apply btn-basic bg-gray-500 hover:bg-gray-700 focus:ring-gray-400;
+  @apply bg-gray-500 hover:bg-gray-700 focus:ring-gray-400;
 }
 .btn-gray {
-  @apply btn-basic text-gray-700 bg-gray-200 hover:bg-gray-300 focus:ring-gray-400 shadow-none;
+  @apply text-gray-700 bg-gray-200 hover:bg-gray-300 focus:ring-gray-400 shadow-none;
 }
 
 .btn-small {
@@ -102,43 +98,44 @@
   background-image: linear-gradient(147deg, #f7cd57 0%, #ff2525 100%);
 }
 
-.tag-basic {
-  @apply px-2 inline-flex text-xs leading-5 font-semibold rounded-sm;
+.tag {
+  @apply px-2 inline-flex text-xs leading-5 font-semibold rounded-lg;
   padding-bottom: 0.125rem;
   padding-top: 0.125rem;
 }
+
 .tag-white {
-  @apply tag-basic text-gray-700 bg-white;
+  @apply text-gray-700 bg-white;
 }
 .tag-gray {
-  @apply tag-basic text-gray-100 bg-gray-700;
+  @apply text-gray-100 bg-gray-700;
 }
 .tag-green {
-  @apply tag-basic text-green-100 bg-green-800;
+  @apply text-green-100 bg-green-800;
 }
 .tag-red {
-  @apply tag-basic text-red-100 bg-red-800;
+  @apply text-red-100 bg-red-800;
 }
 .tag-blue {
-  @apply tag-basic text-blue-100 bg-blue-800;
+  @apply text-blue-100 bg-blue-800;
 }
 .tag-indigo {
-  @apply tag-basic text-indigo-100 bg-indigo-800;
+  @apply text-indigo-100 bg-indigo-800;
 }
 .tag-indigo {
-  @apply tag-basic text-purple-100 bg-purple-800;
+  @apply text-purple-100 bg-purple-800;
 }
 .tag-orange {
-  @apply tag-basic text-yellow-100 bg-yellow-800;
+  @apply text-yellow-100 bg-yellow-800;
 }
 .tag-pink {
-  @apply tag-basic text-pink-100 bg-pink-800;
+  @apply text-pink-100 bg-pink-800;
 }
 .tag-purple {
-  @apply tag-basic text-purple-100 bg-purple-800;
+  @apply text-purple-100 bg-purple-800;
 }
 .tag-teal {
-  @apply tag-basic text-white bg-teal-800;
+  @apply text-white bg-teal-800;
 }
 
 .notification-green {
@@ -177,13 +174,6 @@
 }
 .absolute-center {
   @apply absolute top-0 bottom-0 left-0 right-0 mx-auto;
-}
-
-.border-top {
-  @apply border-t-2 border-solid border-gray-200;
-}
-.border-bottom {
-  @apply border-b-2 border-solid border-gray-200;
 }
 
 .react-tabs__tab-panel--selected {

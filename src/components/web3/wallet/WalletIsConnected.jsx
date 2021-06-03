@@ -18,7 +18,7 @@ export const WalletIsConnected = ({ children, button }) => {
         {button ? (
           button
         ) : (
-          <button className='btn bg-purple-300 font-bold text-black rounded-lg p-2 w-full'>
+          <button className='btn btn-purple font-bold text-black rounded-lg p-2 w-full'>
             Connect Wallet
           </button>
         )}

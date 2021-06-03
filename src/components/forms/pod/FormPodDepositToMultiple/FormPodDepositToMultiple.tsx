@@ -159,7 +159,7 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
     )
   }
 
-  const classNameButton = classNames('btn-purple w-full', {
+  const classNameButton = classNames('btn btn-purple w-full', {
     'bg-purple-700 text-black-60': isDisabled,
     'text-purple-900 btn-gradient btn-gradient-2': !isDisabled
   })

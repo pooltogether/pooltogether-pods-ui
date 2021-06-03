@@ -142,7 +142,7 @@ const PodCard = ({
               <h3 className='block font-bold text-center text-4xl xs:text-5xl md:text-6xl lg:text-6xl text-white lg:text-white'>
                 <USDValue number={idx(dataCache, (_) => _.prize.totalValueUsd)} />
               </h3>
-              <span className='tag-teal mt-2 lg:mt-0 lg:ml-2 self-center'>weekly prize</span>
+              <span className='tag tag-teal mt-2 lg:mt-0 lg:ml-2 self-center'>weekly prize</span>
             </div>
             <Spacer className='my-6' />
             <div className='flex items-center lg:items-start lg:justify-start flex-col lg:flex-row lg:justify-start'>
@@ -445,7 +445,7 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
 //             <span className='block text-6xl text-white'>
 //               <USDValue number={idx(dataCache, (_) => _.prize.totalValueUsd)} />
 //             </span>
-//             <span className='tag-blue ml-2 self-center'>weekly prize</span>
+//             <span className='tag tag-blue ml-2 self-center'>weekly prize</span>
 //           </div>
 //           <Spacer className='my-6' />
 //           <div className='flex items-center'>
@@ -471,7 +471,7 @@ const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
 //         </div>
 //         <div className='col-span-1'>
 //           <Link href={`/manage?tab=0&token=${address}`}>
-//             <button className='btn-purple-light text-black-60 uppercase w-full'>
+//             <button className='btn btn-purple-light text-black-60 uppercase w-full'>
 //               Deposit {symbol}
 //             </button>
 //           </Link>
@@ -529,7 +529,7 @@ const PodFloatTooltip = (props) => {
       </p>
       <p className='text-xxs'>
         <a
-          className='tag-purple cursor-pointer hover:shadow-lg'
+          className='tag tag-purple cursor-pointer hover:shadow-lg'
           href='https://docs.pooltogether.com/tutorials/operate-a-prize-pool#fairness'
           target='_blank'
         >
@@ -589,14 +589,14 @@ const PodPoolTooltip = (props) => {
       </p>
       <p className='text-xxs'>
         <a
-          className='tag-purple cursor-pointer hover:shadow-lg'
+          className='tag tag-purple cursor-pointer hover:shadow-lg'
           href='https://medium.com/pooltogether/governance-101-fca9ab8b8ba2'
           target='_blank'
         >
           Governance 101
         </a>
         <a
-          className='tag-purple cursor-pointer ml-1 hover:shadow-lg'
+          className='tag tag-purple cursor-pointer ml-1 hover:shadow-lg'
           href='https://gov.pooltogether.com/'
           target='_blank'
         >

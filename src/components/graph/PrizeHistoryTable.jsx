@@ -132,7 +132,7 @@ export function TableBase({
               </span>
               {row.original.isPodWinner && (
                 <span
-                  className='tag-purple text-white text-xs px-4 ml-3'
+                  className='tag tag-purple text-white text-xs px-4 ml-3'
                   style={{
                     background:
                       'linear-gradient(71.84deg, rgba(255, 119, 225, 0.9) -59.48%, #4C249F 100.31%)',
@@ -256,7 +256,7 @@ export function TableBase({
         <TablePagination
           innerDisplay={
             <Link href='/yield-farming'>
-              <a className='tag-white px-2'>
+              <a className='tag tag-white px-2'>
                 <img className='mr-2 self-center' src='/icons/icon-plant.png' width={16} />
                 <span className=''>View Yield Farming Page</span>
               </a>

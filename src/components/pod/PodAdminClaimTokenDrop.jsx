@@ -42,7 +42,7 @@ export const PodAdminClaimTokenDrop = ({
   return (
     <div className='flex items-center '>
       <button
-        className='btn btn-teal tag-teal bg-teal-700 mr-1 text-white text-xs'
+        className='btn btn-teal tag tag-teal bg-teal-700 mr-1 text-white text-xs'
         onClick={handleClaimRewardToken}
       >
         {label}

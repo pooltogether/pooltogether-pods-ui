@@ -10,10 +10,10 @@ import { APPLICATION_NAME, APPLICATION_TAGLINE } from '../src/constants/config'
 
 import { NetworkInvalidModal } from '@components'
 
-import '@assets/tailwind.css'
-import '@assets/styles.css'
 import 'tailwindcss/tailwind.css'
 import '@assets/tailwind-pods.css'
+import '@assets/styles.css'
+import '@assets/tailwind.css'
 
 import 'react-toastify/dist/ReactToastify.css'
 

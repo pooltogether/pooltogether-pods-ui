@@ -274,7 +274,7 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
         />
         <Spacer className='my-2' />
         <WalletIsConnected>
-          <button className='btn btn-purple-light w-full'>{label}</button>
+          <button className='btn btn-purple w-full'>{label}</button>
         </WalletIsConnected>
         {earlyExitFeeError && (
           <>
@@ -284,9 +284,9 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
         )}
         <Spacer className='my-5' />
         <div className='text-center'>
-          <span className='tag-reds text-yellow-500 text-sm font-normal mx-auto'>
+          <span className='text-yellow-500 text-sm font-normal mx-auto'>
             <span className='text-md'>⚠️</span> Withdrawing everything will make you ineligible to
-            receive my share if pod wins
+            receive your share if pod wins
           </span>
         </div>
         <Spacer className='my-5' />
