@@ -29,7 +29,11 @@ export const Tooltip = ({ className, children, label }) => {
       content={children}
     >
       <span onClick={toggle} className={tooltipClasses}>
-        {label ? label : <img className='inline-block' src='/images/info.png' width={12} />}
+        {label ? (
+          label
+        ) : (
+          <img className='inline-block' src='/images/info.png' width={12} height={12} />
+        )}
       </span>
     </Popover>
   )

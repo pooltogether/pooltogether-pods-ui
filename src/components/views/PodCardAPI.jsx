@@ -150,7 +150,7 @@ const PodCard = ({
               <Spacer className='mx-1' />
               <span className='flex items-center text-white'>
                 <span className='text-sm lg:text-xl mb-2 lg:mb-0'>{symbol} prize in:</span>
-                <span className='ml-1'>
+                <span className='ml-1  opacity-70'>
                   {idx(dataCache, (_) => _.prizePoolWinningDate.relative)}
                 </span>
               </span>
@@ -177,7 +177,7 @@ const PodCard = ({
             <span className='block text-xxs'>My deposit:</span>
             <span className='block text-white'>
               <PodBalanceOfUnderlying className='text-2xl' address={address} decimals={decimals} />
-              <span className='ml-1'>{symbol}</span>
+              <span className='ml-1 opacity-70'>{symbol}</span>
             </span>
             <span className='block'>
               <span className='text-xxs'>Share of Pod:</span>
@@ -196,13 +196,13 @@ const PodCard = ({
                     address={address}
                     addressPrizePool={addressPrizePool}
                   />
-                  {/* <span className='ml-1'></span> */}
-                  <span className='ml-1'>{symbol}</span>
+                  {/* <span className='ml-1  opacity-70'></span> */}
+                  <span className='ml-1  opacity-70'>{symbol}</span>
                 </span>
                 <span className='block'>
                   <span className='text-xxs'>Winning odds:</span>
                   <PodWinningOdds
-                    className='ml-1 text-xxs text-white'
+                    className='ml-1 text-xxs text-white opacity-70'
                     address={address}
                     addressPrizePool={addressPrizePool}
                     addressToken={addressToken}
@@ -218,7 +218,7 @@ const PodCard = ({
                   <span className='text-2xl'>
                     {converNumberToFixed(idx(dataCache, (_) => _.tokenListener.apr))}
                   </span>{' '}
-                  %
+                  <span className='opacity-70'>%</span>
                 </span>
                 <span className='block'>
                   <span className='text-xxs'>
@@ -258,7 +258,7 @@ const PodCard = ({
                   decimals={decimals}
                   decimalsTrim={2}
                 />
-                <span className='ml-1'>{symbol}</span>
+                <span className='ml-1  opacity-70'>{symbol}</span>
               </span>
             </div>
 
@@ -266,7 +266,7 @@ const PodCard = ({
             <div className='text-teal-500 text-center lg:text-left'>
               <span className='block text-xxs'>
                 Pod Float
-                <span className='ml-1'>
+                <span className='ml-1  opacity-70'>
                   <Tooltip>
                     <PodFloatTooltip />
                   </Tooltip>
@@ -281,7 +281,7 @@ const PodCard = ({
                   decimalsTrim={2}
                   defaultValue='0.00'
                 />
-                <span className='ml-1'>{symbol}</span>
+                <span className='ml-1  opacity-70'>{symbol}</span>
               </span>
             </div>
 
@@ -289,7 +289,7 @@ const PodCard = ({
             <div className='text-teal-500 text-center lg:text-left'>
               <span className='block text-xxs'>
                 Pod POOL{' '}
-                <span className='ml-1'>
+                <span className='ml-1  opacity-70'>
                   <Tooltip>
                     <PodPoolTooltip />
                   </Tooltip>
@@ -303,7 +303,7 @@ const PodCard = ({
                   decimals={18}
                   decimalsTrim={6}
                 />
-                <span className='ml-1 uppercase'>{symbolReward}</span>
+                <span className='ml-1 opacity-70 uppercase'>{symbolReward}</span>
               </span>
             </div>
 
@@ -312,7 +312,7 @@ const PodCard = ({
               <span className='block text-xxs'>Pod Claimable POOL</span>
               <span className='block mb-1 text-white'>
                 <PodClaimablePool className='text-2xl' address={address} decimalsTrim={7} />
-                <span className='ml-1 uppercase'>{symbolReward}</span>
+                <span className='ml-1 uppercase opacity-70'>{symbolReward}</span>
               </span>
             </div>
           </div>
