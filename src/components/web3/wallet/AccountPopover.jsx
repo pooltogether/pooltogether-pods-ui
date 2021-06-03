@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { TOOLTIP_CLASSNAMES } from '@src/constants'
 import { WalletNetwork, ChainID, Spacer } from '../../index'
 import { useGetContractAddress } from '@hooks/useGetContractAddress'
 import {

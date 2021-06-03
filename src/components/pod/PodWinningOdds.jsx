@@ -5,7 +5,6 @@ import { BigNumber } from 'ethers'
 
 /* --- Local Modules --- */
 import { TOOLTIP_CLASSNAMES } from '@src/constants'
-console.log({ TOOLTIP_CLASSNAMES })
 import { isPositiveBigNumber } from '@src/utils/is'
 import { podWinningOdds } from '@src/utils/calculations/pod'
 import { usePodContractCall } from '@hooks/useContractPod'
