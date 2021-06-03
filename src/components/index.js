@@ -22,7 +22,6 @@ export { PodUserUnderlyingBalance } from './pod/PodUserUnderlyingBalance'
 export { PodWinningOdds } from './pod/PodWinningOdds'
 
 // POOL
-// export { UserClaimablePool } from "./pool/UserClaimablePool";
 export { UserClaimablePoolViaTokenDrop } from './pool/UserClaimablePoolViaTokenDrop'
 
 // USD

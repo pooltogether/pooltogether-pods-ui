@@ -269,7 +269,7 @@ const PodCard = ({
                 Pod Float
                 <span className='ml-1'>
                   <Tooltip>
-                    <PodFloatTooltip />
+                    <PodFloatTooltip address={address} />
                   </Tooltip>
                 </span>
               </span>

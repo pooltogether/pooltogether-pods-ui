@@ -1,7 +1,7 @@
+import React, { useEffect } from 'react'
 import classnames from 'classnames'
 import { useToggle } from '@src/hooks/helpers/useToggle'
 import dynamic from 'next/dynamic'
-// import { Popover } from "react-tiny-popover";
 
 // Popover Rendered in Browser
 const Popover = dynamic(
@@ -22,17 +22,35 @@ export const Tooltip = ({ className, children, label }) => {
   return (
     <Popover
       isOpen={open}
-      align='center'
+      align='start'
       padding={10}
-      positions={['right', 'left']}
+      positions={['right', 'left', 'top', 'bottom']}
       onClickOutside={toggle}
-      content={children}
+      content={({ position, nudgedLeft, nudgedTop, ...rest }) => (
+        <TooltipInner
+          position={position}
+          nudgedLeft={nudgedLeft}
+          nudgedTop={nudgedTop}
+          {...rest}
+          children={children}
+        />
+      )}
     >
-      <span onClick={toggle} className={tooltipClasses}>
+      <TooltipToggleWrapper onClick={toggle} className={tooltipClasses}>
         {label ? label : <img className='inline-block' src='/images/info.png' width={12} />}
-      </span>
+      </TooltipToggleWrapper>
     </Popover>
   )
 }
+
+const TooltipInner = ({ children, ...props }) => {
+  return <div>{children}</div>
+}
+
+const TooltipToggleWrapper = React.forwardRef((props, ref) => (
+  <span className={props.className} ref={ref} onClick={props.onClick}>
+    {props.children}
+  </span>
+))
 
 export default Tooltip
