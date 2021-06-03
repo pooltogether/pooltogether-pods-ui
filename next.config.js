@@ -1,5 +1,9 @@
 const path = require("path")
 module.exports = {
+  future: {
+    webpack5: true,
+    strictPostcssConfiguration: true
+  },
   assetPrefix: "/",
   trailingSlash: true,
   typescript: {
@@ -27,6 +31,7 @@ module.exports = {
       "@constants": path.resolve(__dirname, "./src/constants"),
 
       // Interface
+      "@assets": path.resolve(__dirname, "./src/assets"),
       "@components": path.resolve(__dirname, "./src/components"),
       "@fields": path.resolve(__dirname, "./src/components/fields"),
       "@forms": path.resolve(__dirname, "./src/components/forms"),

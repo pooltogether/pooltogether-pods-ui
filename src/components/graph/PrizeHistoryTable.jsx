@@ -89,7 +89,7 @@ export function TableBase({
   const columns = useMemo(
     () => [
       {
-        Header: 'ID',
+        Header: '#',
         accessor: 'id',
         Cell: ({ row }) => (
           <div className=''>
@@ -104,7 +104,7 @@ export function TableBase({
           return (
             <div className=''>
               <TokenBalance balance={value} decimals={decimals} />
-              <span className={`font-bold ml-1 ${symbolColor}`}>
+              <span className={`ml-1 ${symbolColor}`}>
                 {row.original.prizePool.underlyingCollateralSymbol}
               </span>
             </div>
@@ -115,7 +115,7 @@ export function TableBase({
         Header: () => (
           <>
             <div className='flex flex-col items-start justify-center'>
-              <h3 className=' font-bold text-lg'>Prize</h3>
+              <h3 className='text-lg'>Prize</h3>
               <span className='text-xs font-light' style={{ fontSize: 8 }}>
                 (Excludes LOOT Box)
               </span>
@@ -127,12 +127,12 @@ export function TableBase({
           return (
             <div className='text-left'>
               <TokenBalance balance={value} decimals={decimals} />
-              <span className={`font-bold ml-1 ${symbolColor}`}>
+              <span className={`ml-1 ${symbolColor}`}>
                 {row.original.prizePool.underlyingCollateralSymbol}
               </span>
               {row.original.isPodWinner && (
                 <span
-                  className='tag-purple text-white text-xs px-4 ml-3'
+                  className='tag tag-purple text-white text-xs px-4 ml-3'
                   style={{
                     background:
                       'linear-gradient(71.84deg, rgba(255, 119, 225, 0.9) -59.48%, #4C249F 100.31%)',
@@ -154,7 +154,7 @@ export function TableBase({
         Cell: ({ value, row }) => {
           return (
             <div className=''>
-              <span className='font-normal ml-1 text-white text-base lg:text-xl'>{value}</span>
+              <span className='font-normal text-white text-base lg:text-xl'>{value}</span>
             </div>
           )
         }
@@ -223,7 +223,7 @@ export function TableBase({
                   className='text-sm font-normals'
                 >
                   {column.render('Header')}
-                  <span style={{ fontSize: 14 }}>
+                  <span className='inline-block' style={{ fontSize: 14 }}>
                     {column.isSorted ? (column.isSortedDesc ? ' ↓' : ' ↑') : ''}
                   </span>
                 </th>
@@ -250,13 +250,13 @@ export function TableBase({
       </table>
 
       <div
-        className='bg-purple-900 border-solid border-t-2 border-teal-500 text-white rounded-lg rounded-t-none px-3 py-3 shadow-md w-full z-10'
-        style={{ backgroundColor: 'rgba(33, 28, 66, 1)' }}
+        className='text-white rounded-lg rounded-t-none px-3 py-3 shadow-md w-full z-10'
+        style={{ backgroundColor: 'rgba(10, 0, 30, 0.5)' }}
       >
         <TablePagination
           innerDisplay={
             <Link href='/yield-farming'>
-              <a className='tag-white px-2'>
+              <a className='tag tag-white px-2'>
                 <img className='mr-2 self-center' src='/icons/icon-plant.png' width={16} />
                 <span className=''>View Yield Farming Page</span>
               </a>

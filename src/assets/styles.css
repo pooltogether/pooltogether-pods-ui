@@ -6,6 +6,11 @@
 }
 
 html,
+body {
+  @apply font-inter;
+}
+
+html,
 body,
 div,
 span,
@@ -91,17 +96,15 @@ video {
   border: 0;
   font-size: 100%;
   vertical-align: baseline;
-  font-family: Inter, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important;
 }
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: Barlow, Helvetica Neue, Arial, Noto Sans, sans-serif,
-    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important;
+  @apply font-barlow;
 }
 
 /* HTML5 display-role reset for older browsers */

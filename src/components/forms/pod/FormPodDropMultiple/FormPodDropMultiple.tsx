@@ -70,8 +70,8 @@ export const FormPodDropMultiple = ({ label, defaultValues }: IPodDepositToProps
           state={state}
           miningLabel='Transaction Broadcast'
           sucessLabel='Transaction Success'
-          classNameMining='tag-yellow my-2'
-          classNameSuccess='tag-green my-2'
+          classNameMining='tag tag-yellow my-2'
+          classNameSuccess='tag tag-green my-2'
         />
       </div>
     </>

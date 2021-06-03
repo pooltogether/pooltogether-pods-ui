@@ -38,10 +38,7 @@ export const PodClaimRewardToken = ({
   /* --- Component Render --- */
   /* ------------------------ */
   return (
-    <button
-      className='btn btn-teal tag-teal bg-teal-700 text-white'
-      onClick={handleClaimRewardToken}
-    >
+    <button className='btn btn-teal btn-small' onClick={handleClaimRewardToken}>
       {label}
     </button>
   )

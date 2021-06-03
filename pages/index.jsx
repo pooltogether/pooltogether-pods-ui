@@ -8,7 +8,7 @@ export const PageDeposit = (props) => {
   return (
     <div className='py-20'>
       <div className='text-center text-center mb-10'>
-        <h2 className='font-black text-4xl lg:text-6xl text-teal-600'>Deposit</h2>
+        <h2 className='font-semibold text-4xl lg:text-6xl text-teal-500'>Deposit</h2>
         <p className='text-1xl text-white'>
           Deposit with low gas fees and always have a chance to win the prize.
         </p>
@@ -23,7 +23,7 @@ export const PageDeposit = (props) => {
           tokenImage='/tokens/token-dai.png'
         />
         <PodCardAPI
-          classNameContainer='border-solid border-t-4 border-blue-400 mt-10'
+          classNameContainer='border-solid border-t-4 border-blue-400 mt-16'
           token='USDC'
           symbol='USDC'
           tokenSymbol='USDC'

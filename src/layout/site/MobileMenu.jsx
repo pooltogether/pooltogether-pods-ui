@@ -30,7 +30,7 @@ export const MobileMenu = ({ className, ...props }) => {
 
   // Action : Component
   return (
-    <span onClick={handleShowModal} className='text-gray-500 font-black cursor-pointer mt-2'>
+    <span onClick={handleShowModal} className='text-gray-500 font-semibold cursor-pointer mt-2'>
       <Menu height={22} width={22} fill='#35F0D0' />
     </span>
   )
@@ -49,12 +49,12 @@ export const ModalMenuMobile = ({ children, className, hideModal }) => {
         style={{ backgroundColor: 'rgba(59, 66, 86, 1)' }}
       />
       <div
-        className={`bg-white absolute top-0 bottom-0 left-0 right-0 text-white p-8 z-500 shadow-lg overflow-auto`}
+        className={`bg-white absolute top-0 bottom-0 left-0 right-0 text-white p-8 px-4 z-500 shadow-lg overflow-auto`}
         style={{ backgroundColor: 'rgba(59, 66, 86, 1)' }}
       >
         <div>
-          <div className=' flex justify-between p-4 -mt-8 -mx-8'>
-            <span className='text-teal text-xl font-bold'>PowerPods</span>
+          <div className=' flex justify-between p-4 px-8 -mt-8 -mx-8'>
+            <span className='text-teal text-xl font-bold'>PoolTogether Pods</span>
             <span onClick={hideModal} className='cursor-pointer text-md'>
               <Close height={22} width={22} fill='#35F0D0' />
             </span>

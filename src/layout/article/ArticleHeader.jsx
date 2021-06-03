@@ -28,7 +28,7 @@ export const ArticleHeader = (props) => {
         <div className='flex items-center justify-between text-gray-400 px-4 py-3'>
           <div className={'flex items-center'}>
             <Link href='/'>
-              <a className='flex items-center font-bold text-gray-s700 hover:text-gray-100 mr-5'>
+              <a className='flex items-center font-barlow font-semibold text-gray-s700 hover:text-gray-100 mr-5'>
                 <span className='text-teal-500 text-xl'>{APPLICATION_NAME}</span>
               </a>
             </Link>
@@ -38,7 +38,7 @@ export const ArticleHeader = (props) => {
               <>
                 <SiteMenu />
                 <div className='mx-3' />
-                <AccountPopover className='btn-blue gradient-green-to-blue' />
+                <AccountPopover className='btn btn-blue gradient-green-to-blue' />
               </>
             ) : (
               <div></div>

@@ -15,7 +15,7 @@ export const PageDeposit = (props) => {
   return (
     <div className='py-20'>
       <div className='text-center text-center mb-10'>
-        <h2 className='font-black text-4xl lg:text-6xl text-teal-600'>Prize history</h2>
+        <h2 className='font-semibold text-4xl lg:text-6xl text-teal-600'>Prize history</h2>
         <p className='text-1xl text-white'>
           The logged history for all prizes won by pods. Check if your pod has won here.
         </p>
@@ -59,7 +59,7 @@ const ManageTabs = (props) => {
                 underlyingCollateralSymbol='DAI'
                 decimals={18}
                 podAddress='0xaD104c86c0f9A05ed445F858CdE948fE7E0Bbac6'
-                symbolColor='text-yellow-400'
+                symbolColor=''
               />
             </TabPanel>
             <TabPanel>
@@ -70,7 +70,7 @@ const ManageTabs = (props) => {
                 underlyingCollateralSymbol='USDC'
                 decimals={6}
                 podAddress='0x4C8A84387A2ad7a85113e913fb650Def886DCc04'
-                symbolColor='text-blue-400'
+                symbolColor=''
               />
             </TabPanel>
           </div>
@@ -104,11 +104,11 @@ const ManageTabs = (props) => {
 const TableHeader = ({ symbol, image }) => {
   return (
     <div
-      className='flex flex-col lg:flex-row justify-center items-center text-center py-7 lg:py-14 rounded-t-xl'
-      style={{ backgroundColor: '#1f1236' }}
+      className='flex flex-col lg:flex-row bg-white bg-opacity-10 justify-center items-center text-center py-7 rounded-t-xl'
+      style={{ backgroundColor: 'rgba(20, 10, 30, 0.4)' }}
     >
       <img src={image} width={54} /> <Spacer className='mx-2' />
-      <span className='font-bold text-3xl lg:text-5xl'>{symbol} POOL</span>
+      <h5 className='font-bold text-3xl lg:text-5xl'>{symbol} pool</h5>
     </div>
   )
 }

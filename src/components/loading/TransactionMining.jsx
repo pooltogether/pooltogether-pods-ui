@@ -14,15 +14,13 @@ export const TransactionMining = ({ amount, state, action, symbol, ...props }) =
   const { chainId } = useEthers()
   const etherscanLink = getExplorerTransactionLink(state.transaction.hash, chainId)
 
-  console.log(etherscanLink, 'etherscanLink')
-
   return useMemo(() => {
     if (idx(state, (_) => _.status) == 'Mining') {
       return (
         <div className='text-center'>
-          <span className='inline-block text-teal-600'>
-            <img className='inline-block' src='/images/access_time.png' width={14} />{' '}
-            <span className='inline-block'>Transaction may take few minutes.</span>
+          <span className='flex items-center justify-center text-teal-600'>
+            <img className='inline-block mr-1' src='/images/access_time.png' width={14} />{' '}
+            <span className='inline-block'>Transactions may take few minutes.</span>
           </span>
           <Spacer className='my-10' />
           <div className='inline-block -ml-14' style={{ maxWidth: 100 }}>

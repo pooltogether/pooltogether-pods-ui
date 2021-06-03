@@ -18,13 +18,13 @@ export const SiteFooter = (props) => {
       }}
     >
       <div className='max-w-screen-xl m-auto text-gray-800 flex flex-wrap items-centers justify-left'>
-        <div className='p-5 pr-10 text-white w-1/2 w-full sm:w-4/12 md:w-3/12'>
-          <h3 className='font-semibold text-4xl uppercases text-teal text-shadow-md'>
+        <div className='p-5 pr-10 text-white w-1/2 w-full  md:w-3/12'>
+          <h3 className='font-semibold text-xl uppercases text-teal text-shadow-md'>
             {APPLICATION_NAME}
           </h3>
           <p className='font-normal text-xs opacity-60'>{APPLICATION_TAGLINE}</p>
         </div>
-        <div className='p-5 w-1/2 w-full sm:w-4/12 md:w-3/12'>
+        <div className='p-5 w-1/2 w-full  md:w-3/12'>
           <div className='text-xs uppercase text-white font-bold mb-6'>Resources</div>
           <a
             target='_blank'
@@ -53,7 +53,7 @@ export const SiteFooter = (props) => {
             </a>
           </Link> */}
         </div>
-        <div className='p-5 w-1/2 w-full sm:w-4/12 md:w-3/12'>
+        <div className='p-5 w-1/2 w-full md:w-3/12'>
           <div className='text-xs uppercase text-white font-bold mb-6'>Application</div>
 
           <Link href='/'>
@@ -77,7 +77,7 @@ export const SiteFooter = (props) => {
             </a>
           </Link>
         </div>
-        <div className='p-5 w-1/2 sm:w-4/12 md:w-3/12'>
+        <div className='p-5 w-1/2 md:w-3/12'>
           <div className='text-xs uppercase text-white font-bold mb-6'>Community</div>
           <a
             target='_blank'

@@ -1,13 +1,17 @@
-import { useMemo } from 'react'
+import classnames from 'classnames'
+
 import { commifyTokenBalance } from '@src/utils/convert'
+
 /**
  * @name TokenBalance
  * @param {Object} props
  */
-export const TokenBalance = ({ balance, decimals, decimalsTrim, sx, ...props }) => {
-  return useMemo(() => {
-    return <span {...props}>{commifyTokenBalance(balance, decimals, decimalsTrim)}</span>
-  }, [balance])
+export const TokenBalance = ({ className, balance, decimals, decimalsTrim, sx, ...props }) => {
+  return (
+    <h4 className={classnames('inline-block', className)} {...props}>
+      {commifyTokenBalance(balance, decimals, decimalsTrim)}
+    </h4>
+  )
 }
 export default TokenBalance
 

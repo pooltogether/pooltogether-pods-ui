@@ -52,7 +52,7 @@ export const PodNewPrizeCountdown = (props) => {
   const LeftSideJsx = ({ digit }) => {
     return (
       <span
-        className={`bg-teal bg-opacity-20 text-${textColor} font-bold rounded-sm`}
+        className={`flex items-center bg-white w-6 h-7 bg-opacity-10 text-${textColor} font-bold rounded-sm`}
         style={{
           padding: '2px 8px',
           margin: '0 1px'
@@ -66,7 +66,7 @@ export const PodNewPrizeCountdown = (props) => {
   const RightSideJsx = ({ digit }) => {
     return (
       <span
-        className={`bg-teal bg-opacity-20 text-${textColor} font-bold rounded-sm`}
+        className={`flex items-center bg-white w-6 h-7 bg-opacity-10 text-${textColor} font-bold rounded-sm`}
         style={{
           padding: '2px 8px',
           margin: '0 1px'
@@ -118,7 +118,7 @@ export const PodNewPrizeCountdown = (props) => {
             {t('countdownHourShort')}
           </div>
         </div>
-        <div className={`px-0 sm:px-1 font-bold text-${textColor}`}>:</div>
+        <div className={`px-0 sm:px-1 pt-1 font-bold text-white`}>:</div>
         <div
           className='flex flex-col'
           style={{
@@ -134,7 +134,7 @@ export const PodNewPrizeCountdown = (props) => {
             {t('countdownMinuteShort')}
           </div>
         </div>
-        <div className={`px-0 sm:px-1 font-bold text-${textColor}`}>:</div>
+        <div className={`px-0 sm:px-1 pt-1 font-bold text-white`}>:</div>
         <div
           className='flex flex-col'
           style={{

@@ -229,7 +229,7 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
     <>
       <div className='flex items-center justify-between'>
         <span className='text-gray-100'>Withdraw</span>
-        <span className=''>
+        <span className='flex items-center'>
           <PodUserUnderlyingBalance
             address={idx(formValues, (_) => _.pod.value)}
             defaultValue='0.00'
@@ -274,7 +274,7 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
         />
         <Spacer className='my-2' />
         <WalletIsConnected>
-          <button className='btn btn-purple-light w-full'>{label}</button>
+          <button className='btn btn-purple w-full'>{label}</button>
         </WalletIsConnected>
         {earlyExitFeeError && (
           <>
@@ -284,17 +284,15 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
         )}
         <Spacer className='my-5' />
         <div className='text-center'>
-          <span className='tag-reds text-yellow-500 text-sm font-normal mx-auto'>
+          <span className='text-yellow-500 text-sm font-normal mx-auto'>
             <span className='text-md'>⚠️</span> Withdrawing everything will make you ineligible to
-            receive my share if pod wins
+            receive your share if pod wins
           </span>
         </div>
         <Spacer className='my-5' />
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-5'>
-          <div className='bg-purple-500 bg-opacity-30 rounded-md p-3 text-center'>
-            <span className='block font-light text-normal text-teal-700 text-sm lg:text-xl'>
-              Pod's Float
-            </span>
+          <div className='bg-purple-500 bg-opacity-30 rounded-md pt-4 pb-2 text-center'>
+            <span className='block text-normal text-teal-600 text-sm lg:text-xl'>Pod's Float</span>
             <ERC20Balance
               className='text-3xl lg:text-4xl text-white'
               address={prizePoolTokenCall}
@@ -302,11 +300,11 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
               defaultValue='0.00'
             />
           </div>
-          <div className='bg-purple-500 bg-opacity-30 rounded-md p-3 text-center'>
-            <span className='block font-light text-normal text-teal-700 text-sm lg:text-xl'>
+          <div className='bg-purple-500 bg-opacity-30 rounded-md pt-4 pb-2 text-center'>
+            <span className='block text-normal text-teal-600 text-sm lg:text-xl'>
               Your early exit fee:
             </span>
-            <span className='text-3xl lg:text-4xl text-white'>
+            <h4 className='text-3xl lg:text-4xl text-white'>
               {isExitFeeCalculated ? (
                 <TokenBalance
                   className='mr-1'
@@ -318,7 +316,7 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
                 <span className='mr-1'>0.0</span>
               )}
               {tokenSymbol}
-            </span>
+            </h4>
             <Spacer className='my-3' />
           </div>
         </div>

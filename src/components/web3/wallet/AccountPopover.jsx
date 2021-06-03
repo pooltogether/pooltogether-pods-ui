@@ -77,7 +77,7 @@ export const AccountPopover = (props) => {
                   <div className='mr-2'>
                     <WalletNetwork />
                   </div>
-                  <AccountAddress className='tag-whites text-xs' />
+                  <AccountAddress className='text-xs' />
                 </div>
               </div>
             </AccountConnect>
@@ -90,12 +90,14 @@ export const AccountPopover = (props) => {
 
 const PopoverInner = (props) => {
   return (
-    <div className='card bg-purple-600 border-purple-700 text-white mr-6 mt-2 p-0 w-72'>
-      <div className='p-3'>
-        <AccountDeactivate className='tag-teal cursor-pointer rounded-xl text-xs text-purple-700 py-2 px-3 w-full flex-center text-center' />
+    <div
+      className={`text-white rounded-sm bg-opacity-90 bg-purple-900 border-purple-700 mr-4 mt-2 p-0 w-72`}
+    >
+      <div className='pt-3 px-3'>
+        <AccountDeactivate className='btn btn-teal cursor-pointer rounded-xl text-xs py-2 px-3 w-full flex-center text-center' />
       </div>
       {/* <Spacer className="inline-block mx-3" /> */}
-      <div className='bg-purple-900 p-2'>
+      <div className='pb-3 px-3'>
         <span className='text-xs'>
           <span className='font-semibold'>ChainID:</span> <ChainID />
         </span>

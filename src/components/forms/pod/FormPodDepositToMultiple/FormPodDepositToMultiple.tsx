@@ -158,7 +158,7 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
     )
   }
 
-  const classNameButton = classNames('btn-purple w-full', {
+  const classNameButton = classNames('btn btn-purple w-full', {
     'bg-purple-700 text-black-60': isDisabled,
     'text-purple-900 btn-gradient btn-gradient-2': !isDisabled
   })
@@ -169,7 +169,7 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
       <>
         <div className='flex items-center justify-between'>
           <span className='text-gray-100'>Deposit</span>
-          <span className=''>
+          <span className='flex items-center'>
             {!prizePoolTokenCall ? (
               '0.00'
             ) : (

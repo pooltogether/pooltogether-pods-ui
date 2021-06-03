@@ -54,7 +54,7 @@ export const TransactionConfetti = ({ state, amount, action, symbol, ...props })
             <Spacer className='my-6' />
             <div className=''>
               <Link href='/'>
-                <a className='text-teal-600 hove:text-teal-800 underline'>Back to Pod List</a>
+                <a className='text-teal-600 hover:text-teal-700 underline'>Back to Pod List</a>
               </Link>
             </div>
           </div>

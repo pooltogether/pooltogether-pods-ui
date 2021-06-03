@@ -6,10 +6,12 @@ import { useEthers } from '@usedapp/core'
 import { constants, BigNumber } from 'ethers'
 
 /* --- Local Modules --- */
+import { TOOLTIP_CLASSNAMES } from '@src/constants'
 import { transformTokenToHuman, numberTrimDecimals } from '@src/utils/convert'
 import { useEffect, useMemo, useState } from 'react'
 import { useERC20ContractFunction, useERC20ContractCall } from '@hooks/useContractERC20'
 import { Tooltip } from '@components'
+
 /**
  * @name ERC20UnlockTransferFrom
  * @param {Object} props
@@ -104,7 +106,7 @@ export const ERC20UnlockTransferFrom = ({
   /* ------------------------------ */
   if (allowanceStatus === 0) {
     return (
-      <button type='button' className='btn-purple w-full' onClick={handleToggleProp}>
+      <button type='button' className='btn btn-purple w-full' onClick={handleToggleProp}>
         {label}
       </button>
     )
@@ -116,7 +118,7 @@ export const ERC20UnlockTransferFrom = ({
         <div className='flex justify-between'>
           <button
             type='button'
-            className='btn-teal w-full'
+            className='btn btn-teal w-full'
             onClick={() => handleApproveAction(constants.MaxUint256)}
           >
             Enable Pod Deposits
@@ -154,7 +156,7 @@ export const ERC20UnlockTransferFrom = ({
 
   if (allowanceStatus === 3) {
     return (
-      <button type='button' className='btn-gray w-full'>
+      <button type='button' className='btn btn-gray w-full'>
         0.00 Balance
       </button>
     )
@@ -162,7 +164,7 @@ export const ERC20UnlockTransferFrom = ({
 
   if (allowanceStatus === 4) {
     return (
-      <button type='button' className='btn-green w-full'>
+      <button type='button' className='btn btn-green w-full'>
         <span className=''>{transactionStatusMessage}</span>
       </button>
     )
@@ -178,8 +180,11 @@ export const ERC20UnlockTransferFrom = ({
       <div className=''>
         <div className=''>{children}</div>
         <div className={classNameDecreaseAllowance}>
-          <span className='cursor-pointer mr-1 hover:text-blue-200' onClick={handleDisableAction}>
-            Disable Deposits (Decrease Allowance)
+          <span
+            className='opacity-50 cursor-pointer mt-2 mr-1 hover:text-blue-200 text-sm'
+            onClick={handleDisableAction}
+          >
+            Disable Deposits (Revoke Allowance)
           </span>{' '}
           <Tooltip>
             <DecreaseAllowanceTooltip />
@@ -200,8 +205,8 @@ ERC20UnlockTransferFrom.propTypes = {
 
 const DecreaseAllowanceTooltip = (props) => {
   return (
-    <div className='card bg-purple-500 text-white max-w-sm '>
-      <h4 className='text-2xl border-bottom pb-1'>Disable Pod Deposits</h4>
+    <div className={TOOLTIP_CLASSNAMES}>
+      <h4 className='text-2xl pb-1'>Disable Pod Deposits</h4>
       <p className='text-xs'>
         Disabling deposits prevents a Pod from tokens transfers by decreasing a token allowance to
         zero.

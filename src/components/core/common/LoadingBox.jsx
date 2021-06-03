@@ -27,7 +27,7 @@ export const LoadingBox = ({ title, label }) => {
           ></path>
         </svg>
       </span>
-      <div className='text-xl border-bottom pb-3 text-center mt-4'>
+      <div className='text-xl pb-3 text-center mt-4'>
         <h3 className='block text-xl'>{title}</h3>
         {label && <span className='text-sm'>{label}</span>}
       </div>

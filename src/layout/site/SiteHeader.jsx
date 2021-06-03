@@ -24,8 +24,8 @@ export const SiteHeader = (props) => {
         <div className={'flex items-center'}>
           {!isTabletOrMobile ? null : <MobileMenu />}
           <Link href='/'>
-            <a className='flex items-center font-bold text-gray-s700 hover:text-gray-100 ml-2'>
-              <span className='text-teal-500 text-xl'>{APPLICATION_NAME}</span>
+            <a className='text-xs sm:text-xl flex items-center font-barlow font-semibold text-white hover:text-teal-300 duration-200 ml-2'>
+              {APPLICATION_NAME}
             </a>
           </Link>
         </div>
@@ -38,7 +38,7 @@ export const SiteHeader = (props) => {
           ) : (
             <div></div>
           )}
-          <AccountPopover className='btn-blue gradient-green-to-blue' />
+          <AccountPopover className='btn btn-blue gradient-green-to-blue' />
         </div>
       </div>
     </div>
