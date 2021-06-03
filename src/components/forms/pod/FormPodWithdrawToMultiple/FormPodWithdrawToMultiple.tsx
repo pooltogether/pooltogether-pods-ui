@@ -229,7 +229,7 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
     <>
       <div className='flex items-center justify-between'>
         <span className='text-gray-100'>Withdraw</span>
-        <span className=''>
+        <span className='flex items-center'>
           <PodUserUnderlyingBalance
             address={idx(formValues, (_) => _.pod.value)}
             defaultValue='0.00'

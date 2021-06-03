@@ -1,5 +1,6 @@
 /* --- Global Modules --- */
 import { useMemo } from 'react'
+import classnames from 'classnames'
 
 /* --- Local Modules --- */
 import { commifyTokenBalance } from '@src/utils/convert'
@@ -65,11 +66,12 @@ const ERC20BalanceFetch = ({
   return useMemo(() => {
     if (balanceOf && decimals) {
       return (
-        <h4 className={className} {...props}>
+        <h4 className={classnames('inline-block', className)} {...props}>
           {commifyTokenBalance(balanceOf, decimals, decimalsTrim)}
         </h4>
       )
     }
-    return <h4 className={className}>{defaultValue}</h4>
+
+    return <h4 className={classnames('inline-block', className)}>{defaultValue}</h4>
   }, [balanceOf, decimals])
 }

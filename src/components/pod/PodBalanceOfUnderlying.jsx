@@ -1,5 +1,4 @@
 /* --- Global Modules --- */
-import { useMemo } from 'react'
 import { useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */

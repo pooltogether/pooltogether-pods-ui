@@ -118,7 +118,7 @@ export const PodNewPrizeCountdown = (props) => {
             {t('countdownHourShort')}
           </div>
         </div>
-        <div className={`px-0 sm:px-1 font-bold text-${textColor}`}>:</div>
+        <div className={`px-0 sm:px-1 pt-1 font-bold text-white`}>:</div>
         <div
           className='flex flex-col'
           style={{
@@ -134,7 +134,7 @@ export const PodNewPrizeCountdown = (props) => {
             {t('countdownMinuteShort')}
           </div>
         </div>
-        <div className={`px-0 sm:px-1 font-bold text-${textColor}`}>:</div>
+        <div className={`px-0 sm:px-1 pt-1 font-bold text-white`}>:</div>
         <div
           className='flex flex-col'
           style={{

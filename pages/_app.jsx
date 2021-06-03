@@ -1,8 +1,3 @@
-import '../public/css/tailwind.css'
-import '../public/css/styles.css'
-import 'tailwindcss/tailwind.css'
-import '../public/css/tailwind-pods.css'
-
 import React from 'react'
 import App from 'next/app'
 import Head from 'next/head'
@@ -11,9 +6,14 @@ import { Providers } from '../src/providers/Providers'
 import SiteLayout from '../src/layout/site/site'
 import ArticleLayout from '../src/layout/article'
 
-import { APPLICATION_NAME, APPLICATION_TAGLINE, APPLICATION_EMOJI } from '../src/constants/config'
+import { APPLICATION_NAME, APPLICATION_TAGLINE } from '../src/constants/config'
 
 import { NetworkInvalidModal } from '@components'
+
+import '@assets/tailwind.css'
+import '@assets/styles.css'
+import 'tailwindcss/tailwind.css'
+import '@assets/tailwind-pods.css'
 
 import 'react-toastify/dist/ReactToastify.css'
 

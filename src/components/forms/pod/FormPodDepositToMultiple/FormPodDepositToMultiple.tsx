@@ -170,7 +170,7 @@ export const FormPodDepositToMultiple = ({ label, defaultToken, defaultValues }:
       <>
         <div className='flex items-center justify-between'>
           <span className='text-gray-100'>Deposit</span>
-          <span className=''>
+          <span className='flex items-center'>
             {!prizePoolTokenCall ? (
               '0.00'
             ) : (
