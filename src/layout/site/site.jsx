@@ -15,7 +15,6 @@ export const SiteLayout = ({ children, ...props }) => {
       : false
 
   return (
-    // <div className='flex flex-col h-screen gradient-purple bg-gradient-to-b min-h-full'>
     <div className='flex flex-col h-screen min-h-full'>
       {isDepositRoute ? (
         <>

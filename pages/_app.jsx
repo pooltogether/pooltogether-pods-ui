@@ -5,16 +5,13 @@ import { ToastContainer } from 'react-toastify'
 import { Providers } from '../src/providers/Providers'
 import SiteLayout from '../src/layout/site/site'
 import ArticleLayout from '../src/layout/article'
-
-import { APPLICATION_NAME, APPLICATION_TAGLINE } from '../src/constants/config'
-
 import { NetworkInvalidModal } from '@components'
+import { APPLICATION_NAME, APPLICATION_TAGLINE } from '../src/constants/config'
 
 import 'tailwindcss/tailwind.css'
 import '@assets/tailwind-pods.css'
 import '@assets/styles.css'
 import '@assets/tailwind.css'
-
 import 'react-toastify/dist/ReactToastify.css'
 
 /**

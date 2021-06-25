@@ -216,11 +216,8 @@ const DecreaseAllowanceTooltip = (props) => {
         smart contract uninentionally transferring tokens.
       </p>
       <p className='font-bold text-xs'>
-        Reducing allowances to zero when deposits are now longer required is an industry best
+        Reducing allowances to zero when deposits are no longer required is an industry best
         practice, but does increase your gas costs.
-        {/* In the unlikely scenario the Pod smart contract is hack or compromised
-        you significantly reduce the risk of tokens being transfered without
-        your consent or knowledge. */}
       </p>
     </div>
   )
