@@ -47,6 +47,8 @@ export const PodCardAPI = ({ token, ...props }) => {
   const batchQuery = usePodOverviewBatchCall(addresses)
   const cacheQuery = usePoolTogetherPoolData(addresses?.prizePool)
 
+  console.log(cacheQuery, 'cacheQuerycacheQuery')
+
   if (batchQuery.status == 'success' && cacheQuery.status == 'success') {
     return (
       <PodCard
@@ -216,7 +218,7 @@ const PodCard = ({
                 <span className='block text-xxs'>Deposit APR:</span>
                 <span className='block text-white'>
                   <span className='text-2xl'>
-                    {converNumberToFixed(idx(dataCache, (_) => _.tokenListener.apr))}
+                    {converNumberToFixed(idx(dataCache, (_) => _.tokenFaucets[0].apr))}
                   </span>{' '}
                   <span className='opacity-70'>%</span>
                 </span>
