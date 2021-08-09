@@ -14,20 +14,26 @@ import { PodDataConfig } from '@src/interfaces/pod'
  * @param config
  */
 export const usePodOverviewBatchCall = (config: PodDataConfig) => {
-  const { library } = useEthers()
+  const { active, library } = useEthers()
   const { pod } = config
 
-  const query = useQuery([pod], async () => {
-    try {
-      let results = await batch(
-        library,
-        PodBatchContract(pod).totalSupply().getPricePerShare().balance()
-      )
-      return results
-    } catch (error) {
-      throw error
+  const query = useQuery(
+    [pod],
+    async () => {
+      try {
+        let results = await batch(
+          library,
+          PodBatchContract(pod).totalSupply().getPricePerShare().balance()
+        )
+        return results
+      } catch (error) {
+        throw error
+      }
+    },
+    {
+      enabled: active
     }
-  })
+  )
 
   useEffect(() => {
     if (!query.data && library) query.refetch()

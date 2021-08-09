@@ -2,7 +2,7 @@
 import { useContractCall, useEthers } from '@usedapp/core'
 
 /* --- Local Modules --- */
-import { PrizePoolCompoundInterface } from '@constants'
+import { PrizeStrategyInterface } from '@constants'
 import { getAddress, isAddress } from '@ethersproject/address'
 
 const validateInputs = (inputs) => {
@@ -15,10 +15,10 @@ const validateInputs = (inputs) => {
 }
 
 /**
- * @name usePrizePoolContractCall
+ * @name usePrizeStrategyContractCall
  * @param {Object} props
  */
-export const usePrizePoolContractCall = (address, method, inputs = []) => {
+export const usePrizeStrategyContractCall = (address, method, inputs = []) => {
   const { active } = useEthers()
   const [value] =
     useContractCall(
@@ -26,7 +26,7 @@ export const usePrizePoolContractCall = (address, method, inputs = []) => {
         address &&
         isAddress(address) &&
         validateInputs(inputs) && {
-          abi: PrizePoolCompoundInterface,
+          abi: PrizeStrategyInterface,
           address: getAddress(address),
           method: method,
           args: inputs

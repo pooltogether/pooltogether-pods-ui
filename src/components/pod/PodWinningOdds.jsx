@@ -9,6 +9,7 @@ import { isPositiveBigNumber } from '@src/utils/is'
 import { podWinningOdds } from '@src/utils/calculations/pod'
 import { usePodContractCall } from '@hooks/useContractPod'
 import { useERC20ContractCall } from '@hooks/useContractERC20'
+import { usePrizeStrategyContractCall } from '@hooks/useContractPrizeStrategy'
 import { commifyTokenBalanceFromHuman } from '@src/utils/convert'
 import { Tooltip } from '@components'
 
@@ -16,7 +17,13 @@ import { Tooltip } from '@components'
  * @name PodWinningOdds
  * @param {Object} props
  */
-export const PodWinningOdds = ({ className, address, addressTicket }) => {
+export const PodWinningOdds = ({
+  className,
+  address,
+  addressTicket,
+  addressPrizeStrategy,
+  decimals
+}) => {
   /* ----------------------- */
   /* --- Component State --- */
   /* ----------------------- */
@@ -27,14 +34,19 @@ export const PodWinningOdds = ({ className, address, addressTicket }) => {
   /* ------------------------ */
   const [podTotalBalance] = usePodContractCall(address, 'balance')
   const [podTicketsTotalSupply] = useERC20ContractCall(addressTicket, 'totalSupply')
-
+  const [numberOfWinners] = usePrizeStrategyContractCall(addressPrizeStrategy, 'numberOfWinners')
   // TODO: Use active tickets, instead of "presumed" tickets using prebatch token balance?
   // const [podTickets] = useERC20ContractCall(addressTicket, 'balanceOf', [address])
 
   useEffect(() => {
     'C'
     if (isPositiveBigNumber(podTotalBalance) && isPositiveBigNumber(podTicketsTotalSupply)) {
-      const calculation = podWinningOdds(podTotalBalance, podTicketsTotalSupply)
+      const calculation = podWinningOdds(
+        podTotalBalance,
+        podTicketsTotalSupply,
+        numberOfWinners,
+        decimals
+      )
 
       try {
         const calculationBN = BigNumber.from(calculation)
