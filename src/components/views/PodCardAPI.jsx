@@ -20,6 +20,7 @@ import {
   calculateUserPrizeWinningsFromWinningPod
 } from '@src/utils/calculations/pod'
 import { useERC20ContractCall } from '@hooks/useContractERC20'
+import { usePrizeStrategyContractCall } from '@hooks/useContractPrizeStrategy'
 import {
   PodBalanceOfUnderlying,
   PodClaimRewardToken,
@@ -47,13 +48,12 @@ export const PodCardAPI = ({ token, ...props }) => {
   const batchQuery = usePodOverviewBatchCall(addresses)
   const cacheQuery = usePoolTogetherPoolData(addresses?.prizePool)
 
-  console.log(cacheQuery, 'cacheQuerycacheQuery')
-
   if (batchQuery.status == 'success' && cacheQuery.status == 'success') {
     return (
       <PodCard
         address={addresses?.pod}
         addressPrizePool={addresses?.prizePool}
+        addressPrizeStrategy={addresses?.strategy}
         addressPodTokenDrop={addresses?.tokenDrop}
         addressReward={addresses.reward}
         addressReward={ERC20Reward}
@@ -86,12 +86,14 @@ const PodCard = ({
   addressPodTokenDrop,
   addressReward,
   addressPrizePool,
+  addressPrizeStrategy,
   ...props
 }) => {
   const [isOpen, toggleIsOpen] = useToggle()
   const [dataCalculations, dataCalculationsSet] = useState({})
 
   const [symbolReward] = useERC20ContractCall(addressReward, 'symbol')
+  const [numberOfWinners] = usePrizeStrategyContractCall(addressPrizeStrategy, 'numberOfWinners')
   useEffect(() => {
     if (dataBlock) {
       dataCalculationsSet({
@@ -104,7 +106,9 @@ const PodCard = ({
           convertNumberToBigNumber(
             idx(dataCache, (_) => _.tokens.ticket.totalSupply),
             decimals
-          )
+          ),
+          numberOfWinners,
+          decimals
         ),
         calculateUserPrizeWinningsFromWinningPod: calculateUserPrizeWinningsFromWinningPod(
           idx(dataBlock, (_) => _.Pod.balanceOf[0]),
@@ -207,6 +211,8 @@ const PodCard = ({
                     className='ml-1 text-xxs text-white opacity-70'
                     address={address}
                     addressPrizePool={addressPrizePool}
+                    addressPrizeStrategy={addressPrizeStrategy}
+                    decimals={decimals}
                     addressToken={addressToken}
                     addressTicket={addressTicket}
                   />
@@ -349,13 +355,11 @@ const PodCard = ({
  */
 const ExpandButton = ({ isOpen, isTabletOrMobile, toggleIsOpen }) => {
   const styleAbsolute = classnames('absolute right-0 cursor-pointer', {
-    'bg-purple-700 hover:bg-purple-600 bg-opacity-20 duration-200 rounded-xl right-2 h-12 w-12 flex flex-center':
-      isTabletOrMobile
+    'bg-purple-700 hover:bg-purple-600 bg-opacity-20 duration-200 rounded-xl right-2 h-12 w-12 flex flex-center': isTabletOrMobile
   })
 
   const styleContainer = classnames('block cursor-pointer text-teal text-xxs text-center', {
-    'bg-purple-900 hover:bg-purple-700 bg-opacity-90 duration-200 -bottom-6 rounded-b-lg py-1 px-5':
-      !isTabletOrMobile,
+    'bg-purple-900 hover:bg-purple-700 bg-opacity-90 duration-200 -bottom-6 rounded-b-lg py-1 px-5': !isTabletOrMobile,
     'rounded-xl p-0': isTabletOrMobile
   })
 

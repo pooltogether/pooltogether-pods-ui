@@ -4,7 +4,11 @@ import { utils, BigNumber } from 'ethers'
 
 /* --- Local Modules --- */
 import { isBigNumber, isPositiveBigNumber } from '@src/utils/is'
-import { transformTokenToHuman, numberTrimDecimals, convertNumberToBigNumber } from '@src/utils/convert'
+import {
+  transformTokenToHuman,
+  numberTrimDecimals,
+  convertNumberToBigNumber
+} from '@src/utils/convert'
 
 /**
  * @name prizePoolWinningDate
@@ -30,10 +34,28 @@ export const prizePoolWinningDate = (time) => {
  * @param {*} tickets
  * @param {*} totalTickets
  */
-export const podWinningOdds = (tickets: BigNumber, totalTickets: BigNumber, numberOfWinners: Number): BigNumber => {
-  if (isPositiveBigNumber(tickets) && isPositiveBigNumber(totalTickets)) {
-    const percentage = totalTickets.div(tickets)
-    return percentage
+export const podWinningOdds = (
+  tickets: BigNumber,
+  totalTickets: BigNumber,
+  numberOfWinners: BigNumber,
+  decimals: number
+): BigNumber => {
+  if (
+    isPositiveBigNumber(tickets) &&
+    isPositiveBigNumber(totalTickets) &&
+    numberOfWinners &&
+    decimals
+  ) {
+    const usersBalanceFloat = Number(utils.formatUnits(tickets, decimals))
+    const totalSupplyFloat = Number(utils.formatUnits(totalTickets, decimals))
+    const numberOfWinnersFloat = Number(utils.formatUnits(numberOfWinners, 0))
+
+    const percentage =
+      1 /
+      (1 -
+        Math.pow((totalSupplyFloat - usersBalanceFloat) / totalSupplyFloat, numberOfWinnersFloat))
+
+    return BigNumber.from(Math.round(percentage))
   }
   return BigNumber.from(0)
 }
